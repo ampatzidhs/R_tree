@@ -7,18 +7,18 @@ public class Record implements Serializable {
     ArrayList<Double> diastaseis;
     int k;
     String name;
-    int nodeID;//Afto opos einai
+    String nodeID;//Afto opos einai
     int whereSaved;
 
     public Record(){
-        this.nodeID = 0;
+        this.nodeID = "";
         this.k = 0;
         diastaseis = new ArrayList<>();
         this.name = "";
         this.whereSaved = 0;
     }
 
-    public Record(int id, int k, ArrayList<Double> theList, String name, int whereSaved) {
+    public Record(String id, int k, ArrayList<Double> theList, String name, int whereSaved) {
         this.nodeID = id;
         this.k = k;
         diastaseis = theList;
@@ -27,7 +27,7 @@ public class Record implements Serializable {
     }
 
     public Record(int k, ArrayList<Double> theList, String name, int whereSaved) {
-        this.nodeID = 0;
+        this.nodeID = "";
         this.k = k;
         diastaseis = theList;
         this.name = name;

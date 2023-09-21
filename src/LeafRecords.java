@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class LeafRecords implements Serializable {
     ArrayList<Double> diastaseis;
     int whereSaved;
-    int node;
+    String node;
     String rectangleID;
     Double zOrder;
 
@@ -26,7 +26,7 @@ public class LeafRecords implements Serializable {
         this.diastaseis.add(y);
         this.rectangleID = rectangleID;
         this.whereSaved = -1;
-        this.node = -1;
+        this.node = "";
         this.zOrder = -1.0;
     }
 
@@ -36,7 +36,7 @@ public class LeafRecords implements Serializable {
         this.diastaseis.add(y);
         this.rectangleID = rectangleID;
         this.whereSaved = savedAt;
-        this.node = -1;
+        this.node = "";
         this.zOrder = -1.0;
     }
 
@@ -74,11 +74,11 @@ public class LeafRecords implements Serializable {
         this.rectangleID = rectangleID;
     }
 
-    public int getNode() {
+    public String getNode() {
         return node;
     }
 
-    public void setNode(int node) {
+    public void setNode(String node) {
         this.node = node;
     }
 

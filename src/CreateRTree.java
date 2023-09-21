@@ -58,20 +58,8 @@ public class CreateRTree {//DIABAZEI TO DATAFILE KAI PERNNAEI TA DEDOMENA SOSTA 
             for(Record record: block.getOneBlock()){
                 LeafRecords leafRecords = new LeafRecords(record);
                 allInLeaves.add(leafRecords);
-                if(record.nodeID == 477238000){
-                    count ++;
-                }
             }
         }
-//        if(count == 1){
-//            System.out.println("COUNT OKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
-//        }
-//        else if(count == 0){
-//            System.out.println("COUNT 0000000000000000000000000000000000000000000000");
-//        }
-//        else{
-//            System.out.println("COUNT TOOOOO BIGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG" + count);
-//        }
     }
 
     public void printAllLeafRecords(){

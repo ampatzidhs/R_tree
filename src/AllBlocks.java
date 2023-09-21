@@ -30,7 +30,7 @@ public class AllBlocks {
 
         ArrayList<Double> keepData;//ZOI GIA NA KANV TIS KLASEIS
         String keepName="";
-        int keepId;
+        String keepId;
         int k=2;//KAI AFTA DIKA MOY
 
         Node node = null;
@@ -45,14 +45,14 @@ public class AllBlocks {
         aBlock = new Block("block1", amountOfBlocks);
         int sumOfBlock = 0;
         System.out.println("BLOCK1 -----------------------------------------------------------------");
-        for (int i = 0; i < 300; i++){//na to valo gia ola meta
+        for (int i = 0; i < nodeList.getLength(); i++){//na to valo gia ola meta
             ArrayList<Object> myArrayList = new ArrayList<Object>();
             keepData = new ArrayList<>();
             keepName = "";
 
             node = nodeList.item(i);
             String value =  node.getAttributes().getNamedItem("id").getNodeValue();
-            keepId = Integer.parseInt(value);
+            keepId = value;
             value =  node.getAttributes().getNamedItem("lat").getNodeValue();
             keepData.add(Double.parseDouble(value));
             value =  node.getAttributes().getNamedItem("lon").getNodeValue();
