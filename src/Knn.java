@@ -29,12 +29,12 @@ public class Knn {
             return kontinotera;
         }
 
-        if(nextlevel.get(0).isLeafRect())
+        if(nextlevel.get(0).isLeafRect())//Εαν ειναι φυλλα βρες την αποσταση του φυλλου με το Χ. Κρατα αποσταση την αποσταση του mbr που ειναι φυλλο σε σχεση με το σημειο Χ.
         {
             Double min=apostasi(nextlevel.get(0),x);
             MBR mbrKeep=nextlevel.get(0);//kontinotero mbr
 
-            for(MBR mbr:nextlevel)
+            for(MBR mbr:nextlevel)//Βρισκει το κοντινοτερο mbr στο Χ
             {
               if(apostasi(mbr,x) < min)
               {
@@ -43,6 +43,8 @@ public class Knn {
               }
             }
 
+            //Παιρνει το περιεχομενο του φυλλου. Βλεπει την αποσταση απο το Χ. Βρισκει το μακρυτερο φυλλο απο τα kontinotera (χαζο array γεματο με τυχαια σημεια)
+            //Και εαν το φυλλο ειναι μικροτερο απο το μεγαλυτερο του κοντινοτερα κανει αντικατασταση.
             for(LeafRecords leaf:mbrKeep.getPeriexomeno())
             {
                 Double apost=dummy.distance(leaf.getDiastaseis().get(0),leaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
@@ -88,6 +90,9 @@ public class Knn {
         return kontinotera;
     }
 
+    /**
+     * Βαλε τυχαια leafrecord στην λιστα kontinotera τα οποια μετα θα τα αλλαζει με τα οντως κοντινοτερα του.
+     */
     public void loadKontinotera()
     {
         int p=0;
@@ -107,6 +112,11 @@ public class Knn {
         }
     }
 
+    /**
+     *Εστω Χ το σημείο που ψαχνουμε τους γειτονες του. Βαζω τυχαια το 1ο σημειο στο maxleaf και στο Max την αποστασση του απο το Χ.
+     * Συγκρινε το με ολα τα αλλα και βρες το max.
+     * TO DO:Πρεπει να το κανω να βρισκει το Κ μακρυτερο, και οχι το μακρυτερο γενικα.
+     */
     public LeafRecords findMax(ArrayList<LeafRecords> k,LeafRecords x)
     {
         LeafRecords maxleaf= k.get(0);
@@ -141,7 +151,11 @@ public class Knn {
 
     }
 
-
+    /**
+     * Εστω οτι το σημειο που ψαχνω τους γειτονες του ειναι το Χ. Για να βρω το κοντινοτερο ορθογωνιο του, θα παω να βαλω το Χ
+     * μεσα σε ένα ορθογωνιο και θα δω ποσο μεγαλωσε η περιμετρος του. Επειτα θα επαναλαβω για καθε ορθογωνιο. Αυτο που μεγαλωσε
+     * πιο λιγο ειναι και το κοντινοτερο του.
+     */
     public double apostasi(MBR data,LeafRecords x)
     {
         ArrayList<Double> newMbr=dummy.newCorners(data,x.getDiastaseis().get(0),x.getDiastaseis().get(1));
