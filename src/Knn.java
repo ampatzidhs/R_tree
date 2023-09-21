@@ -29,7 +29,7 @@ public class Knn {
             return kontinotera;
         }
 
-        if(nextlevel.get(0).isLeaf())
+        if(nextlevel.get(0).isLeafRect())
         {
             Double min=apostasi(nextlevel.get(0),x);
             MBR mbrKeep=nextlevel.get(0);//kontinotero mbr

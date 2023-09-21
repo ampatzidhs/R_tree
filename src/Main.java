@@ -21,88 +21,88 @@ public class Main {
         anazitisi.diastaseisB.add(38.3748695);
         anazitisi.diastaseisB.add(21.8534671);
 
-        Search ser=new Search(anazitisi);
-        ser.epikalici(r_tree);
+//        Search ser=new Search(anazitisi);
+//        ser.epikalici(r_tree);
 
         R_Tree actualTree = new R_Tree(r_tree.allNodes.get(0), r_tree.allNodes, r_tree.rect_id_count, r_tree.node_id_count);
 
         actualTree.printTree();
-        Nodes keep = new Nodes();
-        for(Nodes n: r_tree.getLeafNodes()){
-            keep = n;
-        }
-        System.out.println("KEEP ID: " +keep.getId());
-
-        Delete delete = new Delete();
-        delete.deletedFrom = keep;
-        delete.correctTree(actualTree);
-        actualTree.printTree();
+//        Nodes keep = new Nodes();
+//        for(Nodes n: r_tree.getLeafNodes()){
+//            keep = n;
+//        }
+//        System.out.println("KEEP ID: " +keep.getId());
+//
+//        Delete delete = new Delete();
+//        delete.deletedFrom = keep;
+//        delete.correctTree(actualTree);
+//        actualTree.printTree();
 //        Insertion insert = new Insertion();
 //        System.out.println(" insert " + insert.chooseRectangle(actualTree.root, 39.0, 22.0));
 //        System.out.println("--------------------------------------------------------------------------------");
-//
-//        Skyline skyline = new Skyline();
-//        ArrayList<LeafRecords> sky = skyline.createSkyline(actualTree);
-//        System.out.println("------------------------------SKYLINE-----------------------------------------");
-//        for (LeafRecords l: sky){
-//            l.printRecord();
-//        }
-//        System.out.println("...............................");
-////        actualTree.printTree();
-//        ArrayList<LeafRecords> help = new ArrayList<>();
-//        System.out.println("----------------------AFTER------------------------------");
-//        int counter = 0;
-//        for (LeafRecords l1:r_tree.allInLeaves){
-//            boolean notDom = true;
-//            for(LeafRecords l2: r_tree.allInLeaves){
-//                if(l1.getNode() != l2.getNode()) {
-//                    if (skyline.isDominated(l1, l2)) {
-//                        notDom = false;
-//                    }
-//                }
-//            }
-//            if(notDom){
-//                counter ++;
-//                boolean alreadythere = false;
-//                for(LeafRecords k: help){
-//                    if(k.getNode() == l1.getNode()){
-//                        alreadythere = true;
-//                    }
-//                }
-//                if(!alreadythere){
-//                    System.out.println("NOT DOMINATED ID "+ l1.getNode());
-//                    System.out.println("l1: " + l1.getDiastaseis().get(0) +" "+ l1.getDiastaseis().get(1));
-//                    help.add(l1);
-//                }
-//                boolean exists = false;
-//                for(LeafRecords l: sky){
-//                    if(l1.getNode() == l.getNode()){
-//                        exists = true;
-//                    }
-//                }
-//                if(!exists){
-//                    System.out.println("HEREEEEEEEE " + l1.getNode() + "NOT WRITTEN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-//                }
-//
-//
-//            }
-//
-//        }
-//        boolean opposite = false;
-//        for (LeafRecords l: sky){
-//            opposite = false;
-//            for (LeafRecords l2: help){
-//                if(l.getNode() == l2.getNode()){
-//                    opposite = true;
-//                }
-//            }
-//            if(!opposite){
-//                System.out.println("HEREEEEEEEE " + l.getNode() + " NOT WRITTEN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-//                l.printRecord();
-//            }
-//        }
-//        System.out.println(sky.size());
-//        System.out.println(help.size());
+
+        Skyline skyline = new Skyline();
+        ArrayList<LeafRecords> sky = skyline.createSkyline(actualTree);
+        System.out.println("------------------------------SKYLINE-----------------------------------------");
+        for (LeafRecords l: sky){
+            l.printRecord();
+        }
+        System.out.println("...............................");
+//        actualTree.printTree();
+        ArrayList<LeafRecords> help = new ArrayList<>();
+        System.out.println("----------------------AFTER------------------------------");
+        int counter = 0;
+        for (LeafRecords l1:r_tree.allInLeaves){
+            boolean notDom = true;
+            for(LeafRecords l2: r_tree.allInLeaves){
+                if(l1.getNode() != l2.getNode()) {
+                    if (skyline.isDominated(l1, l2)) {
+                        notDom = false;
+                    }
+                }
+            }
+            if(notDom){
+                counter ++;
+                boolean alreadythere = false;
+                for(LeafRecords k: help){
+                    if(k.getNode() == l1.getNode()){
+                        alreadythere = true;
+                    }
+                }
+                if(!alreadythere){
+                    System.out.println("NOT DOMINATED ID "+ l1.getNode());
+                    System.out.println("l1: " + l1.getDiastaseis().get(0) +" "+ l1.getDiastaseis().get(1));
+                    help.add(l1);
+                }
+                boolean exists = false;
+                for(LeafRecords l: sky){
+                    if(l1.getNode() == l.getNode()){
+                        exists = true;
+                    }
+                }
+                if(!exists){
+                    System.out.println("HEREEEEEEEE " + l1.getNode() + "NOT WRITTEN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                }
+
+
+            }
+
+        }
+        boolean opposite = false;
+        for (LeafRecords l: sky){
+            opposite = false;
+            for (LeafRecords l2: help){
+                if(l.getNode() == l2.getNode()){
+                    opposite = true;
+                }
+            }
+            if(!opposite){
+                System.out.println("HEREEEEEEEE " + l.getNode() + " NOT WRITTEN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                l.printRecord();
+            }
+        }
+        System.out.println(sky.size());
+        System.out.println(help.size());
 //
 //
 //
@@ -141,7 +141,7 @@ public class Main {
 //        System.out.println("::::::::::::::::::::::::::::::::::::::::::");
 //        actualTree.printTree();
 //        LeafRecords leafRecords = new LeafRecords("", 38.4096078, 21.9065266);
-//        Delete delete = new Delete();
+//        //Delete delete = new Delete();
 //        boolean dLeaf = delete.deleteLeafMR(actualTree, actualTree.root, leafRecords);
 //        allBlocks.deleteFromDatafile(38.4096078, 21.9065266);
 //        System.out.println(dLeaf);
@@ -174,7 +174,7 @@ public class Main {
 //        System.out.println(count10 + " ==== " + count11);
 //        System.out.println("==============================================");
 //        actualTree.printTree();
-
+//
 //        int i=0;
 //        for (Block block:allBlocks.allBlocks){
 //            for (Record record:block.getOneBlock()){

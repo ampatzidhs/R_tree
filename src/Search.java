@@ -11,7 +11,7 @@ public class Search {
 
     public void findLeafRec(Nodes nodes,MBR anazitisi)
     {
-        if(nodes.getAllRectangles().get(0).isLeaf())
+        if(nodes.getAllRectangles().get(0).isLeafRect())
         {
             return;
         }
@@ -24,7 +24,7 @@ public class Search {
     public ArrayList<MBR> anazit(R_Tree tree,ArrayList<Nodes> nextlevel,MBR anazitisi)
     {
         ArrayList<MBR> result= new ArrayList<>();
-        if(nextlevel.get(0).getAllRectangles().get(0).isLeaf())
+        if(nextlevel.get(0).getAllRectangles().get(0).isLeafRect())
         {
             for(Nodes n:nextlevel)
             {
