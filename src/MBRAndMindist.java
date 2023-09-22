@@ -2,6 +2,7 @@ public class MBRAndMindist {
     MBR mbr;
     Double minDist;
 
+
     public MBRAndMindist(MBR mbr, Double minDist) {
         this.mbr = mbr;
         this.minDist = minDist;
