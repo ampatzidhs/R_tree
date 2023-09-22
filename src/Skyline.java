@@ -4,10 +4,14 @@ import java.util.Objects;
 public class Skyline {
     ArrayList<MBRAndMindist> allMBRMindist;
     ArrayList<LeafRecords> skyline;
+    ArrayList<String> ids;
+    boolean flag;
 
     public Skyline() {
         this.skyline = new ArrayList<>();
         this.allMBRMindist = new ArrayList<>();
+        this.ids = new ArrayList<>();
+        this.flag = false;
     }
 
     public ArrayList<LeafRecords> createSkyline(R_Tree rTree){
@@ -30,10 +34,14 @@ public class Skyline {
         this.skyline = skyline;
     }
 
+//    public boolean checked(){
+//
+//    }
+
     public boolean notInSkyline(LeafRecords l)
     {
         for (LeafRecords all: skyline){
-            if(l.getNode() == all.getNode()){
+            if(Objects.equals(l.getNode(), all.getNode())){
                 return false;
             }
         }
@@ -84,7 +92,24 @@ public class Skyline {
         bBBSRecursively(rTree, min);
     }
 
+    public boolean seen(String id){
+        for (String s: ids){
+            if(s.equals(id)){
+                return true;
+            }
+        }
+        ids.add(id);
+        return false;
+    }
+
     public void bBBSRecursively(R_Tree rTree, MBR min){
+//        if(seen(min.getId())){
+//            flag = true;
+//        }
+//        if (flag){
+//            System.out.println("PROBLEM WITH ID "+ min.getId());
+//            return;
+//        }
         System.out.println("Called for MBR: "+ min.getId());
         System.out.println("heap: ");
         if(allMBRMindist.isEmpty()){
@@ -99,7 +124,7 @@ public class Skyline {
             for(LeafRecords l: min.getPeriexomeno()){
                 isInSkyline = true;
                 for(LeafRecords check: min.getPeriexomeno()){
-                    if(l.getNode() != check.getNode()){
+                    if(!Objects.equals(l.getNode(), check.getNode())){
                         boolean dominated = isDominated(l, check);
                         if(dominated){
                             isInSkyline = false;
@@ -137,17 +162,26 @@ public class Skyline {
                 }
             }
             MBR min2 = getMin();
+            ArrayList<MBRAndMindist> k = new ArrayList<>();
             MBRAndMindist keep = new MBRAndMindist();
+            int count=0;
             for(MBRAndMindist m: allMBRMindist){
-                if(m.getMbr().getId().equals(min.getId())){
+                if(m.getMbr().getId().equals(min2.getId())){
+                    k.add(m);
                     keep = m;
+                    count ++;
                 }
             }
+            System.out.println("COUNT  : "+ count);
+//            for (MBRAndMindist mbrAndMindist: k){
+//                allMBRMindist.remove(mbrAndMindist);
+//            }
             allMBRMindist.remove(keep);
             bBBSRecursively(rTree, min2);
         }
 
         for(Nodes nodes: rTree.getAllNodes()){
+
             if(nodes.getParentID().equals(min.getId())){
                 for (MBR mbr: nodes.getAllRectangles()){
                     Double minDist = calculateMinDist(mbr);
