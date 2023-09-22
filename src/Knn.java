@@ -72,7 +72,7 @@ public class Knn {
  kai tsekarei ean temnei kapoio allo orthogonio.d*/
 
 
-            //Εδω φτιαχνω τον κυκλο με κεντρο το Χ και ακτινα το μακρυτερο απο την λιστα kontinotera.
+            //Εδω φτιαχνω τον κυκλο με κεντρο το Χ και ακτινα το μακρυτερο απο την λιστα kontinotera..
             LeafRecords distanceLeaf = findMax(kontinotera,x);
             Double distanceCircle = dummy.distance(distanceLeaf.getDiastaseis().get(0),distanceLeaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
 
