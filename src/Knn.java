@@ -7,6 +7,7 @@ public class Knn {
     R_Tree rTree;
     Insertion dummy;
     Double maxApostash;
+    LeafRecords x;//Σημειο απο το οποιο ψαχνω τους κοντινοτερους.
 
     public Knn(R_Tree rTree) {
         this.rTree = rTree;
@@ -48,13 +49,13 @@ public class Knn {
             for(LeafRecords leaf:mbrKeep.getPeriexomeno())//περιεχομενο του κοντινοτερου mbr.
             {
                 Double apost=dummy.distance(leaf.getDiastaseis().get(0),leaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));//Απόσταση τιυ φυλλου με το Χ.
-                LeafRecords max=findMax(kontinotera,x);//Βρες το μεγαλυτερο απο τα κοντινοτερα
+                LeafRecords maxLeaf=findMax(kontinotera,x);//Βρες το μεγαλυτερο απο τα κοντινοτερα
 
-                Double maxApost=dummy.distance(max.getDiastaseis().get(0),max.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));//Αποσταση το μεγαλύτερο απο την λιστα με το Χ
+                Double maxApost=dummy.distance(maxLeaf.getDiastaseis().get(0),maxLeaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));//Αποσταση το μεγαλύτερο απο την λιστα με το Χ
                 if(apost<maxApost)//Εαν βρήκες καποιο ποιο κοντινο απο το μεγαλυτερο της λιστας κανε την αντικατασταση.
                 {
                     kontinotera.add(leaf);
-                    kontinotera.remove(max);
+                    kontinotera.remove(maxLeaf);
                 }
 
 
@@ -78,9 +79,22 @@ public class Knn {
 
             for(MBR m:nextlevel)
             {
-                if(apostasi(m,x) < distanceCircle && !Objects.equals(m.getId(), mbrKeep.getId()))
+                if(apostasi(m,x) < distanceCircle && !Objects.equals(m.getId(), mbrKeep.getId()))//Εαν καποιο αλλο Mbr(φυλλο) είναι μεσα στον κυκλο που δημιουργησα.
                 {
+                    for(LeafRecords leaf:m.getPeriexomeno())
+                    {
+                        Double perApost=dummy.distance(leaf.getDiastaseis().get(0),leaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));//Απόσταση τιυ φυλλου με το Χ.
+                        LeafRecords maxLeaf=findMax(kontinotera,x);//Βρες το μεγαλυτερο απο τα κοντινοτερα
 
+                        Double maxApost=dummy.distance(maxLeaf.getDiastaseis().get(0),maxLeaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));//Αποσταση το μεγαλύτερο απο την λιστα με το Χ
+                        if(perApost<maxApost)//Εαν βρήκες καποιο ποιο κοντινο απο το μεγαλυτερο της λιστας κανε την αντικατασταση.
+                        {
+                            kontinotera.add(leaf);
+                            kontinotera.remove(maxLeaf);
+                        }
+
+
+                    }
                 }
             }
 
@@ -92,6 +106,49 @@ public class Knn {
 
         return kontinotera;
     }
+
+    public void isInCircle(LeafRecords makritero)
+    {
+        Double maxDist=dummy.distance(makritero.getDiastaseis().get(0),makritero.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
+
+        for(Nodes nodes:rTree.getAllNodes())
+        {
+            for(MBR mbr: nodes.getAllRectangles())
+            {
+                if(!mbr.getPeriexomeno().isEmpty())
+                {
+                    for(LeafRecords leaf:mbr.getPeriexomeno())
+                    {
+                        Double apostLeaf=dummy.distance(leaf.getDiastaseis().get(0),leaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
+                        if(apostLeaf<maxDist)///εαν ειναι μεσα στον κυκλο
+                        {
+                            for(LeafRecords l:kontinotera)
+                            {
+                                if(!Objects.equals(leaf.getRectangleID(), l.getRectangleID()))//εαν δεν υπαρχει ηδη στο kontinotera
+                                {
+                                    LeafRecords pop=findMax(kontinotera,x);
+                                    kontinotera.remove(pop);
+                                    kontinotera.add(leaf);
+                                }
+                            }
+                        }
+
+
+                    }
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+    }
+
+
 
     /**
      * Βαλε τυχαια leafrecord στην λιστα kontinotera τα οποια μετα θα τα αλλαζει με τα οντως κοντινοτερα του.
