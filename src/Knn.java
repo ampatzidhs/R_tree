@@ -34,7 +34,7 @@ public class Knn {
             Double min=apostasi(nextlevel.get(0),x);
             MBR mbrKeep=nextlevel.get(0);//kontinotero mbr
 
-            for(MBR mbr:nextlevel)//Βρισκει το κοντινοτερο mbr στο Χ
+            for(MBR mbr:nextlevel)//Βρισκει το κοντινοτερο mbr στο Χ  ---> μαλλον θα πρεπει να το κανω να βρισκει το Κ κοντινοτερο!!!!
             {
               if(apostasi(mbr,x) < min)
               {
@@ -45,13 +45,13 @@ public class Knn {
 
             //Παιρνει το περιεχομενο του φυλλου. Βλεπει την αποσταση απο το Χ. Βρισκει το μακρυτερο φυλλο απο τα kontinotera (χαζο array γεματο με τυχαια σημεια)
             //Και εαν το φυλλο ειναι μικροτερο απο το μεγαλυτερο του κοντινοτερα κανει αντικατασταση.
-            for(LeafRecords leaf:mbrKeep.getPeriexomeno())
+            for(LeafRecords leaf:mbrKeep.getPeriexomeno())//περιεχομενο του κοντινοτερου mbr.
             {
-                Double apost=dummy.distance(leaf.getDiastaseis().get(0),leaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
-                LeafRecords max=findMax(kontinotera,x);
+                Double apost=dummy.distance(leaf.getDiastaseis().get(0),leaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));//Απόσταση τιυ φυλλου με το Χ.
+                LeafRecords max=findMax(kontinotera,x);//Βρες το μεγαλυτερο απο τα κοντινοτερα
 
-                Double maxApost=dummy.distance(max.getDiastaseis().get(0),max.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
-                if(apost<maxApost)
+                Double maxApost=dummy.distance(max.getDiastaseis().get(0),max.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));//Αποσταση το μεγαλύτερο απο την λιστα με το Χ
+                if(apost<maxApost)//Εαν βρήκες καποιο ποιο κοντινο απο το μεγαλυτερο της λιστας κανε την αντικατασταση.
                 {
                     kontinotera.add(leaf);
                     kontinotera.remove(max);
@@ -68,8 +68,11 @@ public class Knn {
 //                    }
 //                }
             }
-////////////////////exei brei to 1o mbr poy temnei kai exei parei kai ta shmeia toy sto arraylist kontinotera kai meta dimioyrgei ton kyklo
-// kai tsekarei ean temnei kapoio allo orthogonio.
+/**exei brei to 1o mbr poy temnei kai exei parei kai ta shmeia toy sto arraylist kontinotera kai meta dimioyrgei ton kyklo
+ kai tsekarei ean temnei kapoio allo orthogonio.d*/
+
+
+            //Εδω φτιαχνω τον κυκλο με κεντρο το Χ και ακτινα το μακρυτερο απο την λιστα kontinotera...
             LeafRecords distanceLeaf = findMax(kontinotera,x);
             Double distanceCircle = dummy.distance(distanceLeaf.getDiastaseis().get(0),distanceLeaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
 
@@ -111,6 +114,8 @@ public class Knn {
             }
         }
     }
+
+
 
     /**
      *Εστω Χ το σημείο που ψαχνουμε τους γειτονες του. Βαζω τυχαια το 1ο σημειο στο maxleaf και στο Max την αποστασση του απο το Χ.
