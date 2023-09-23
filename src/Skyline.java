@@ -6,12 +6,14 @@ public class Skyline {
     ArrayList<LeafRecords> skyline;
     ArrayList<String> ids;
     boolean flag;
+    boolean otherFlag;
 
     public Skyline() {
         this.skyline = new ArrayList<>();
         this.allMBRMindist = new ArrayList<>();
         this.ids = new ArrayList<>();
         this.flag = false;
+        this.otherFlag = false;
     }
 
     public ArrayList<LeafRecords> createSkyline(R_Tree rTree){
@@ -76,20 +78,34 @@ public class Skyline {
     }
 
     public void calculateBBS(R_Tree rTree){
-        for(MBR mbr: rTree.getRoot().getAllRectangles()){
+        for (MBRAndMindist m:allMBRMindist){
+            System.out.println("IN MBRAND MINDIST before: "+m.getMbr().getId());
+        }
+
+        for (MBR mbr : rTree.getRoot().getAllRectangles()) {
             Double minDist = calculateMinDist(mbr);
             MBRAndMindist nodeA = new MBRAndMindist(mbr, minDist);
             allMBRMindist.add(nodeA);
+            //ids.add(nodeA.getMbr().getId());
         }
-        MBR min = getMin();
-        MBRAndMindist keep = new MBRAndMindist();
-        for(MBRAndMindist m: allMBRMindist){
-            if(m.getMbr().getId().equals(min.getId())){
-                keep = m;
+
+
+        while(!allMBRMindist.isEmpty()) {
+            MBR min = getMin();
+            MBRAndMindist keep = new MBRAndMindist();
+            for (MBRAndMindist m : allMBRMindist) {
+                if (m.getMbr().getId().equals(min.getId())) {
+                    keep = m;
+                    System.out.println("Happened");
+                }
             }
+            allMBRMindist.remove(keep);
+            for (MBRAndMindist m : allMBRMindist) {
+                System.out.println("IN MBRAND MINDIST: " + m.getMbr().getId());
+            }
+            bBBSRecursively(rTree, min);
+            //calculateBBS(rTree);
         }
-        allMBRMindist.remove(keep);
-        bBBSRecursively(rTree, min);
     }
 
     public boolean seen(String id){
@@ -103,18 +119,10 @@ public class Skyline {
     }
 
     public void bBBSRecursively(R_Tree rTree, MBR min){
-//        if(seen(min.getId())){
-//            flag = true;
-//        }
-//        if (flag){
-//            System.out.println("PROBLEM WITH ID "+ min.getId());
-//            return;
-//        }
+
         System.out.println("Called for MBR: "+ min.getId());
         System.out.println("heap: ");
-        if(allMBRMindist.isEmpty()){
-            return;
-        }
+
         for (MBRAndMindist m: allMBRMindist){
             System.out.println(m.getMbr().id);
         }
@@ -161,42 +169,44 @@ public class Skyline {
                     }
                 }
             }
-            MBR min2 = getMin();
-            ArrayList<MBRAndMindist> k = new ArrayList<>();
-            MBRAndMindist keep = new MBRAndMindist();
-            int count=0;
-            for(MBRAndMindist m: allMBRMindist){
-                if(m.getMbr().getId().equals(min2.getId())){
-                    k.add(m);
-                    keep = m;
-                    count ++;
-                }
-            }
-            System.out.println("COUNT  : "+ count);
-//            for (MBRAndMindist mbrAndMindist: k){
-//                allMBRMindist.remove(mbrAndMindist);
+//            MBR min2 = getMin();
+////            ArrayList<MBRAndMindist> k = new ArrayList<>();
+//            MBRAndMindist keep = new MBRAndMindist();
+//            int count=0;
+//            for(MBRAndMindist m: allMBRMindist){
+//                if(m.getMbr().getId().equals(min2.getId())){
+////                    k.add(m);
+//                    keep = m;
+//                    count ++;
+//                }
 //            }
-            allMBRMindist.remove(keep);
-            bBBSRecursively(rTree, min2);
+//            System.out.println("COUNT  : "+ count);
+////            for (MBRAndMindist mbrAndMindist: k){
+////                allMBRMindist.remove(mbrAndMindist);
+////            }
+//            allMBRMindist.remove(keep);
+////            bBBSRecursively(rTree, min2);
         }
 
         for(Nodes nodes: rTree.getAllNodes()){
 
             if(nodes.getParentID().equals(min.getId())){
+                System.out.println("Vrike ton gonea");
                 for (MBR mbr: nodes.getAllRectangles()){
                     Double minDist = calculateMinDist(mbr);
                     MBRAndMindist nodea = new MBRAndMindist(mbr, minDist);
                     allMBRMindist.add(nodea);
+                    //ids.add(mbr.getId());
                 }
-                MBR min2 = getMin();
-                MBRAndMindist keep = new MBRAndMindist();
-                for(MBRAndMindist m: allMBRMindist){
-                    if(m.getMbr().getId().equals(min2.getId())){
-                        keep = m;
-                    }
-                }
-                allMBRMindist.remove(keep);
-                bBBSRecursively(rTree, min2);
+//                MBR min2 = getMin();
+//                MBRAndMindist keep = new MBRAndMindist();
+//                for(MBRAndMindist m: allMBRMindist){
+//                    if(m.getMbr().getId().equals(min2.getId())){
+//                        keep = m;
+//                    }
+//                }
+//                allMBRMindist.remove(keep);
+////                bBBSRecursively(rTree, min2);
             }
         }
     }
