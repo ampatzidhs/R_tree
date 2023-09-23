@@ -1008,7 +1008,7 @@ public class R_Tree {
                 flag = true;
             }
         }
-        System.out.println("FLAGGGGGGGGGGGGG " + flag);
+        //System.out.println("FLAGGGGGGGGGGGGG " + flag);
         System.out.println(toRet.getId());
         return toRet;
     }

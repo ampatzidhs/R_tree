@@ -15,9 +15,10 @@ public class Knn {
         loadKontinotera();
     }
 
-    public Knn(int k, R_Tree rTree) {
+    public Knn(int k, R_Tree rTree,LeafRecords x) {
         this.k = k;
         this.rTree = rTree;
+        this.x=x;
         loadKontinotera();
     }
 
@@ -79,6 +80,7 @@ public class Knn {
 
             for(MBR m:nextlevel)//Κοιταει με τα αλλα φυλλα
             {
+                //note:!!!  να μην ειναι κανενα απο αυτα που εχει εξετασει ηδη
                 if(apostasi(m,x) < distanceCircle && !Objects.equals(m.getId(), mbrKeep.getId()))//Εαν καποιο αλλο Mbr(φυλλο) είναι μεσα στον κυκλο που δημιουργησα.
                 {
                     for(LeafRecords leaf:m.getPeriexomeno())
