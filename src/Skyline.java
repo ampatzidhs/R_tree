@@ -169,23 +169,6 @@ public class Skyline {
                     }
                 }
             }
-//            MBR min2 = getMin();
-////            ArrayList<MBRAndMindist> k = new ArrayList<>();
-//            MBRAndMindist keep = new MBRAndMindist();
-//            int count=0;
-//            for(MBRAndMindist m: allMBRMindist){
-//                if(m.getMbr().getId().equals(min2.getId())){
-////                    k.add(m);
-//                    keep = m;
-//                    count ++;
-//                }
-//            }
-//            System.out.println("COUNT  : "+ count);
-////            for (MBRAndMindist mbrAndMindist: k){
-////                allMBRMindist.remove(mbrAndMindist);
-////            }
-//            allMBRMindist.remove(keep);
-////            bBBSRecursively(rTree, min2);
         }
 
         for(Nodes nodes: rTree.getAllNodes()){
@@ -198,15 +181,6 @@ public class Skyline {
                     allMBRMindist.add(nodea);
                     //ids.add(mbr.getId());
                 }
-//                MBR min2 = getMin();
-//                MBRAndMindist keep = new MBRAndMindist();
-//                for(MBRAndMindist m: allMBRMindist){
-//                    if(m.getMbr().getId().equals(min2.getId())){
-//                        keep = m;
-//                    }
-//                }
-//                allMBRMindist.remove(keep);
-////                bBBSRecursively(rTree, min2);
             }
         }
     }
