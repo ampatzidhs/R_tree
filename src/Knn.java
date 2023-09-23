@@ -100,56 +100,58 @@ public class Knn {
                 }
             }
 
+            //Εχει κανει τον κυκλο και το παει απο την αρχη για να τσεκαρει εαν ο κυκλο τεμνει σε καποιο αλλο mbr(mbr γενικα οχι μονο τα φυλλα)
+            isInCircle(findMax(kontinotera,x),rTree.getRoot());//ενημερωνει τα kontinotera αφου εχει γινει ο κυκλος
+
         }
 
 
-        //Εχει κανει τον κυκλο και το παει απο την αρχη για να τσεκαρει εαν ο κυκλο τεμνη σε καποιο αλλο mbr(mbr γενικα οχι μονο τα φυλλα)
-        isInCircle(findMax(kontinotera,x));//ενημερωνει τα kontinotera αφου εχει γινει ο κυκλος
+
 
 
 
         return kontinotera;
     }
 
-    public void isInCircle(LeafRecords makritero)
+    public boolean isInCircle(LeafRecords makritero, Nodes nextlevel)//1η φορα το nextlevel θα ειναι το root
     {
         //range Circle
         Double maxDist=dummy.distance(makritero.getDiastaseis().get(0),makritero.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
 
-        for(Nodes nodes:rTree.getAllNodes())
+        if(nextlevel.getAllRectangles().get(0).isLeafRect())
         {
-            for(MBR mbr: nodes.getAllRectangles())
-            {
-                if(!mbr.getPeriexomeno().isEmpty())
+            for(MBR mbr:nextlevel.getAllRectangles()){
+                for(LeafRecords leaf: mbr.getPeriexomeno())
                 {
-                    for(LeafRecords leaf:mbr.getPeriexomeno())
-                    {
-                        Double apostLeaf=dummy.distance(leaf.getDiastaseis().get(0),leaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
-                        if(apostLeaf<maxDist)///εαν ειναι μεσα στον κυκλο
-                        {
-                            for(LeafRecords l:kontinotera)
-                            {
-                                if(!Objects.equals(leaf.getRectangleID(), l.getRectangleID()))//εαν δεν υπαρχει ηδη στο kontinotera
-                                {
-                                    LeafRecords pop=findMax(kontinotera,x);
-                                    kontinotera.remove(pop);
-                                    kontinotera.add(leaf);
-                                }
-                            }
-                        }
-
-
+                    Double leafDist=dummy.distance(leaf.getDiastaseis().get(0),leaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
+                    if(leafDist<maxDist)
+                     {
+                        kontinotera.remove(findMax(kontinotera,x));
+                        kontinotera.add(leaf);
                     }
+
                 }
             }
+
+            return true;
         }
 
 
-
-
-
-
-
+            //Nodes root = rTree.getRoot();
+            for(MBR m: nextlevel.getAllRectangles())
+            {
+                Double apostMbr=apostasi(m,x);
+                if(apostMbr<maxDist)///εαν ειναι μεσα στον κυκλο
+                {
+                    Nodes kids=rTree.findKids(m);
+                    return isInCircle(makritero,kids);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        return false;
 
     }
 
@@ -238,7 +240,19 @@ public class Knn {
 
 
 
+    public void knnPrint()
+    {
+        System.out.println("-----------------------------------------------");
+        System.out.println("Knn of point");
+        int i=0;
+        for(LeafRecords leaf:kontinotera)
+        {
+            System.out.println("K:"+i);
 
+
+            leaf.printRecord();
+        }
+    }
 
 
 
