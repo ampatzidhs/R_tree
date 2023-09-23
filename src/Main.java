@@ -5,11 +5,11 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
-
+//4:30
 public class Main {
     public static void main(String []args) throws ParserConfigurationException, IOException, SAXException {
         AllBlocks allBlocks = new AllBlocks();
-//        allBlocks.readFromOsmFile();
+        allBlocks.readFromOsmFile();
         ArrayList<Block> returned = allBlocks.readFromBinaryFile();
 
 
@@ -30,11 +30,12 @@ public class Main {
         R_Tree actualTree = new R_Tree(r_tree.allNodes.get(0), r_tree.allNodes, r_tree.rect_id_count, r_tree.node_id_count);
 
         actualTree.printTree();
-        LeafRecords point=new LeafRecords("rec Knn",38.3573721,21.7877221);
+        LeafRecords point=new LeafRecords("rec Knn",38.3744238,21.8528735);
+
         Knn knn=new Knn(3,actualTree,point);
         ArrayList<LeafRecords> otinanai=knn.kontinotera;
 
-
+        //<node id="73050076" visible="true" version="9" changeset="97872157" timestamp="2021-01-21T04:40:31Z" user="BatsmanMapsman" uid="8794020" lat="38.3744238" lon="21.8528735"/>
 
         System.out.println("LeafRecord Point :");
         point.printRecord();
@@ -73,6 +74,12 @@ public class Main {
                     }
                 }
             }
+        }
+        System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+        System.out.println("OTI NANAI KNN results");
+        for(LeafRecords l:otinanai)
+        {
+            l.printRecord();
         }
 
 
