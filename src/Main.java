@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Main {
     public static void main(String []args) throws ParserConfigurationException, IOException, SAXException {
         AllBlocks allBlocks = new AllBlocks();
-        allBlocks.readFromOsmFile();
+       // allBlocks.readFromOsmFile();
         ArrayList<Block> returned = allBlocks.readFromBinaryFile();
 
 
@@ -36,17 +36,28 @@ public class Main {
         ArrayList<LeafRecords> otinanai=knn.kontinotera;
 
         //<node id="73050076" visible="true" version="9" changeset="97872157" timestamp="2021-01-21T04:40:31Z" user="BatsmanMapsman" uid="8794020" lat="38.3744238" lon="21.8528735"/>
+        System.out.println();
+        System.out.println();
+        System.out.println();
 
         System.out.println("LeafRecord Point :");
         point.printRecord();
-        System.out.println("----------------------------:");
 
-        System.out.println("---------knn oti nanai-------------------:");
+        System.out.println();
+        System.out.println();
+        System.out.println();
+
+        System.out.println("---------closest random points -------------------:");
+        System.out.println();
+
         knn.knnPrint();
-        System.out.println("----------------------------:");
+
+        System.out.println();
+
 
         knn.isTouching(actualTree,actualTree.getRoot().allRectangles);
         knn.isInCircle(actualTree.getRoot());
+        System.out.println("---------Mine closest points -------------------:");
         knn.knnPrint();
 
 
@@ -75,11 +86,16 @@ public class Main {
                 }
             }
         }
+        System.out.println();
+        System.out.println();
+        System.out.println();
         System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-        System.out.println("OTI NANAI KNN results");
+        System.out.println("Double loop for check up");
         for(LeafRecords l:otinanai)
         {
             l.printRecord();
+            Double apo= knn.dummy.distance(l.getDiastaseis().get(0),l.getDiastaseis().get(1),knn.x.getDiastaseis().get(0),knn.x.getDiastaseis().get(1));
+            System.out.println("----Distance between leaf and Point: %0.1f"+apo);
         }
 
 

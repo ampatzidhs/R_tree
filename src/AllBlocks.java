@@ -46,7 +46,7 @@ public class AllBlocks {
         int sumOfBlock = 0;
         System.out.println("BLOCK1 -----------------------------------------------------------------");
         //nodeList.getLength()
-        for (int i = 0; i < nodeList.getLength(); i++){//na to valo gia ola meta
+        for (int i = 0; i < 300; i++){//na to valo gia ola meta
             ArrayList<Object> myArrayList = new ArrayList<Object>();
             keepData = new ArrayList<>();
             keepName = "";

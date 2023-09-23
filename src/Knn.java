@@ -275,9 +275,9 @@ public class Knn {
         {
             System.out.println("K:"+i);
             i++;
-
-
             leaf.printRecord();
+            Double apo= dummy.distance(leaf.getDiastaseis().get(0),leaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
+            System.out.println("----Distance between leaf and Point:"+apo);
         }
     }
 
