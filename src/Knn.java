@@ -77,7 +77,7 @@ public class Knn {
             LeafRecords distanceLeaf = findMax(kontinotera,x);
             Double distanceCircle = dummy.distance(distanceLeaf.getDiastaseis().get(0),distanceLeaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
 
-            for(MBR m:nextlevel)
+            for(MBR m:nextlevel)//Κοιταει με τα αλλα φυλλα
             {
                 if(apostasi(m,x) < distanceCircle && !Objects.equals(m.getId(), mbrKeep.getId()))//Εαν καποιο αλλο Mbr(φυλλο) είναι μεσα στον κυκλο που δημιουργησα.
                 {
@@ -101,6 +101,8 @@ public class Knn {
         }
 
 
+        //Εχει κανει τον κυκλο και το παει απο την αρχη για να τσεκαρει εαν ο κυκλο τεμνη σε καποιο αλλο mbr(mbr γενικα οχι μονο τα φυλλα)
+        isInCircle(findMax(kontinotera,x));//ενημερωνει τα kontinotera αφου εχει γινει ο κυκλος
 
 
 
@@ -109,6 +111,7 @@ public class Knn {
 
     public void isInCircle(LeafRecords makritero)
     {
+        //range Circle
         Double maxDist=dummy.distance(makritero.getDiastaseis().get(0),makritero.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
 
         for(Nodes nodes:rTree.getAllNodes())
