@@ -12,24 +12,29 @@ public class Knn {
     public Knn(R_Tree rTree) {
         this.rTree = rTree;
         this.k=0;
+        this.kontinotera=new ArrayList<>();
         loadKontinotera();
+        this.dummy= new Insertion();
     }
 
     public Knn(int k, R_Tree rTree,LeafRecords x) {
         this.k = k;
         this.rTree = rTree;
         this.x=x;
+        this.kontinotera=new ArrayList<>();
         loadKontinotera();
+        this.dummy= new Insertion();
     }
 
 
-    public ArrayList<LeafRecords> isTouching(R_Tree tree,ArrayList<MBR> nextlevel,LeafRecords x)
+    public ArrayList<LeafRecords> isTouching(R_Tree tree,ArrayList<MBR> nextlevel)
     {
         ArrayList<Nodes> tmp=tree.getAllNodes();
         if(nextlevel.isEmpty())
         {
             return kontinotera;
         }
+
 
         if(nextlevel.get(0).isLeafRect())//Εαν ειναι φυλλα βρες την αποσταση του φυλλου με το Χ. Κρατα αποσταση την αποσταση του mbr που ειναι φυλλο σε σχεση με το σημειο Χ.
         {
@@ -55,8 +60,11 @@ public class Knn {
                 Double maxApost=dummy.distance(maxLeaf.getDiastaseis().get(0),maxLeaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));//Αποσταση το μεγαλύτερο απο την λιστα με το Χ
                 if(apost<maxApost)//Εαν βρήκες καποιο ποιο κοντινο απο το μεγαλυτερο της λιστας κανε την αντικατασταση.
                 {
-                    kontinotera.add(leaf);
-                    kontinotera.remove(maxLeaf);
+                    if(!isIn(leaf))//εαν δεν ειναι ηδη μεσα το σημειο
+                    {
+                        kontinotera.remove(maxLeaf);
+                        kontinotera.add(leaf);
+                    }
                 }
 
 
@@ -91,8 +99,11 @@ public class Knn {
                         Double maxApost=dummy.distance(maxLeaf.getDiastaseis().get(0),maxLeaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));//Αποσταση το μεγαλύτερο απο την λιστα με το Χ
                         if(perApost<maxApost)//Εαν βρήκες καποιο ποιο κοντινο απο το μεγαλυτερο της λιστας κανε την αντικατασταση.
                         {
-                            kontinotera.add(leaf);
-                            kontinotera.remove(maxLeaf);
+                            if(!isIn(leaf))//εαν δεν ειναι ηδη μεσα το σημειο
+                            {
+                                kontinotera.remove(maxLeaf);
+                                kontinotera.add(leaf);
+                            }
                         }
 
 
@@ -100,21 +111,35 @@ public class Knn {
                 }
             }
 
-            //Εχει κανει τον κυκλο και το παει απο την αρχη για να τσεκαρει εαν ο κυκλο τεμνει σε καποιο αλλο mbr(mbr γενικα οχι μονο τα φυλλα)
-            isInCircle(findMax(kontinotera,x),rTree.getRoot());//ενημερωνει τα kontinotera αφου εχει γινει ο κυκλος
+//            //Εχει κανει τον κυκλο και το παει απο την αρχη για να τσεκαρει εαν ο κυκλο τεμνει σε καποιο αλλο mbr(mbr γενικα οχι μονο τα φυλλα)
+//            isInCircle(findMax(kontinotera,x),rTree.getRoot());//ενημερωνει τα kontinotera αφου εχει γινει ο κυκλος
 
         }
 
+        Double tmpDist=apostasi(nextlevel.get(0),x);
+        MBR tmpMbr=nextlevel.get(0);//kontinotero mbr
+        for(MBR m:nextlevel)
+        {
+            Double dist =apostasi(m,x);
+            if(dist<tmpDist)
+            {
+                tmpDist=dist;
+                tmpMbr=m;
+            }
 
 
+        }
+        ArrayList<MBR> kidss=tree.findKids(tmpMbr).allRectangles;
+        isTouching(tree,kidss);
 
 
 
         return kontinotera;
     }
 
-    public boolean isInCircle(LeafRecords makritero, Nodes nextlevel)//1η φορα το nextlevel θα ειναι το root
+    public boolean isInCircle(Nodes nextlevel)//1η φορα το nextlevel θα ειναι το root
     {
+        LeafRecords makritero=findMax(kontinotera,x);
         //range Circle
         Double maxDist=dummy.distance(makritero.getDiastaseis().get(0),makritero.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
 
@@ -126,8 +151,11 @@ public class Knn {
                     Double leafDist=dummy.distance(leaf.getDiastaseis().get(0),leaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
                     if(leafDist<maxDist)
                      {
-                        kontinotera.remove(findMax(kontinotera,x));
-                        kontinotera.add(leaf);
+                         if(!isIn(leaf))//εαν δεν ειναι ηδη μεσα το σημειο
+                         {
+                             kontinotera.remove(findMax(kontinotera,x));
+                             kontinotera.add(leaf);
+                         }
                     }
 
                 }
@@ -144,7 +172,7 @@ public class Knn {
                 if(apostMbr<maxDist)///εαν ειναι μεσα στον κυκλο
                 {
                     Nodes kids=rTree.findKids(m);
-                    return isInCircle(makritero,kids);
+                    return isInCircle(kids);
                 }
                 else
                 {
@@ -179,7 +207,18 @@ public class Knn {
         }
     }
 
+    public boolean isIn(LeafRecords x)
+    {
+        for(LeafRecords leaf:kontinotera)
+        {
+            if(Objects.equals(leaf.getDiastaseis().get(0), x.diastaseis.get(0)) && (Objects.equals(leaf.getDiastaseis().get(1), x.diastaseis.get(1))))
+            {
+                return true;
+            }
 
+        }
+        return false;
+    }
 
     /**
      *Εστω Χ το σημείο που ψαχνουμε τους γειτονες του. Βαζω τυχαια το 1ο σημειο στο maxleaf και στο Max την αποστασση του απο το Χ.
@@ -205,20 +244,7 @@ public class Knn {
     }
 
 
-    public void makeCircle(R_Tree tree,LeafRecords x)
-    {
-        for(Nodes node:tree.getAllNodes())
-        {
-            for(MBR mbr: node.getAllRectangles())
-            {
 
-            }
-        }
-
-
-
-
-    }
 
     /**
      * Εστω οτι το σημειο που ψαχνω τους γειτονες του ειναι το Χ. Για να βρω το κοντινοτερο ορθογωνιο του, θα παω να βαλω το Χ
@@ -244,10 +270,11 @@ public class Knn {
     {
         System.out.println("-----------------------------------------------");
         System.out.println("Knn of point");
-        int i=0;
+        int i=1;
         for(LeafRecords leaf:kontinotera)
         {
             System.out.println("K:"+i);
+            i++;
 
 
             leaf.printRecord();
