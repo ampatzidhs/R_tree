@@ -32,6 +32,10 @@ public class Main {
         actualTree.printTree();
         LeafRecords point=new LeafRecords("rec Knn",38.3573721,21.7877221);
         Knn knn=new Knn(3,actualTree,point);
+        ArrayList<LeafRecords> otinanai=knn.kontinotera;
+
+
+
         System.out.println("LeafRecord Point :");
         point.printRecord();
         System.out.println("----------------------------:");
@@ -46,7 +50,30 @@ public class Main {
 
 
 
+        for(Nodes n: actualTree.getAllNodes())
+        {
+            if(n.getAllRectangles().get(0).isLeafRect())
+            {
+                for(MBR mbr :n.getAllRectangles())
+                {
+                    for(LeafRecords leaf:mbr.getPeriexomeno())
+                    {
+                       Double apostLeaf= knn.dummy.distance(leaf.getDiastaseis().get(0),leaf.getDiastaseis().get(1),knn.x.getDiastaseis().get(0),knn.x.getDiastaseis().get(1));
+                       LeafRecords makri=knn.findMax(otinanai,knn.x);
+                       Double apostOtinanai= knn.dummy.distance(makri.getDiastaseis().get(0),makri.getDiastaseis().get(1),knn.x.getDiastaseis().get(0),knn.x.getDiastaseis().get(1));
 
+                        if(apostLeaf<apostOtinanai)
+                        {
+                            if(!knn.otinanaiIsIn(leaf,otinanai))
+                            {
+                                otinanai.remove(makri);
+                                otinanai.add(leaf);
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
 
 

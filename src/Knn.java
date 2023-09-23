@@ -287,7 +287,18 @@ public class Knn {
 
 
 
+    public boolean otinanaiIsIn(LeafRecords x,ArrayList<LeafRecords> otinanai)
+    {
+        for(LeafRecords leaf:otinanai)
+        {
+            if(Objects.equals(leaf.getDiastaseis().get(0), x.diastaseis.get(0)) && (Objects.equals(leaf.getDiastaseis().get(1), x.diastaseis.get(1))))
+            {
+                return true;
+            }
 
+        }
+        return false;
+    }
 
 
 
