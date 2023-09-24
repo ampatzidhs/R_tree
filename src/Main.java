@@ -32,7 +32,7 @@ public class Main {
         actualTree.printTree();
         LeafRecords point=new LeafRecords("rec Knn",38.3744238,21.8528735);
 
-        Knn knn=new Knn(10,actualTree,point);
+        Knn knn=new Knn(3,actualTree,point);
         ArrayList<LeafRecords> otinanai=knn.kontinotera;
 
         //<node id="73050076" visible="true" version="9" changeset="97872157" timestamp="2021-01-21T04:40:31Z" user="BatsmanMapsman" uid="8794020" lat="38.3744238" lon="21.8528735"/>
@@ -70,10 +70,11 @@ public class Main {
                 {
                     for(LeafRecords leaf:mbr.getPeriexomeno())
                     {
-                       Double apostLeaf= knn.dummy.distance(leaf.getDiastaseis().get(0),leaf.getDiastaseis().get(1),knn.x.getDiastaseis().get(0),knn.x.getDiastaseis().get(1));
-                       LeafRecords makri=knn.findMax(otinanai,knn.x);
-                       Double apostOtinanai= knn.dummy.distance(makri.getDiastaseis().get(0),makri.getDiastaseis().get(1),knn.x.getDiastaseis().get(0),knn.x.getDiastaseis().get(1));
-
+                       //Double apostLeaf= knn.dummy.distance(leaf.getDiastaseis().get(0),leaf.getDiastaseis().get(1),knn.x.getDiastaseis().get(0),knn.x.getDiastaseis().get(1));
+                        Double apostLeaf=knn.distManhattan(leaf,knn.x);
+                        LeafRecords makri=knn.findMax(otinanai,knn.x);
+                       //Double apostOtinanai= knn.dummy.distance(makri.getDiastaseis().get(0),makri.getDiastaseis().get(1),knn.x.getDiastaseis().get(0),knn.x.getDiastaseis().get(1));
+                        Double apostOtinanai=knn.distManhattan(makri,knn.x);
                         if(apostLeaf<apostOtinanai)
                         {
                             if(!knn.otinanaiIsIn(leaf,otinanai))
@@ -94,7 +95,8 @@ public class Main {
         for(LeafRecords l:otinanai)
         {
             l.printRecord();
-            Double apo= knn.dummy.distance(l.getDiastaseis().get(0),l.getDiastaseis().get(1),knn.x.getDiastaseis().get(0),knn.x.getDiastaseis().get(1));
+            //Double apo= knn.dummy.distance(l.getDiastaseis().get(0),l.getDiastaseis().get(1),knn.x.getDiastaseis().get(0),knn.x.getDiastaseis().get(1));
+            Double apo=knn.distManhattan(l,knn.x);
             System.out.println("----Distance between leaf and Point:"+apo);
         }
 

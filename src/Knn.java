@@ -5,7 +5,7 @@ public class Knn {
     int k;
     ArrayList<LeafRecords> kontinotera;
     R_Tree rTree;
-    Insertion dummy;
+    //Insertion dummy;
     Double maxApostash;
     LeafRecords x;//Σημειο απο το οποιο ψαχνω τους κοντινοτερους.
 
@@ -14,7 +14,7 @@ public class Knn {
         this.k=0;
         this.kontinotera=new ArrayList<>();
         loadKontinotera();
-        this.dummy= new Insertion();
+        //this.dummy= new Insertion();
     }
 
     public Knn(int k, R_Tree rTree,LeafRecords x) {
@@ -23,7 +23,7 @@ public class Knn {
         this.x=x;
         this.kontinotera=new ArrayList<>();
         loadKontinotera();
-        this.dummy= new Insertion();
+        //this.dummy= new Insertion();
     }
 
 
@@ -38,14 +38,14 @@ public class Knn {
 
         if(nextlevel.get(0).isLeafRect())//Εαν ειναι φυλλα βρες την αποσταση του φυλλου με το Χ. Κρατα αποσταση την αποσταση του mbr που ειναι φυλλο σε σχεση με το σημειο Χ.
         {
-            Double min=apostasi(nextlevel.get(0),x);
+            Double min=distMbrToPoint(nextlevel.get(0),x);
             MBR mbrKeep=nextlevel.get(0);//kontinotero mbr
 
             for(MBR mbr:nextlevel)//Βρισκει το κοντινοτερο mbr στο Χ  ---> μαλλον θα πρεπει να το κανω να βρισκει το Κ κοντινοτερο!!!!
             {
-                if(apostasi(mbr,x) < min)
+                if(distMbrToPoint(mbr,x) < min)
                 {
-                    min=apostasi(mbr,x);
+                    min=distMbrToPoint(mbr,x);
                     mbrKeep=mbr;
                 }
             }
@@ -54,10 +54,12 @@ public class Knn {
             //Και εαν το φυλλο ειναι μικροτερο απο το μεγαλυτερο του κοντινοτερα κανει αντικατασταση.
             for(LeafRecords leaf:mbrKeep.getPeriexomeno())//περιεχομενο του κοντινοτερου mbr.
             {
-                Double apost=dummy.distance(leaf.getDiastaseis().get(0),leaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));//Απόσταση τιυ φυλλου με το Χ.
+                //Double apost=dummy.distance(leaf.getDiastaseis().get(0),leaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));//Απόσταση τιυ φυλλου με το Χ.
+                Double apost=distManhattan(leaf,x);
                 LeafRecords maxLeaf=findMax(kontinotera,x);//Βρες το μεγαλυτερο απο τα κοντινοτερα
 
-                Double maxApost=dummy.distance(maxLeaf.getDiastaseis().get(0),maxLeaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));//Αποσταση το μεγαλύτερο απο την λιστα με το Χ
+                //Double maxApost=dummy.distance(maxLeaf.getDiastaseis().get(0),maxLeaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));//Αποσταση το μεγαλύτερο απο την λιστα με το Χ
+                Double maxApost=distManhattan(maxLeaf,x);
                 if(apost<maxApost)//Εαν βρήκες καποιο ποιο κοντινο απο το μεγαλυτερο της λιστας κανε την αντικατασταση.
                 {
                     if(!isIn(leaf))//εαν δεν ειναι ηδη μεσα το σημειο
@@ -84,19 +86,18 @@ public class Knn {
 
             //Εδω φτιαχνω τον κυκλο με κεντρο το Χ και ακτινα το μακρυτερο απο την λιστα kontinotera...
             LeafRecords distanceLeaf = findMax(kontinotera,x);
-            Double distanceCircle = dummy.distance(distanceLeaf.getDiastaseis().get(0),distanceLeaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
-
+            Double distanceCircle=distManhattan(distanceLeaf,x);
             for(MBR m:nextlevel)//Κοιταει με τα αλλα φυλλα
             {
                 //note:!!!  να μην ειναι κανενα απο αυτα που εχει εξετασει ηδη
-                if(apostasi(m,x) < distanceCircle && !Objects.equals(m.getId(), mbrKeep.getId()))//Εαν καποιο αλλο Mbr(φυλλο) είναι μεσα στον κυκλο που δημιουργησα.
+                if(distMbrToPoint(m,x) < distanceCircle && !Objects.equals(m.getId(), mbrKeep.getId()))//Εαν καποιο αλλο Mbr(φυλλο) είναι μεσα στον κυκλο που δημιουργησα.
                 {
                     for(LeafRecords leaf:m.getPeriexomeno())
                     {
-                        Double perApost=dummy.distance(leaf.getDiastaseis().get(0),leaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));//Απόσταση τιυ φυλλου με το Χ.
+                        Double perApost=distManhattan(leaf,x);
                         LeafRecords maxLeaf=findMax(kontinotera,x);//Βρες το μεγαλυτερο απο τα κοντινοτερα
 
-                        Double maxApost=dummy.distance(maxLeaf.getDiastaseis().get(0),maxLeaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));//Αποσταση το μεγαλύτερο απο την λιστα με το Χ
+                         Double maxApost=distManhattan(maxLeaf,x);
                         if(perApost<maxApost)//Εαν βρήκες καποιο ποιο κοντινο απο το μεγαλυτερο της λιστας κανε την αντικατασταση.
                         {
                             if(!isIn(leaf))//εαν δεν ειναι ηδη μεσα το σημειο
@@ -116,11 +117,11 @@ public class Knn {
 
         }
 
-        Double tmpDist=apostasi(nextlevel.get(0),x);
+        Double tmpDist=distMbrToPoint(nextlevel.get(0),x);
         MBR tmpMbr=nextlevel.get(0);//kontinotero mbr
         for(MBR m:nextlevel)
         {
-            Double dist =apostasi(m,x);
+            Double dist =distMbrToPoint(m,x);
             if(dist<tmpDist)
             {
                 tmpDist=dist;
@@ -141,14 +142,15 @@ public class Knn {
     {
         LeafRecords makritero=findMax(kontinotera,x);
         //range Circle
-        Double maxDist=dummy.distance(makritero.getDiastaseis().get(0),makritero.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
-
+        //Double maxDist=dummy.distance(makritero.getDiastaseis().get(0),makritero.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
+        Double maxDist=distManhattan(makritero,x);
         if(nextlevel.getAllRectangles().get(0).isLeafRect())
         {
             for(MBR mbr:nextlevel.getAllRectangles()){
                 for(LeafRecords leaf: mbr.getPeriexomeno())
                 {
-                    Double leafDist=dummy.distance(leaf.getDiastaseis().get(0),leaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
+                    //Double leafDist=dummy.distance(leaf.getDiastaseis().get(0),leaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
+                    Double leafDist=distManhattan(leaf,x);
                     if(leafDist<maxDist)
                     {
                         if(!isIn(leaf))//εαν δεν ειναι ηδη μεσα το σημειο
@@ -168,7 +170,7 @@ public class Knn {
         //Nodes root = rTree.getRoot();
         for(MBR m: nextlevel.getAllRectangles())
         {
-            Double apostMbr=apostasi(m,x);
+            Double apostMbr=distMbrToPoint(m,x);
             if(apostMbr<maxDist)///εαν ειναι μεσα στον κυκλο
             {
                 Nodes kids=rTree.findKids(m);
@@ -228,11 +230,12 @@ public class Knn {
     public LeafRecords findMax(ArrayList<LeafRecords> k,LeafRecords x)
     {
         LeafRecords maxleaf= k.get(0);
-        Double max=dummy.distance(maxleaf.getDiastaseis().get(0),maxleaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
-
+        //Double max=dummy.distance(maxleaf.getDiastaseis().get(0),maxleaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
+        Double max=distManhattan(maxleaf,x);
         for(LeafRecords leaf:k)
         {
-            Double tmp=dummy.distance(leaf.getDiastaseis().get(0),leaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
+           // Double tmp=dummy.distance(leaf.getDiastaseis().get(0),leaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
+            Double tmp=distManhattan(leaf,x);
             if(tmp>max)
             {
                 max=tmp;
@@ -247,25 +250,25 @@ public class Knn {
     //Επεστρεψε το μεγαλυτερο Χ του ορθογωνιου (πανω αριστερα γωνια το Χ)
     public Double findMaxX(MBR mbr)
     {
-        return mbr.diastaseisA.get(0);
+        return mbr.diastaseisB.get(0);
     }
 
     //Επεστρεψε το μικροτερο Χ του ορθογωνιου (κατω αριστερα γωνια το Χ)
     public Double findMinX(MBR mbr)
     {
-        return mbr.diastaseisB.get(0);
+        return mbr.diastaseisA.get(0);
     }
 
     //Επεστρεψε το μεγαλυτερο Χ του ορθογωνιου (πανω αριστερα γωνια το Χ)
     public Double findMaxY(MBR mbr)
     {
-        return mbr.diastaseisA.get(1);
+        return mbr.diastaseisB.get(1);
     }
 
     //Επεστρεψε το μικροτερο Χ του ορθογωνιου (κατω αριστερα γωνια το Χ)
     public Double findMinY(MBR mbr)
     {
-        return mbr.diastaseisB.get(1);
+        return mbr.diastaseisA.get(1);
     }
 
     //Εάν το Χ του σημείου μου είναι ανάμεασα στα Χ του ορθογωνίου(ανάμεσα στο μικρότερο και στο μεγαλύτερο του ορθογωνίου)
@@ -439,7 +442,8 @@ public class Knn {
             System.out.println("K:"+i);
             i++;
             leaf.printRecord();
-            Double apo= dummy.distance(leaf.getDiastaseis().get(0),leaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
+            //Double apo= dummy.distance(leaf.getDiastaseis().get(0),leaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
+            Double apo=distManhattan(leaf,x);
             System.out.println("----Distance between leaf and Point:"+apo);
         }
     }
