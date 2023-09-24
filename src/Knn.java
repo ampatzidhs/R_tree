@@ -43,11 +43,11 @@ public class Knn {
 
             for(MBR mbr:nextlevel)//Βρισκει το κοντινοτερο mbr στο Χ  ---> μαλλον θα πρεπει να το κανω να βρισκει το Κ κοντινοτερο!!!!
             {
-              if(apostasi(mbr,x) < min)
-              {
-                min=apostasi(mbr,x);
-                mbrKeep=mbr;
-              }
+                if(apostasi(mbr,x) < min)
+                {
+                    min=apostasi(mbr,x);
+                    mbrKeep=mbr;
+                }
             }
 
             //Παιρνει το περιεχομενο του φυλλου. Βλεπει την αποσταση απο το Χ. Βρισκει το μακρυτερο φυλλο απο τα kontinotera (χαζο array γεματο με τυχαια σημεια)
@@ -150,12 +150,12 @@ public class Knn {
                 {
                     Double leafDist=dummy.distance(leaf.getDiastaseis().get(0),leaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
                     if(leafDist<maxDist)
-                     {
-                         if(!isIn(leaf))//εαν δεν ειναι ηδη μεσα το σημειο
-                         {
-                             kontinotera.remove(findMax(kontinotera,x));
-                             kontinotera.add(leaf);
-                         }
+                    {
+                        if(!isIn(leaf))//εαν δεν ειναι ηδη μεσα το σημειο
+                        {
+                            kontinotera.remove(findMax(kontinotera,x));
+                            kontinotera.add(leaf);
+                        }
                     }
 
                 }
@@ -165,20 +165,20 @@ public class Knn {
         }
 
 
-            //Nodes root = rTree.getRoot();
-            for(MBR m: nextlevel.getAllRectangles())
+        //Nodes root = rTree.getRoot();
+        for(MBR m: nextlevel.getAllRectangles())
+        {
+            Double apostMbr=apostasi(m,x);
+            if(apostMbr<maxDist)///εαν ειναι μεσα στον κυκλο
             {
-                Double apostMbr=apostasi(m,x);
-                if(apostMbr<maxDist)///εαν ειναι μεσα στον κυκλο
-                {
-                    Nodes kids=rTree.findKids(m);
-                    return isInCircle(kids);
-                }
-                else
-                {
-                    return false;
-                }
+                Nodes kids=rTree.findKids(m);
+                return isInCircle(kids);
             }
+            else
+            {
+                return false;
+            }
+        }
         return false;
 
     }

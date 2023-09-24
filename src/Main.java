@@ -32,7 +32,7 @@ public class Main {
         actualTree.printTree();
         LeafRecords point=new LeafRecords("rec Knn",38.3744238,21.8528735);
 
-        Knn knn=new Knn(3,actualTree,point);
+        Knn knn=new Knn(10,actualTree,point);
         ArrayList<LeafRecords> otinanai=knn.kontinotera;
 
         //<node id="73050076" visible="true" version="9" changeset="97872157" timestamp="2021-01-21T04:40:31Z" user="BatsmanMapsman" uid="8794020" lat="38.3744238" lon="21.8528735"/>
@@ -95,7 +95,7 @@ public class Main {
         {
             l.printRecord();
             Double apo= knn.dummy.distance(l.getDiastaseis().get(0),l.getDiastaseis().get(1),knn.x.getDiastaseis().get(0),knn.x.getDiastaseis().get(1));
-            System.out.println("----Distance between leaf and Point: %0.1f"+apo);
+            System.out.println("----Distance between leaf and Point:"+apo);
         }
 
 
