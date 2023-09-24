@@ -75,11 +75,9 @@ public class Main {
                         {
                             System.out.println("parent of rect6: "+mbr.getParentID());
                         }
-                       //Double apostLeaf= knn.dummy.distance(leaf.getDiastaseis().get(0),leaf.getDiastaseis().get(1),knn.x.getDiastaseis().get(0),knn.x.getDiastaseis().get(1));
-                        Double apostLeaf=knn.distManhattan(leaf,knn.x);
+                       Double apostLeaf=knn.distManhattan(leaf,knn.x);
                         LeafRecords makri=knn.findMax(otinanai,knn.x);
-                       //Double apostOtinanai= knn.dummy.distance(makri.getDiastaseis().get(0),makri.getDiastaseis().get(1),knn.x.getDiastaseis().get(0),knn.x.getDiastaseis().get(1));
-                        Double apostOtinanai=knn.distManhattan(makri,knn.x);
+                       Double apostOtinanai=knn.distManhattan(makri,knn.x);
                         if(apostLeaf<apostOtinanai)
                         {
                             if(!knn.otinanaiIsIn(leaf,otinanai))
@@ -100,8 +98,7 @@ public class Main {
         for(LeafRecords l:otinanai)
         {
             l.printRecord();
-            //Double apo= knn.dummy.distance(l.getDiastaseis().get(0),l.getDiastaseis().get(1),knn.x.getDiastaseis().get(0),knn.x.getDiastaseis().get(1));
-            Double apo=knn.distManhattan(l,knn.x);
+           Double apo=knn.distManhattan(l,knn.x);
             System.out.println("----Distance between leaf and Point:"+apo);
         }
 

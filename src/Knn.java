@@ -56,11 +56,9 @@ public class Knn {
             {
                 System.out.println("------To mbr einai:");
                 mbrKeep.printRect();
-                //Double apost=dummy.distance(leaf.getDiastaseis().get(0),leaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));//Απόσταση τιυ φυλλου με το Χ.
                 Double apost=distManhattan(leaf,x);
                 LeafRecords maxLeaf=findMax(kontinotera,x);//Βρες το μεγαλυτερο απο τα κοντινοτερα
 
-                //Double maxApost=dummy.distance(maxLeaf.getDiastaseis().get(0),maxLeaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));//Αποσταση το μεγαλύτερο απο την λιστα με το Χ
                 Double maxApost=distManhattan(maxLeaf,x);
                 if(apost<maxApost)//Εαν βρήκες καποιο ποιο κοντινο απο το μεγαλυτερο της λιστας κανε την αντικατασταση.
                 {
@@ -127,8 +125,7 @@ public class Knn {
             isTouching(tree,kidss);
 
         }
-//        ArrayList<MBR> kidss=tree.findKids(tmpMbr).allRectangles;
-//        isTouching(tree,kidss);
+
 
 
 
@@ -139,14 +136,12 @@ public class Knn {
     {
         LeafRecords makritero=findMax(kontinotera,x);
         //range Circle
-        //Double maxDist=dummy.distance(makritero.getDiastaseis().get(0),makritero.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
         Double maxDist=distManhattan(makritero,x);
         if(nextlevel.getAllRectangles().get(0).isLeafRect())
         {
             for(MBR mbr:nextlevel.getAllRectangles()){
                 for(LeafRecords leaf: mbr.getPeriexomeno())
                 {
-                    //Double leafDist=dummy.distance(leaf.getDiastaseis().get(0),leaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));
                     Double leafDist=distManhattan(leaf,x);
                     if(leafDist<maxDist)
                     {
