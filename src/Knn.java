@@ -286,6 +286,25 @@ public class Knn {
         return false;
     }
 
+    //Εάν το Y του σημείου μου είναι ανάμεασα στα Y του ορθογωνίου(ανάμεσα στο μικρότερο και στο μεγαλύτερο του ορθογωνίου)
+    public boolean isYbetween(LeafRecords x,MBR mbr)
+    {
+        Double min=findMinY(mbr);
+        Double max=findMaxY(mbr);
+
+        Double pointY=x.diastaseis.get(1);
+
+
+
+        if(pointY>min && pointY<max)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+
 
     //Απόσταση ενός σημείο από ένα ορθογώνιο με 9 περιπτώσεις
     public Double distMbrToPoint(MBR mbr,LeafRecords x)
@@ -296,7 +315,33 @@ public class Knn {
 
         if(pointX<findMinX(mbr))//Έαν το Χ του σημείου μας είναι πιο μικρό από το μικρότερο Χ του ορθογωνίου. Το σημείο είναι στα αρίστερα του ορθογωνίου.
         {
+            if(pointY<findMinY(mbr))//Το σημέιο έχει μικρότερο Χ και Υ.
+            {
 
+            }
+            else if(isYbetween(x,mbr))//Το σημέιο έχει μικρότερο Χ αλλα το Υ του είναι ανάμεσα σε αυτά του ορθογωνίου.
+            {
+
+            }
+            else if(pointY>findMaxY(mbr))//Το σημέιο έχει μικρότερο Χ αλλα μεγαλύτερο Υ.
+            {
+
+            }
+        }
+        else if(isXbetween(x,mbr))//Έαν το Χ του σημείου μας είναι ανάμεσα στα Χ του ορθογωνίου.
+        {
+            if(pointY<findMinY(mbr))//Εαν το Χ του σημείου είναι ανάμεσα αλλα το Υ είναι μικρότερο (του ορθογωνίου)
+            {
+
+            }
+            else if(isYbetween(x,mbr))//Έαν το Χ και το Υ του σημείου είναι ανάμεσα σε αυτά του ορθογωνίου (πρακτικά να είναι μέσα στο ορθογώνιο)
+            {
+
+            }
+            else if(pointY>findMaxY(mbr))//Εαν το Χ του σημείου είναι ανάμεσα αλλα το Υ είναι μεγαλύτερο (του ορθογωνίου)
+            {
+
+            }
         }
 
 
