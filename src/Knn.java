@@ -313,41 +313,64 @@ public class Knn {
         Double pointX=x.diastaseis.get(0);
         Double pointY=x.diastaseis.get(1);
 
+        //Σημείο του ορθογωνίου που θα παρούμε την απόσταση.
+        LeafRecords pointOfMbr=new LeafRecords("rect",1.0,1.0);
+
         if(pointX<findMinX(mbr))//Έαν το Χ του σημείου μας είναι πιο μικρό από το μικρότερο Χ του ορθογωνίου. Το σημείο είναι στα αρίστερα του ορθογωνίου.
         {
             if(pointY<findMinY(mbr))//Το σημέιο έχει μικρότερο Χ και Υ.
             {
+                //Δημιουργώ ένα σημείο που θα αναπαραστεί την κάτω αρίστερα γωνία.
+                pointOfMbr.diastaseis.set(0,findMinX(mbr));
+                pointOfMbr.diastaseis.set(1,findMinY(mbr));
+                apostasi=distManhattan(x,pointOfMbr);
 
             }
             else if(isYbetween(x,mbr))//Το σημέιο έχει μικρότερο Χ αλλα το Υ του είναι ανάμεσα σε αυτά του ορθογωνίου.
             {
+                //Δημιουργώ ένα σημείο του ορθογωνίου που θα αναπαραστεί κάποιο με το μικρότερο Χ. και Υ ανάμεσα του ορθωγωνίου .
+                pointOfMbr.diastaseis.set(0,findMinX(mbr));//ελάχιστο Χ
+                pointOfMbr.diastaseis.set(1,x.diastaseis.get(1)); //Υ ίδιο με το σημείο (γιατί είναι ανάμεσα στα όρια)
+                apostasi=distManhattan(x,pointOfMbr);
 
             }
             else if(pointY>findMaxY(mbr))//Το σημέιο έχει μικρότερο Χ αλλα μεγαλύτερο Υ.
             {
-
+                //Δημιουργώ ένα σημείο που θα αναπαραστεί την πάνω αρίστερα γωνία.
+                pointOfMbr.diastaseis.set(0,findMinX(mbr));
+                pointOfMbr.diastaseis.set(1,findMaxY(mbr));
+                apostasi=distManhattan(x,pointOfMbr);
             }
         }
         else if(isXbetween(x,mbr))//Έαν το Χ του σημείου μας είναι ανάμεσα στα Χ του ορθογωνίου.
         {
             if(pointY<findMinY(mbr))//Εαν το Χ του σημείου είναι ανάμεσα αλλα το Υ είναι μικρότερο (του ορθογωνίου) α32
             {
-
+                //Δημιουργώ ένα σημείο του ορθογωνίου που θα αναπαραστεί κάποιο με το μικρότερο Υ. και Χ ανάμεσα του ορθωγωνίου .
+                pointOfMbr.diastaseis.set(0,x.diastaseis.get(0));//Χ το ίδιο με το σημείο (γιατί είναι ανάμεσα στα όρια)
+                pointOfMbr.diastaseis.set(1,findMinY(mbr));//Ελάχιστο Y
+                apostasi=distManhattan(x,pointOfMbr);
             }
             else if(isYbetween(x,mbr))//Έαν το Χ και το Υ του σημείου είναι ανάμεσα σε αυτά του ορθογωνίου (πρακτικά να είναι μέσα στο ορθογώνιο) α22
             {
-
+                apostasi=0.0;//Είναι μέσα στο ορθογώνιο.
             }
             else if(pointY>findMaxY(mbr))//Εαν το Χ του σημείου είναι ανάμεσα αλλα το Υ είναι μεγαλύτερο (του ορθογωνίου) α12
             {
-
+                //Δημιουργώ ένα σημείο του ορθογωνίου που θα αναπαραστεί κάποιο με το μεγαλύτερο Υ. και Χ ανάμεσα του ορθωγωνίου .
+                pointOfMbr.diastaseis.set(0,x.diastaseis.get(0));//Χ το ίδιο με το σημείο (γιατί είναι ανάμεσα στα όρια)
+                pointOfMbr.diastaseis.set(1,findMaxY(mbr));//Μέγιστο Y.
+                apostasi=distManhattan(x,pointOfMbr);
             }
         }
         else if(pointX>findMaxX(mbr))//Έαν το Χ του σημείου μας είναι πιο μεγάλο από το μεγαλύτερο Χ του ορθογωνίου. Το σημείο είναι στα δεξία του ορθογωνίου.
         {
             if(pointY<findMinY(mbr))//Το σημέιο έχει μεγαλύτερο Χ και μικρότερο Υ.
             {
-
+                //Δημιουργώ ένα σημείο που θα αναπαραστεί την κάτω δεξία γωνία .
+                pointOfMbr.diastaseis.set(0,x.diastaseis.get(0));//Χ το ίδιο με το σημείο (γιατί είναι ανάμεσα στα όρια)
+                pointOfMbr.diastaseis.set(1,findMinY(mbr));//Ελάχιστο Y
+                apostasi=distManhattan(x,pointOfMbr);
             }
             else if(isYbetween(x,mbr))//Το σημέιο έχει μεγαλύτερο Χ αλλα το Υ είναι ανάμεσα σε αύτα του ορθογωνίου.
             {
