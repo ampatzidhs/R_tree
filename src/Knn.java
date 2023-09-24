@@ -368,17 +368,23 @@ public class Knn {
             if(pointY<findMinY(mbr))//Το σημέιο έχει μεγαλύτερο Χ και μικρότερο Υ.
             {
                 //Δημιουργώ ένα σημείο που θα αναπαραστεί την κάτω δεξία γωνία .
-                pointOfMbr.diastaseis.set(0,x.diastaseis.get(0));//Χ το ίδιο με το σημείο (γιατί είναι ανάμεσα στα όρια)
+                pointOfMbr.diastaseis.set(0,findMaxX(mbr));//Μέγιστο Χ
                 pointOfMbr.diastaseis.set(1,findMinY(mbr));//Ελάχιστο Y
                 apostasi=distManhattan(x,pointOfMbr);
             }
             else if(isYbetween(x,mbr))//Το σημέιο έχει μεγαλύτερο Χ αλλα το Υ είναι ανάμεσα σε αύτα του ορθογωνίου.
             {
-
+                //Δημιουργώ ένα σημείο του ορθογωνίου που θα αναπαραστεί κάποιο με το μεγαλύτερο X. και Y ανάμεσα του ορθωγωνίου .
+                pointOfMbr.diastaseis.set(0,findMaxX(mbr);//Μέγιστο Χ
+                pointOfMbr.diastaseis.set(1,x.diastaseis.get(1));//Y το ίδιο με το σημείο (γιατί είναι ανάμεσα στα όρια)
+                apostasi=distManhattan(x,pointOfMbr);
             }
             else if(pointY>findMaxY(mbr))//Το σημέιο έχει μεγαλύτερο Χ και Υ.
             {
-
+                //Δημιουργώ ένα σημείο που θα αναπαραστεί την πάνω δεξία γωνία .
+                pointOfMbr.diastaseis.set(0,findMaxX(mbr));//Μέγιστο Χ
+                pointOfMbr.diastaseis.set(1,findMaxY(mbr));//Μέγιστο Y
+                apostasi=distManhattan(x,pointOfMbr);
             }
         }
 
