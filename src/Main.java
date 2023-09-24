@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Main {
     public static void main(String []args) throws ParserConfigurationException, IOException, SAXException {
         AllBlocks allBlocks = new AllBlocks();
-       // allBlocks.readFromOsmFile();
+        allBlocks.readFromOsmFile();
         ArrayList<Block> returned = allBlocks.readFromBinaryFile();
 
 
@@ -32,7 +32,7 @@ public class Main {
         //actualTree.printTree();
         LeafRecords point=new LeafRecords("rec Knn",38.3744238,21.8528735);
 
-        Knn knn=new Knn(3,actualTree,point);
+        Knn knn=new Knn(100,actualTree,point);
         ArrayList<LeafRecords> otinanai=knn.kontinotera;
 
         //<node id="73050076" visible="true" version="9" changeset="97872157" timestamp="2021-01-21T04:40:31Z" user="BatsmanMapsman" uid="8794020" lat="38.3744238" lon="21.8528735"/>
@@ -103,6 +103,24 @@ public class Main {
         }
 
 
+
+        int counter=0;
+        for(LeafRecords leaf:knn.getKontinotera())
+        {
+            for(LeafRecords l:otinanai)
+            {
+                if(Objects.equals(leaf.getDiastaseis().get(0), l.getDiastaseis().get(0)))
+                {
+                    if(Objects.equals(leaf.getDiastaseis().get(1), l.getDiastaseis().get(1)))
+                    {
+                        counter++;
+                    }
+                }
+
+            }
+        }
+
+        System.out.println("Counter is: "+counter);
 
 
     }
