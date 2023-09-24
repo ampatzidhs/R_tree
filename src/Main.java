@@ -40,9 +40,11 @@ public class Main {
                 }
             }
         }
+        System.out.println("Before============================= ");
+        actualTree.printTree();
         Insert insert = new Insert();
         double x= 20.1, y= 21.1;
-        for(int j=0;j<100;j++){
+        for(int j=0;j<10;j++){
             int savedAt = allBlocks.addToDataFile(x, y);
             //ArrayList<MBR> saveIt = actualTree.recursiveUntilIDoItCorrect(actualTree.root, x, y, savedAt);
             LeafRecords leafRecords = new LeafRecords("2", x, y);
@@ -52,6 +54,30 @@ public class Main {
 //                System.out.println("TI SKATA EPISTREFEI AFTH H MALAKIA: "+ mbr.getId());
             x+=0.1;
             y+=0.1;
+        }
+        MBR mbr = new MBR();
+        mbr.id = "ToAdd";
+        mbr.diastaseisA.add(-1.0);
+        mbr.diastaseisA.add(-1.0);
+        mbr.diastaseisB.add(-1.0);
+        mbr.diastaseisB.add(-1.0);
+        Nodes n = new Nodes();
+        for(Nodes nodes: actualTree.allNodes){
+            n = nodes;
+            break;
+        }
+        insert.breakNode(mbr, n, actualTree);
+
+        System.out.println("After======================================== ");
+        actualTree.printTree();
+        for (Nodes nodee: actualTree.allNodes){
+            System.out.println(nodee.getId());
+            for (MBR m:nodee.allRectangles){
+                System.out.println("MBR: "+ m.id);
+                for (LeafRecords l:m.periexomeno){
+                    l.printRecord();
+                }
+            }
         }
         actualTree.printTree();
 /**
