@@ -337,8 +337,8 @@ public class Knn {
             else if(pointY>findMaxY(mbr))//Το σημέιο έχει μικρότερο Χ αλλα μεγαλύτερο Υ.
             {
                 //Δημιουργώ ένα σημείο που θα αναπαραστεί την πάνω αρίστερα γωνία.
-                pointOfMbr.diastaseis.set(0,findMinX(mbr));
-                pointOfMbr.diastaseis.set(1,findMaxY(mbr));
+                pointOfMbr.diastaseis.set(0,findMinX(mbr));//Ελάχιστο Χ
+                pointOfMbr.diastaseis.set(1,findMaxY(mbr));//Μέγιστο Υ
                 apostasi=distManhattan(x,pointOfMbr);
             }
         }
@@ -357,7 +357,7 @@ public class Knn {
             }
             else if(pointY>findMaxY(mbr))//Εαν το Χ του σημείου είναι ανάμεσα αλλα το Υ είναι μεγαλύτερο (του ορθογωνίου) α12
             {
-                //Δημιουργώ ένα σημείο του ορθογωνίου που θα αναπαραστεί κάποιο με το μεγαλύτερο Υ. και Χ ανάμεσα του ορθωγωνίου .
+                //Δημιουργώ ένα σημείο του ορθογωνίου που θα αναπαραστεί κάποιο με το μεγαλύτερο Υ. και Χ ανάμεσα στα ορια του ορθωγωνίου .
                 pointOfMbr.diastaseis.set(0,x.diastaseis.get(0));//Χ το ίδιο με το σημείο (γιατί είναι ανάμεσα στα όρια)
                 pointOfMbr.diastaseis.set(1,findMaxY(mbr));//Μέγιστο Y.
                 apostasi=distManhattan(x,pointOfMbr);
@@ -375,7 +375,7 @@ public class Knn {
             else if(isYbetween(x,mbr))//Το σημέιο έχει μεγαλύτερο Χ αλλα το Υ είναι ανάμεσα σε αύτα του ορθογωνίου.
             {
                 //Δημιουργώ ένα σημείο του ορθογωνίου που θα αναπαραστεί κάποιο με το μεγαλύτερο X. και Y ανάμεσα του ορθωγωνίου .
-                pointOfMbr.diastaseis.set(0,findMaxX(mbr);//Μέγιστο Χ
+                pointOfMbr.diastaseis.set(0,findMaxX(mbr));//Μέγιστο Χ
                 pointOfMbr.diastaseis.set(1,x.diastaseis.get(1));//Y το ίδιο με το σημείο (γιατί είναι ανάμεσα στα όρια)
                 apostasi=distManhattan(x,pointOfMbr);
             }
