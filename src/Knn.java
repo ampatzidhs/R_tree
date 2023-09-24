@@ -54,6 +54,8 @@ public class Knn {
             //Και εαν το φυλλο ειναι μικροτερο απο το μεγαλυτερο του κοντινοτερα κανει αντικατασταση.
             for(LeafRecords leaf:mbrKeep.getPeriexomeno())//περιεχομενο του κοντινοτερου mbr.
             {
+                System.out.println("------To mbr einai:");
+                mbrKeep.printRect();
                 //Double apost=dummy.distance(leaf.getDiastaseis().get(0),leaf.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1));//Απόσταση τιυ φυλλου με το Χ.
                 Double apost=distManhattan(leaf,x);
                 LeafRecords maxLeaf=findMax(kontinotera,x);//Βρες το μεγαλυτερο απο τα κοντινοτερα
@@ -69,24 +71,11 @@ public class Knn {
                     }
                 }
 
-
-//                for(LeafRecords l:kontinotera)
-//                {
-//                    if(dummy.distance(l.getDiastaseis().get(0),l.getDiastaseis().get(1),x.getDiastaseis().get(0),x.getDiastaseis().get(1)) > apost)
-//                    {
-//                        kontinotera.add(leaf);
-//                        LeafRecords tp=findMax(kontinotera,x);
-//                        kontinotera.remove(tp);
-//                    }
-//                }
             }
-/**exei brei to 1o mbr poy temnei kai exei parei kai ta shmeia toy sto arraylist kontinotera kai meta dimioyrgei ton kyklo
- kai tsekarei ean temnei kapoio allo orthogonio.d*/
-
-
             //Εδω φτιαχνω τον κυκλο με κεντρο το Χ και ακτινα το μακρυτερο απο την λιστα kontinotera...
             LeafRecords distanceLeaf = findMax(kontinotera,x);
             Double distanceCircle=distManhattan(distanceLeaf,x);
+
             for(MBR m:nextlevel)//Κοιταει με τα αλλα φυλλα
             {
                 //note:!!!  να μην ειναι κανενα απο αυτα που εχει εξετασει ηδη
@@ -119,19 +108,27 @@ public class Knn {
 
         Double tmpDist=distMbrToPoint(nextlevel.get(0),x);
         MBR tmpMbr=nextlevel.get(0);//kontinotero mbr
+        ArrayList<MBR> toVisit=new ArrayList<>();
         for(MBR m:nextlevel)
         {
             Double dist =distMbrToPoint(m,x);
-            if(dist<tmpDist)
+            if(dist<=tmpDist)
             {
                 tmpDist=dist;
                 tmpMbr=m;
+                toVisit.add(tmpMbr);
             }
 
 
         }
-        ArrayList<MBR> kidss=tree.findKids(tmpMbr).allRectangles;
-        isTouching(tree,kidss);
+        for(MBR mp:toVisit)
+        {
+            ArrayList<MBR> kidss=tree.findKids(mp).allRectangles;
+            isTouching(tree,kidss);
+
+        }
+//        ArrayList<MBR> kidss=tree.findKids(tmpMbr).allRectangles;
+//        isTouching(tree,kidss);
 
 
 

@@ -29,7 +29,7 @@ public class Main {
 
         R_Tree actualTree = new R_Tree(r_tree.allNodes.get(0), r_tree.allNodes, r_tree.rect_id_count, r_tree.node_id_count);
 
-        actualTree.printTree();
+        //actualTree.printTree();
         LeafRecords point=new LeafRecords("rec Knn",38.3744238,21.8528735);
 
         Knn knn=new Knn(3,actualTree,point);
@@ -56,6 +56,7 @@ public class Main {
 
 
         knn.isTouching(actualTree,actualTree.getRoot().allRectangles);
+
         knn.isInCircle(actualTree.getRoot());
         System.out.println("---------Mine closest points -------------------:");
         knn.knnPrint();
@@ -70,6 +71,10 @@ public class Main {
                 {
                     for(LeafRecords leaf:mbr.getPeriexomeno())
                     {
+                        if(mbr.getId().equals("rect6"))
+                        {
+                            System.out.println("parent of rect6: "+mbr.getParentID());
+                        }
                        //Double apostLeaf= knn.dummy.distance(leaf.getDiastaseis().get(0),leaf.getDiastaseis().get(1),knn.x.getDiastaseis().get(0),knn.x.getDiastaseis().get(1));
                         Double apostLeaf=knn.distManhattan(leaf,knn.x);
                         LeafRecords makri=knn.findMax(otinanai,knn.x);
