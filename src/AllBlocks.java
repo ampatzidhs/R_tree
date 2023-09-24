@@ -20,8 +20,8 @@ public class AllBlocks {
     }
 
     public void readFromOsmFile() throws ParserConfigurationException, IOException, SAXException {
-      File inputFile = new File("C:\\Users\\ampat\\Desktop\\papadopoulos askisi\\map.osm");
-       // File inputFile = new File("C:\\Users\\zoika\\Downloads\\map.osm");
+//      File inputFile = new File("C:\\Users\\ampat\\Desktop\\papadopoulos askisi\\map.osm");
+        File inputFile = new File("C:\\Users\\zoika\\Downloads\\map.osm");
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document doc = dBuilder.parse(inputFile);
@@ -46,7 +46,7 @@ public class AllBlocks {
         int sumOfBlock = 0;
         System.out.println("BLOCK1 -----------------------------------------------------------------");
         //nodeList.getLength()
-        for (int i = 0; i < 300; i++){//na to valo gia ola meta
+        for (int i = 0; i < nodeList.getLength(); i++){//na to valo gia ola meta
             ArrayList<Object> myArrayList = new ArrayList<Object>();
             keepData = new ArrayList<>();
             keepName = "";
