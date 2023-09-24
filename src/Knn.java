@@ -368,6 +368,18 @@ public class Knn {
     }
 
 
+    public Double distManhattan(LeafRecords a,LeafRecords b)
+    {
+        Double aX=a.diastaseis.get(0);
+        Double aY=a.diastaseis.get(1);
+
+        Double bX=b.diastaseis.get(0);
+        Double bY=b.diastaseis.get(1);
+
+
+        return Math.abs(aX - bX) + Math.abs(aY - bY);
+    }
+
     /**
      * Εστω οτι το σημειο που ψαχνω τους γειτονες του ειναι το Χ. Για να βρω το κοντινοτερο ορθογωνιο του, θα παω να βαλω το Χ
      * μεσα σε ένα ορθογωνιο και θα δω ποσο μεγαλωσε η περιμετρος του. Επειτα θα επαναλαβω για καθε ορθογωνιο. Αυτο που μεγαλωσε
