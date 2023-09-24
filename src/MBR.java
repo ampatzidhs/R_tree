@@ -3,8 +3,8 @@ import java.util.ArrayList;
 
 public class MBR implements Serializable{
     String id;//rect0, rect1, ...
-    ArrayList<Double> diastaseisA;///Χαρακτηριστηκά πάνω δεξία γωνία.
-    ArrayList<Double> diastaseisB;///Χαρακτηριστηκά πάνω αριστερα γωνία.
+    ArrayList<Double> diastaseisA;///Χαρακτηριστηκά κάτω αριστερά γωνία.
+    ArrayList<Double> diastaseisB;///Χαρακτηριστηκά πάνω δεξία γωνία.
     ArrayList<LeafRecords> periexomeno;///Λίστα με ολα τα παιδία του ορθογωνίου ( οταν είναι σημεία).
 
     String parentID;
