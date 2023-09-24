@@ -244,6 +244,68 @@ public class Knn {
     }
 
 
+    //Επεστρεψε το μεγαλυτερο Χ του ορθογωνιου (πανω αριστερα γωνια το Χ)
+    public Double findMaxX(MBR mbr)
+    {
+        return mbr.diastaseisA.get(0);
+    }
+
+    //Επεστρεψε το μικροτερο Χ του ορθογωνιου (κατω αριστερα γωνια το Χ)
+    public Double findMinX(MBR mbr)
+    {
+        return mbr.diastaseisB.get(0);
+    }
+
+    //Επεστρεψε το μεγαλυτερο Χ του ορθογωνιου (πανω αριστερα γωνια το Χ)
+    public Double findMaxY(MBR mbr)
+    {
+        return mbr.diastaseisA.get(1);
+    }
+
+    //Επεστρεψε το μικροτερο Χ του ορθογωνιου (κατω αριστερα γωνια το Χ)
+    public Double findMinY(MBR mbr)
+    {
+        return mbr.diastaseisB.get(1);
+    }
+
+    //Εάν το Χ του σημείου μου είναι ανάμεασα στα Χ του ορθογωνίου(ανάμεσα στο μικρότερο και στο μεγαλύτερο του ορθογωνίου)
+    public boolean isXbetween(LeafRecords x,MBR mbr)
+    {
+        Double min=findMinX(mbr);
+        Double max=findMaxX(mbr);
+
+        Double pointX=x.diastaseis.get(0);
+
+
+
+        if(pointX>min && pointX<max)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    //Απόσταση ενός σημείο από ένα ορθογώνιο με 9 περιπτώσεις
+    public Double distMbrToPoint(MBR mbr,LeafRecords x)
+    {
+        Double apostasi=-1.0;
+        Double pointX=x.diastaseis.get(0);
+        Double pointY=x.diastaseis.get(1);
+
+        if(pointX<findMinX(mbr))//Έαν το Χ του σημείου μας είναι πιο μικρό από το μικρότερο Χ του ορθογωνίου. Το σημείο είναι στα αρίστερα του ορθογωνίου.
+        {
+
+        }
+
+
+
+
+
+
+        return apostasi;
+    }
 
 
     /**
@@ -251,7 +313,7 @@ public class Knn {
      * μεσα σε ένα ορθογωνιο και θα δω ποσο μεγαλωσε η περιμετρος του. Επειτα θα επαναλαβω για καθε ορθογωνιο. Αυτο που μεγαλωσε
      * πιο λιγο ειναι και το κοντινοτερο του.
      */
-    public double apostasi(MBR data,LeafRecords x)
+   /** public double apostasi(MBR data,LeafRecords x)
     {
         ArrayList<Double> newMbr=dummy.newCorners(data,x.getDiastaseis().get(0),x.getDiastaseis().get(1));
 
@@ -263,7 +325,7 @@ public class Knn {
 
 
     }
-
+*/
 
 
     public void knnPrint()
