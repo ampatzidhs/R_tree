@@ -51,57 +51,61 @@ public class Nodes implements Serializable {
 
     public ArrayList<Double> findMins()///kato aristera gonia
     {
-        ArrayList<Double> mins = new ArrayList<>();
+        if(allRectangles.size()>=1) {
+            ArrayList<Double> mins = new ArrayList<>();
 
-        Double minX=1000000.0;
-        Double minY=1000000.0;
+            Double minX = 1000000.0;
+            Double minY = 1000000.0;
 
 
-        for(MBR m:allRectangles)
-        {
-            if(m.getDiastaseisA().get(0)<minX)
-            {
-                minX = m.getDiastaseisA().get(0);
+            for (MBR m : allRectangles) {
+                if (m.getDiastaseisA().get(0) < minX) {
+                    minX = m.getDiastaseisA().get(0);
+                }
+                if (m.getDiastaseisA().get(1) < minY) {
+                    minY = m.getDiastaseisA().get(1);
+                }
             }
-            if(m.getDiastaseisA().get(1)<minY)
-            {
-                minY = m.getDiastaseisA().get(1);
-            }
+
+            mins.add(minX);
+            mins.add(minY);
+
+            return mins;
         }
-
-        mins.add(minX);
-        mins.add(minY);
-
-        return mins;
-
+        ArrayList<Double> d = new ArrayList<>();
+        d.add(-1.0);
+        d.add(-1.0);
+        return d;
     }
 
 
     public ArrayList<Double> findMaxs()///pano dexia gonia
     {
-        ArrayList<Double> maxs = new ArrayList<>();
+        if(allRectangles.size()>=1) {
+            ArrayList<Double> maxs = new ArrayList<>();
 
-        Double maxX=-1.0;
-        Double maxY=-1.0;
+            Double maxX = -1.0;
+            Double maxY = -1.0;
 
 
-        for(MBR m:allRectangles)
-        {
-            if(m.getDiastaseisB().get(0) > maxX)
-            {
-                maxX = m.getDiastaseisB().get(0);
+            for (MBR m : allRectangles) {
+                if (m.getDiastaseisB().get(0) > maxX) {
+                    maxX = m.getDiastaseisB().get(0);
+                }
+                if (m.getDiastaseisB().get(1) > maxY) {
+                    maxY = m.getDiastaseisB().get(1);
+                }
             }
-            if(m.getDiastaseisB().get(1) > maxY)
-            {
-                maxY = m.getDiastaseisB().get(1);
-            }
+
+            maxs.add(maxX);
+            maxs.add(maxY);
+
+            return maxs;
         }
-
-        maxs.add(maxX);
-        maxs.add(maxY);
-
-        return maxs;
-
+        ArrayList<Double> d = new ArrayList<>();
+        d.add(-1.0);
+        d.add(-1.0);
+        return d;
     }
 
 
