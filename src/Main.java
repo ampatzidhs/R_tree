@@ -33,6 +33,25 @@ public class Main {
         LeafRecords point=new LeafRecords("rec Knn",38.3744238,21.8528735);
 
         Knn knn=new Knn(100,actualTree,point);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         ArrayList<LeafRecords> otinanai=knn.kontinotera;
 
         //<node id="73050076" visible="true" version="9" changeset="97872157" timestamp="2021-01-21T04:40:31Z" user="BatsmanMapsman" uid="8794020" lat="38.3744238" lon="21.8528735"/>
