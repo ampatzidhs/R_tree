@@ -30,6 +30,10 @@ public class Main {
         R_Tree actualTree = new R_Tree(r_tree.allNodes.get(0), r_tree.allNodes, r_tree.rect_id_count, r_tree.node_id_count);
 
         //actualTree.printTree();
+
+        long startTime = System.nanoTime();//////START TIME
+
+
         LeafRecords point=new LeafRecords("rec Knn",38.3744238,21.8528735);
 
         Knn knn=new Knn(100,actualTree,point);
@@ -72,6 +76,9 @@ public class Main {
         knn.knnPrint();
 
         System.out.println();
+
+
+
 
 
         knn.isTouching(actualTree,actualTree.getRoot().allRectangles);
@@ -142,8 +149,13 @@ public class Main {
         System.out.println("Counter is: "+counter);
 
 
+        long endTime   = System.nanoTime();
+        long totalTime = endTime - startTime;
+        System.out.println("Running time is: "+totalTime+" nanoseconds");
+        totalTime=totalTime/1000000000;//na kano casting
+        System.out.println("Running time is: "+totalTime+"sec");
+        System.out.println(totalTime);
     }
-
 
 
 }
