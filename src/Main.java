@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Main {
     public static void main(String []args) throws ParserConfigurationException, IOException, SAXException {
         AllBlocks allBlocks = new AllBlocks();
-        allBlocks.readFromOsmFile();
+        //allBlocks.readFromOsmFile();
         ArrayList<Block> returned = allBlocks.readFromBinaryFile();
 
 
@@ -148,13 +148,15 @@ public class Main {
 
         System.out.println("Counter is: "+counter);
 
-
+        System.out.println();
         long endTime   = System.nanoTime();
         long totalTime = endTime - startTime;
+
         System.out.println("Running time is: "+totalTime+" nanoseconds");
-        totalTime=totalTime/1000000000;//na kano casting
-        System.out.println("Running time is: "+totalTime+"sec");
-        System.out.println(totalTime);
+
+        Double time = (double) totalTime;
+        time=time/1000000000;
+        System.out.println("Running time is: "+time+"sec");
     }
 
 
