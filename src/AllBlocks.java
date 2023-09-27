@@ -20,7 +20,7 @@ public class AllBlocks {
     }
 
     public void readFromOsmFile() throws ParserConfigurationException, IOException, SAXException {
-   File inputFile = new File("C:\\Users\\ampat\\Desktop\\papadopoulos askisi\\map.osm");
+   File inputFile = new File("C:\\Users\\ampat\\Desktop\\papadopoulos askisi\\London.osm");
   //      File inputFile = new File("C:\\Users\\zoika\\Downloads\\map.osm");
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();

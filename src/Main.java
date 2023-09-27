@@ -23,7 +23,7 @@ public class Main {
 
 
         LeafRecords point=new LeafRecords("rec Knn",38.3744238,21.8528735);
-        Knn knn=new Knn(1600,actualTree,point);
+        Knn knn=new Knn(5,actualTree,point);
 
 
         ArrayList<LeafRecords> otinanai=knn.kontinotera;
@@ -148,6 +148,56 @@ public class Main {
         time = (double) totalTime;
         time=time/1000000000;
         System.out.println("Χρόνος Κnn με χρήση σειριακής αναζήτησης: "+time+"sec");
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //Code for Search.
+        System.out.println("<--------------------------------Επόμενο ερώτημα-------------------------------->");
+        startTime = System.nanoTime();//////START TIME Search with R_Tree
+
+        //Δημιουργία ορθογωνίου για ερώτημα περιοχής
+        MBR anazitisi=new MBR();
+        anazitisi.setId("rec anazitis");
+        anazitisi.diastaseisA.add(51.56172);
+        anazitisi.diastaseisA.add(-0.1408816);
+
+
+        anazitisi.diastaseisB.add(51.5669868);
+        anazitisi.diastaseisB.add(-0.1323188);
+
+
+        Search ser=new Search(actualTree);
+
+        ArrayList<Nodes> dummy=new ArrayList<>();
+        dummy.add(actualTree.getRoot());
+
+        ArrayList<MBR> result=ser.anazit(actualTree,dummy,anazitisi);
+
+
+        System.out.println("Αποτελέσματα για το ερώτημα περιοχής");
+        for(MBR mbr:result)
+        {
+            mbr.printRect();
+        }
+
+
+
+
+
+
+        endTime   = System.nanoTime();
+        totalTime = endTime - startTime;//END TIME Search with R_Tree
+
+        System.out.println("Running time is: "+totalTime+" nanoseconds");
+
+        time = (double) totalTime;
+        time=time/1000000000;
+        System.out.println("Χρόνος για ερώτημα περιοχής με χρήση R_Tree: "+time+"sec");
+
+
+
+
+
+
     }
 
 
