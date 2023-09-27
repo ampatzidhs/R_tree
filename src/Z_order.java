@@ -41,7 +41,7 @@ public class Z_order {
                 extra += "0";
             }
             intPartY = extra + intPartY;
-            System.out.println(y + " after transition: " + intPartY);
+           // System.out.println(y + " after transition: " + intPartY);
         }
         else if(intPartY.length() > intPartX.length()){
             extra = "";
@@ -49,7 +49,7 @@ public class Z_order {
                 extra += "0";
             }
             intPartX = extra + intPartX;
-            System.out.println(x + " after transition: " + intPartX);
+            //System.out.println(x + " after transition: " + intPartX);
         }
 
         for(int i=0;i<intPartX.length();i++){
