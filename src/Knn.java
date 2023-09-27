@@ -404,6 +404,10 @@ public class Knn {
         return Math.abs(aX - bX) + Math.abs(aY - bY);
     }
 
+
+
+
+
     /**
      * Εστω οτι το σημειο που ψαχνω τους γειτονες του ειναι το Χ. Για να βρω το κοντινοτερο ορθογωνιο του, θα παω να βαλω το Χ
      * μεσα σε ένα ορθογωνιο και θα δω ποσο μεγαλωσε η περιμετρος του. Επειτα θα επαναλαβω για καθε ορθογωνιο. Αυτο που μεγαλωσε
@@ -442,10 +446,6 @@ public class Knn {
 
 
 
-
-
-
-
     public boolean otinanaiIsIn(LeafRecords x,ArrayList<LeafRecords> otinanai)
     {
         for(LeafRecords leaf:otinanai)
@@ -458,6 +458,51 @@ public class Knn {
         }
         return false;
     }
+
+
+    public ArrayList<LeafRecords> knnSeiriaka(ArrayList<LeafRecords> otinanai)
+    {
+        AllBlocks allBlock=new AllBlocks();
+        ArrayList<Block> blocks=allBlock.readFromBinaryFile();
+
+
+        //Απο τα αρχειο τα διαβασα και τα εκανα απο Records--->LeafRecods
+        ArrayList<LeafRecords> tmp=new ArrayList<>();
+        for(Block bl:blocks)
+        {
+            for(Record record:bl.getOneBlock())
+            {
+               LeafRecords n=new LeafRecords(record);
+               tmp.add(n);
+            }
+        }
+
+
+        for(LeafRecords leaf:tmp)
+        {
+            Double apostLeaf=distManhattan(leaf,x);
+            LeafRecords makri=findMax(otinanai,x);
+            Double apostOtinanai=distManhattan(makri,x);
+            if(apostLeaf<apostOtinanai)
+            {
+                if(!otinanaiIsIn(leaf,otinanai))
+                {
+                    otinanai.remove(makri);
+                    otinanai.add(leaf);
+                }
+            }
+        }
+
+
+
+        return otinanai;
+
+
+
+
+    }
+
+
 
 
 

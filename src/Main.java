@@ -77,39 +77,13 @@ public class Main {
 
 
         ///Σειριακά βρίσκω τους Knn
-        for(Nodes n: actualTree.getAllNodes())
-        {
-            if(n.getAllRectangles().get(0).isLeafRect())
-            {
-                for(MBR mbr :n.getAllRectangles())
-                {
-                    for(LeafRecords leaf:mbr.getPeriexomeno())
-                    {
-//                        if(mbr.getId().equals("rect6"))
-//                        {
-//                            System.out.println("parent of rect6: "+mbr.getParentID());
-//                        }
-                        Double apostLeaf=knn.distManhattan(leaf,knn.x);
-                        LeafRecords makri=knn.findMax(otinanai,knn.x);
-                        Double apostOtinanai=knn.distManhattan(makri,knn.x);
-                        if(apostLeaf<apostOtinanai)
-                        {
-                            if(!knn.otinanaiIsIn(leaf,otinanai))
-                            {
-                                otinanai.remove(makri);
-                                otinanai.add(leaf);
-                            }
-                        }
-                    }
-                }
-            }
-        }
 
+        otinanai=knn.knnSeiriaka(otinanai);
 
         System.out.println();
         System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
         System.out.println("Double loop for check up");
-        /**
+
         //Περιεχόμενο του σειριακού Knn
         for(LeafRecords l:otinanai)
         {
@@ -137,7 +111,7 @@ public class Main {
         }
 
         System.out.println("Counter is: "+counter);
- */
+
 
         System.out.println();
         endTime   = System.nanoTime();
@@ -215,7 +189,7 @@ public class Main {
         System.out.println("Χρόνος για ερώτημα περιοχής (Σειριακά): "+time+"sec");
 
 
-        int  counter=0;
+          counter=0;
         for(LeafRecords function:results)
         {
           counter++;
