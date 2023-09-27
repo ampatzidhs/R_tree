@@ -54,8 +54,8 @@ public class Knn {
             //Και εαν το φυλλο ειναι μικροτερο απο το μεγαλυτερο του κοντινοτερα κανει αντικατασταση.
             for(LeafRecords leaf:mbrKeep.getPeriexomeno())//περιεχομενο του κοντινοτερου mbr.
             {
-                System.out.println("------To mbr einai:");
-                mbrKeep.printRect();
+//                System.out.println("------To mbr einai:");
+//                mbrKeep.printRect();
                 Double apost=distManhattan(leaf,x);
                 LeafRecords maxLeaf=findMax(kontinotera,x);//Βρες το μεγαλυτερο απο τα κοντινοτερα
 
