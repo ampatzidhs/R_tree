@@ -29,10 +29,48 @@ public class R_Tree {
         System.out.println("Root: " + root.getId());
         System.out.println("Rectangle count: " + rect_id_count);
         System.out.println("Node count: " + node_id_count);
-        for (Nodes n : allNodes) {
+
+        int leafCount=0;
+        for(Nodes n:allNodes){
+            for (MBR m:n.allRectangles){
+                for(LeafRecords l :m.periexomeno){
+                    leafCount++;
+                }
+            }
+        }
+        System.out.println("Leaf Count: " + leafCount);
+        for (Nodes n:allNodes){
             n.printNodes();
         }
     }
+
+//    public void printTreeMeLevels(Nodes root){
+//        if(root.allRectangles.get(0).isLeafRect()){
+//            System.out.println("---------------------------------------------");
+//            for(MBR m: root.allRectangles){
+//                Nodes p = findKids(m);
+//                if(!p.getId().equals("")) {
+//                    mbr.printNodes();
+//                }
+//            }
+//            return;
+//        }
+//        System.out.println("---------------------------------------------");
+//        ArrayList<Nodes> nextLevel = new ArrayList<>();
+//        for(MBR mbr:root.allRectangles){
+//
+//            Nodes p = findKids(mbr);
+//            if(!p.getId().equals("")) {
+//                mbr.printNodes();
+//                nextLevel.add(p);
+//            }
+//        }
+//
+//        for (Nodes n : nextLevel){
+//            printTreeMeLevels(n);
+//        }
+//
+//    }
 
 
     public void removeMBR(String mbrID) {

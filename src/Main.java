@@ -44,42 +44,63 @@ public class Main {
         actualTree.printTree();
         Insert insert = new Insert();
         double x= 20.1, y= 21.1;
-        for(int j=0;j<10;j++){
-            int savedAt = allBlocks.addToDataFile(x, y);
+        for(int j=0;j<90;j++){
+            //int savedAt = allBlocks.addToDataFile(x, y);
             //ArrayList<MBR> saveIt = actualTree.recursiveUntilIDoItCorrect(actualTree.root, x, y, savedAt);
             LeafRecords leafRecords = new LeafRecords("2", x, y);
-            insert.addToTree(leafRecords, keepRect, actualTree);
+            insert.doTheInsert(actualTree,leafRecords);
 
 //            for(MBR mbr:saveIt)
 //                System.out.println("TI SKATA EPISTREFEI AFTH H MALAKIA: "+ mbr.getId());
             x+=0.1;
             y+=0.1;
-        }
-        MBR mbr = new MBR();
-        mbr.id = "ToAdd";
-        mbr.diastaseisA.add(-1.0);
-        mbr.diastaseisA.add(-1.0);
-        mbr.diastaseisB.add(-1.0);
-        mbr.diastaseisB.add(-1.0);
-        Nodes n = new Nodes();
-        for(Nodes nodes: actualTree.allNodes){
-            n = nodes;
-            break;
-        }
-        insert.breakNode(mbr, n, actualTree);
 
-        System.out.println("After======================================== ");
-        actualTree.printTree();
-        for (Nodes nodee: actualTree.allNodes){
-            System.out.println(nodee.getId());
-            for (MBR m:nodee.allRectangles){
-                System.out.println("MBR: "+ m.id);
-                for (LeafRecords l:m.periexomeno){
-                    l.printRecord();
-                }
-            }
+//            if(j==4){
+//                insert.breakLeafMBR(keepRect, leafRecords, actualTree);
+//            }
         }
         actualTree.printTree();
+
+        System.out.println("===========================================================");
+        for(int j=0;j<50;j++){
+            System.out.println("GINETAIIIIIIII");
+            //int savedAt = allBlocks.addToDataFile(x, y);
+            //ArrayList<MBR> saveIt = actualTree.recursiveUntilIDoItCorrect(actualTree.root, x, y, savedAt);
+            LeafRecords leafRecords = new LeafRecords(j+"", x, y);
+            insert.doTheInsert(actualTree, leafRecords);
+
+            x+=0.1;
+            y+=0.1;
+
+        }
+        System.out.println("===========================================================");
+        actualTree.printTree();
+
+//        MBR mbr = new MBR();
+//        mbr.id = "ToAdd";
+//        mbr.diastaseisA.add(-1.0);
+//        mbr.diastaseisA.add(-1.0);
+//        mbr.diastaseisB.add(-1.0);
+//        mbr.diastaseisB.add(-1.0);
+//        Nodes n = new Nodes();
+//        for(Nodes nodes: actualTree.allNodes){
+//            n = nodes;
+//            break;
+//        }
+//
+//        insert.correctTree(actualTree);
+//        System.out.println("After======================================== ");
+//        actualTree.printTree();
+//        for (Nodes nodee: actualTree.allNodes){
+//            System.out.println(nodee.getId());
+//            for (MBR m:nodee.allRectangles){
+//                System.out.println("MBR: "+ m.id);
+//                for (LeafRecords l:m.periexomeno){
+//                    l.printRecord();
+//                }
+//            }
+//        }
+        //insert.correctTree(actualTree);
 /**
         Skyline skyline = new Skyline();
         System.out.println("Starttttttttttttttttttttttttttttttttttttttt");

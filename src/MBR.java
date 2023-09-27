@@ -47,6 +47,9 @@ public class MBR implements Serializable{
     public void createMBRFromNode(Nodes node){
 //        setChildID(node.getId());
         //node.setId(node.getId());
+        if(node.getId().equals("node4")){
+            System.out.println(":):):):):):):):)::):):):):):):)::):)");
+        }
 
         setDiastaseisA(node.findMins());
         setDiastaseisB(node.findMaxs());
