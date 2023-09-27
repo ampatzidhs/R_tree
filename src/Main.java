@@ -152,7 +152,7 @@ public class Main {
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //Code for Search.
         System.out.println("<--------------------------------Επόμενο ερώτημα-------------------------------->");
-        startTime = System.nanoTime();//////START TIME Search with R_Tree
+
 
         //Δημιουργία ορθογωνίου για ερώτημα περιοχής
         MBR anazitisi=new MBR();
@@ -170,6 +170,7 @@ public class Main {
         ArrayList<Nodes> dummy=new ArrayList<>();
         dummy.add(actualTree.getRoot());
 
+        startTime = System.nanoTime();//////START TIME Search with R_Tree
         ArrayList<MBR> result=ser.anazit(actualTree,dummy,anazitisi);
 
 
@@ -195,8 +196,49 @@ public class Main {
 
 
 
+        //Αποτελέσματα σε ερώτημα περιοχής(Σειριακά)
+
+        startTime = System.nanoTime();//////START TIME Search with (Σειριακά)
 
 
+        ArrayList<MBR> resultsSeiriaka=ser.searchSeiriaka(anazitisi);
+
+
+
+        endTime   = System.nanoTime();
+        totalTime = endTime - startTime;//END TIME Search with R_Tree
+
+        System.out.println("Running time is: "+totalTime+" nanoseconds");
+
+        time = (double) totalTime;
+        time=time/1000000000;
+        System.out.println("Χρόνος για ερώτημα περιοχής (Σειριακά): "+time+"sec");
+
+
+        int  counter=0;
+        for(MBR function:result)
+        {
+          counter++;
+        }
+        System.out.println("Μέσα στην function υπήρχαν: "+counter+" Mbr");
+
+        counter=0;
+        ///Για επιβεβαίωση
+        for(MBR function:result)
+        {
+            for(MBR seiriaka:resultsSeiriaka)
+            {
+                if(function.diastaseisA.get(0)==seiriaka.diastaseisA.get(0) && function.diastaseisA.get(1)==seiriaka.diastaseisA.get(1) )
+                {
+                    if(function.diastaseisB.get(0)==seiriaka.diastaseisB.get(0) && function.diastaseisB.get(1)==seiriaka.diastaseisB.get(1))
+                    {
+                        counter++;
+                    }
+                }
+            }
+        }
+
+        System.out.println("τα "+counter+" ηταν ιδια");
 
     }
 

@@ -144,7 +144,31 @@ public class Search {
 
 
 
+    public ArrayList<MBR> searchSeiriaka(MBR anazitisi)
+    {
+        ArrayList<MBR> results=new ArrayList<>();
+        for(Nodes n: rTree.getAllNodes())
+        {
+            if(n.getAllRectangles().get(0).isLeafRect())
+            {
+                for(MBR mbr :n.getAllRectangles())
+                {
+                    if(isBetween(mbr,anazitisi))
+                    {
+                        results.add(mbr);
+                    }
+                }
+            }
+        }
+        System.out.println();
+        System.out.println("Αποτελέσματα σε ερώτημα περιοχής(Σειριακά)");
+        for (MBR m:results)
+        {
+            m.printRect();
+        }
+        return results;
 
+    }
 
 
 }
