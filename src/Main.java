@@ -10,7 +10,7 @@ public class Main {
     public static void main(String []args) throws ParserConfigurationException, IOException, SAXException {
         //Διάβασμα αρχείου.
         AllBlocks allBlocks = new AllBlocks();
-        //allBlocks.readFromOsmFile();
+        allBlocks.readFromOsmFile();
         ArrayList<Block> returned = allBlocks.readFromBinaryFile();
 
         //Δημιουργία δένδρου.
@@ -157,12 +157,12 @@ public class Main {
         //Δημιουργία ορθογωνίου για ερώτημα περιοχής
         MBR anazitisi=new MBR();
         anazitisi.setId("rec anazitis");
-        anazitisi.diastaseisA.add(51.56172);
-        anazitisi.diastaseisA.add(-0.1408816);
+        anazitisi.diastaseisA.add(38.3573721);
+        anazitisi.diastaseisA.add(21.7877221);
 
 
-        anazitisi.diastaseisB.add(51.5669868);
-        anazitisi.diastaseisB.add(-0.1323188);
+        anazitisi.diastaseisB.add(38.3748695);
+        anazitisi.diastaseisB.add(21.8534671);
 
 
         Search ser=new Search(actualTree);
@@ -171,13 +171,13 @@ public class Main {
         dummy.add(actualTree.getRoot());
 
         startTime = System.nanoTime();//////START TIME Search with R_Tree
-        ArrayList<MBR> result=ser.anazit(actualTree,dummy,anazitisi);
-
+        ArrayList<MBR> mbrTouching=ser.anazit(actualTree,dummy,anazitisi);
+        ArrayList<LeafRecords>results=ser.findMbrPeriexomeno(mbrTouching,anazitisi);
 
         System.out.println("Αποτελέσματα για το ερώτημα περιοχής");
-        for(MBR mbr:result)
+        for(LeafRecords leaf:results)
         {
-            mbr.printRect();
+            leaf.printRecord();
         }
 
 
@@ -201,7 +201,7 @@ public class Main {
         startTime = System.nanoTime();//////START TIME Search with (Σειριακά)
 
 
-        ArrayList<MBR> resultsSeiriaka=ser.searchSeiriaka(anazitisi);
+        ArrayList<Record> resultsSeiriaka=ser.searchSeiriaka(anazitisi);
 
 
 
@@ -216,25 +216,25 @@ public class Main {
 
 
         int  counter=0;
-        for(MBR function:result)
+        for(LeafRecords function:results)
         {
           counter++;
         }
-        System.out.println("Μέσα στην function υπήρχαν: "+counter+" Mbr");
+        System.out.println("Μέσα στην function υπήρχαν: "+counter+" LeafRecords");
 
         counter=0;
         ///Για επιβεβαίωση
-        for(MBR function:result)
+        for(LeafRecords function:results)
         {
-            for(MBR seiriaka:resultsSeiriaka)
+            for(Record seiriaka:resultsSeiriaka)
             {
-                if(function.diastaseisA.get(0)==seiriaka.diastaseisA.get(0) && function.diastaseisA.get(1)==seiriaka.diastaseisA.get(1) )
-                {
-                    if(function.diastaseisB.get(0)==seiriaka.diastaseisB.get(0) && function.diastaseisB.get(1)==seiriaka.diastaseisB.get(1))
-                    {
-                        counter++;
-                    }
-                }
+               if(function.diastaseis.get(0)==seiriaka.diastaseis.get(0))
+               {
+                   if(function.diastaseis.get(1)==seiriaka.diastaseis.get(1))
+                   {
+                       counter++;
+                   }
+               }
             }
         }
 

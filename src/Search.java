@@ -9,14 +9,31 @@ public class Search {
         this.rTree = rTree;
     }
 
-    public void findLeafRec(Nodes nodes,MBR anazitisi)
+    public ArrayList<LeafRecords> findMbrPeriexomeno(ArrayList<MBR> input,MBR anazitisi)///anazitisi einai to or8ogonio kai pernoyme ta rec pou einai mesa se auto
     {
-        if(nodes.getAllRectangles().get(0).isLeafRect())
+        ArrayList<LeafRecords> results=new ArrayList<>();
+
+        for(MBR mbr:input)
         {
-            return;
+           for(LeafRecords rec:mbr.getPeriexomeno())
+           {
+
+                   Double x=rec.diastaseis.get(0);
+                   Double y=rec.diastaseis.get(1);
+
+                   if(x>anazitisi.diastaseisA.get(0)&&x<anazitisi.diastaseisB.get(0))
+                   {
+                       if(y>anazitisi.diastaseisA.get(1)&&y<anazitisi.diastaseisB.get(1))
+                       {
+                           results.add(rec);
+                       }
+                   }
+
+           }
+
         }
 
-
+        return results;
 
     }
 
@@ -143,7 +160,7 @@ public class Search {
 //
 
 
-
+/**
     public ArrayList<MBR> searchSeiriaka(MBR anazitisi)
     {
         ArrayList<MBR> results=new ArrayList<>();
@@ -169,6 +186,49 @@ public class Search {
         return results;
 
     }
+*/
+
+
+public ArrayList<Record> searchSeiriaka(MBR anazitisi)
+{
+    AllBlocks allBlocks=new AllBlocks();
+    ArrayList<Record> results=new ArrayList<>();
+
+
+    ArrayList<Block> blocks=allBlocks.readFromBinaryFile();
+    System.out.println();
+    System.out.println("Αποτελέσματα σε ερώτημα περιοχής(Σειριακά)");
+    for(Block bl:blocks)
+    {
+        for(Record rec:bl.getOneBlock())
+        {
+            Double x=rec.diastaseis.get(0);
+            Double y=rec.diastaseis.get(1);
+
+            if(x>anazitisi.diastaseisA.get(0)&&x<anazitisi.diastaseisB.get(0))
+            {
+                if(y>anazitisi.diastaseisA.get(1)&&y<anazitisi.diastaseisB.get(1))
+                {
+                    results.add(rec);
+                }
+            }
+        }
+    }
+
+
+
+
+
+    for (Record r:results)
+    {
+        r.printRecord();
+    }
+    return results;
+
+}
+
+
+
 
 
 }
