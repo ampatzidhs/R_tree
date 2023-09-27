@@ -78,9 +78,9 @@ public class Skyline {
     }
 
     public void calculateBBS(R_Tree rTree){
-        for (MBRAndMindist m:allMBRMindist){
-            System.out.println("IN MBRAND MINDIST before: "+m.getMbr().getId());
-        }
+//        for (MBRAndMindist m:allMBRMindist){
+//            System.out.println("IN MBRAND MINDIST before: "+m.getMbr().getId());
+//        }
 
         for (MBR mbr : rTree.getRoot().getAllRectangles()) {
             Double minDist = calculateMinDist(mbr);
@@ -96,13 +96,13 @@ public class Skyline {
             for (MBRAndMindist m : allMBRMindist) {
                 if (m.getMbr().getId().equals(min.getId())) {
                     keep = m;
-                    System.out.println("Happened");
+//                    System.out.println("Happened");
                 }
             }
             allMBRMindist.remove(keep);
-            for (MBRAndMindist m : allMBRMindist) {
-                System.out.println("IN MBRAND MINDIST: " + m.getMbr().getId());
-            }
+//            for (MBRAndMindist m : allMBRMindist) {
+//                System.out.println("IN MBRAND MINDIST: " + m.getMbr().getId());
+//            }
             bBBSRecursively(rTree, min);
             //calculateBBS(rTree);
         }
@@ -120,12 +120,12 @@ public class Skyline {
 
     public void bBBSRecursively(R_Tree rTree, MBR min){
 
-        System.out.println("Called for MBR: "+ min.getId());
-        System.out.println("heap: ");
+//        System.out.println("Called for MBR: "+ min.getId());
+ //       System.out.println("heap: ");
 
-        for (MBRAndMindist m: allMBRMindist){
-            System.out.println(m.getMbr().id);
-        }
+//        for (MBRAndMindist m: allMBRMindist){
+//            System.out.println(m.getMbr().id);
+//        }
 
         if(min.isLeafRect()){
             boolean isInSkyline;
@@ -174,13 +174,62 @@ public class Skyline {
         for(Nodes nodes: rTree.getAllNodes()){
 
             if(nodes.getParentID().equals(min.getId())){
-                System.out.println("Vrike ton gonea");
+//                System.out.println("Vrike ton gonea");
                 for (MBR mbr: nodes.getAllRectangles()){
                     Double minDist = calculateMinDist(mbr);
                     MBRAndMindist nodea = new MBRAndMindist(mbr, minDist);
                     allMBRMindist.add(nodea);
                     //ids.add(mbr.getId());
                 }
+            }
+        }
+    }
+
+    public void seiriaka(){
+        AllBlocks allBlock=new AllBlocks();
+        ArrayList<Block> blocks=allBlock.readFromBinaryFile();
+        ArrayList<LeafRecords> inLeaves = new ArrayList<>();
+        ArrayList<LeafRecords> help = new ArrayList<>();
+
+        for(Block b:blocks){
+            for(Record rec: b.oneBlock){
+                LeafRecords leaf = new LeafRecords(rec);
+                inLeaves.add(leaf);
+            }
+        }
+
+        for (LeafRecords l1:inLeaves){
+            boolean notDom = true;
+            for(LeafRecords l2: inLeaves){
+                if(!Objects.equals(l1.getNode(), l2.getNode())) {
+                    if (isDominated(l1, l2)) {
+                        notDom = false;
+                    }
+                }
+            }
+            if(notDom){
+                boolean alreadythere = false;
+                for(LeafRecords k: help){
+                    if(Objects.equals(k.getNode(), l1.getNode())){
+                        alreadythere = true;
+                    }
+                }
+                if(!alreadythere){
+//                    System.out.println("NOT DOMINATED ID "+ l1.getNode());
+//                    System.out.println("l1: " + l1.getDiastaseis().get(0) +" "+ l1.getDiastaseis().get(1));
+                    help.add(l1);
+                }
+//                boolean exists = false;
+//                for(LeafRecords l: sky){
+//                    if(Objects.equals(l1.getNode(), l.getNode())){
+//                        exists = true;
+//                    }
+//                }
+//                if(!exists){
+//                    System.out.println("HEREEEEEEEE " + l1.getNode() + "NOT WRITTEN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//                }
+
+
             }
         }
     }
