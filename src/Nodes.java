@@ -59,7 +59,7 @@ public class Nodes implements Serializable {
 
 
             for (MBR m : allRectangles) {
-                m.printRect();
+                //m.printRect();
                 if (m.getDiastaseisA().get(0) < minX) {
                     minX = m.getDiastaseisA().get(0);
                 }

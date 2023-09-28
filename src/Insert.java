@@ -39,6 +39,8 @@ public class Insert {
         }
 
         insertLeafRec(rTree, forTheNext, leafRecords);
+        System.out.println("TREEE AFTER INSERT ");
+        rTree.printTree();
 
         boolean flag = false;
         if(!brokeChildNodeAt.getId().equals("")){
@@ -79,24 +81,43 @@ public class Insert {
         System.out.println("Delete node: " + deleteNode.getId());
 
         if(!deleteNode.getId().equals("")){
-            System.out.println("DELETE NODE: "+ deleteNode.getId());
+            System.out.println("DELETE NODE: "+ deleteNode.getId()+"-------------------------->");
             //kalese kai mia sunarthsh gia riza
+//            System.out.println("TREE BEFORE DELETE: ");
+//            rTree.printTree();
             deleteN(rTree);
             giaRiza(rTree);
+//            System.out.println("TREE AFTER RIZA CORRECT: ");
+//            rTree.printTree();
         }
         if(!brokeLeafMBRAt.getId().equals("")){////exei spasei leaf mbr
             if(!addToLeafMBR.getId().equals("")){////xorage sto node
                 //////prepei na spaseis to node kai na baleis to mbr
+//                System.out.println("Break Node -------------------------->");
+//                System.out.println("TREE BEFORE BREAK NODE : ");
+                rTree.printTree();
                 breakNode(addToLeafMBR, brokeLeafMBRAt, rTree);
+//                System.out.println("TREE AFTER BREAK NODE : ");
+//                rTree.printTree();
             }
             else{
                 //////apla tsekare ron gonea gia diastaseis
+                System.out.println("Correct Parent -------------------------->");
+//                System.out.println("TREE BEFORE CORRECT PARENT : ");
+//                rTree.printTree();
                 correctParDiast(rTree);
+//                System.out.println("TREE BEFORE BREAK NODE : ");
+//                rTree.printTree();
             }
             brokeLeafMBRAt = new Nodes();
         }
         if(!brokeChildNodeAt.getId().equals("")){
+            System.out.println("Make Parent -------------------------->");
+            System.out.println("TREE BEFORE MAKE PARENT : ");
+            rTree.printTree();
             makeParent(rTree);
+            System.out.println("TREE AFTER MAKE PARENT : ");
+            rTree.printTree();
         }
 
     }
@@ -178,8 +199,12 @@ public class Insert {
 
             System.out.println("ROOT MBR " + mbr.getId());
             System.out.println("NODE PAIDI:::: " + node.getId());
-            if(!isIn(root, mbr))
+            System.out.println("Root size: " + root.allRectangles.size());
+            if(!isIn(root, mbr)) {
+                System.out.println("Add mbr: " + mbr.getId() + "to root");
                 root.allRectangles.add(mbr);
+            }
+            System.out.println("Root size after: " + root.allRectangles.size());
 
             for(Nodes n: rTree.allNodes){
                 if(n.getId().equals(node.getId())){
@@ -189,7 +214,9 @@ public class Insert {
                     }
                 }
             }
+            System.out.println("Root size after 2: " + root.allRectangles.size());
         }
+
 
         root.setParentID("");
         rTree.allNodes.add(root);
@@ -255,7 +282,11 @@ public class Insert {
                         addToTree(leafRecords, mbr, rTree);
                     }
                     else{
+                        System.out.println("TREE BEFORE BREAK LEAF MBR");
+                        rTree.printTree();
                         breakLeafMBR(mbr, leafRecords, rTree);
+                        System.out.println("TREE AFTER BREAK LEAF MBR");
+                        rTree.printTree();
                     }
                 }
             }
@@ -267,6 +298,7 @@ public class Insert {
         String idToPut = chooseRectangle(kidss, leafRecords.getDiastaseis().get(0), leafRecords.getDiastaseis().get(1));
 
         MBR forTheNext = new MBR();
+
 
         for (MBR m : kidss.getAllRectangles()) {
             if (idToPut.equals(m.getId())) {
@@ -398,7 +430,6 @@ public class Insert {
                 if (mbr.getId().equals(mbrToUse.getId())) {
                     System.out.println("MBR PERIEXOMENO BEFORE: " + mbr.periexomeno.size());
                     mbr.periexomeno.add(newLeaf);
-                    System.out.println("MBR PERIEXOMENO AFTERRRRR: " + mbr.periexomeno.size());
                     ArrayList<Double> newDiast = newCorners(mbr, newLeaf.getDiastaseis().get(0), newLeaf.getDiastaseis().get(1));
 
                     ArrayList<Double> allDiastA = new ArrayList<>();
@@ -411,6 +442,8 @@ public class Insert {
 
                     mbr.setDiastaseisA(allDiastA);
                     mbr.setDiastaseisB(allDiastB);
+
+                    System.out.println("MBR PERIEXOMENO AFTERRRRR: " + mbr.periexomeno.size());
                 }
             }
         }
@@ -425,12 +458,14 @@ public class Insert {
 
         System.out.println("MBR PARENT: "  + mbr.getParentID());
         //first.setId(mbr.getId());
+        System.out.println("rect_id_count before: " + rTree.rect_id_count);
         String id = "rect" + rTree.rect_id_count;
         rTree.rect_id_count++;
         first.setId(id);
         id = "rect" + rTree.rect_id_count;
         rTree.rect_id_count++;
         second.setId(id);
+        System.out.println("rect_id_count after: " + rTree.rect_id_count);
 
         if(first.getId().equals("rect7") || second.getId().equals("rect7")){
             System.out.println("PES MOU POS EINAI EDO PXIAAAAAAAAAAAAAAAAAAA");

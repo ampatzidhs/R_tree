@@ -47,7 +47,13 @@ public class CreateRTree {//DIABAZEI TO DATAFILE KAI PERNNAEI TA DEDOMENA SOSTA 
         recordToRecLeaves();
         allInLeaves=sort();
         toRectangles();
+        //komple mexri edo
         toNodes();
+        System.out.println("ALL NODES");
+        for(Nodes n: leafNodes){
+            System.out.println("NODE : "+ n.getId());
+            n.printNodes();
+        }
         bottomUp();
         setAllParentIDs();
     }
