@@ -76,48 +76,24 @@ public class Insert {
     }
 
     public void correctTree(R_Tree rTree){
-        System.out.println("broke child node at: " + brokeChildNodeAt.getId());
-        System.out.println("broke leafMBR at: " + brokeLeafMBRAt.getId());
-        System.out.println("Delete node: " + deleteNode.getId());
-
         if(!deleteNode.getId().equals("")){
-            System.out.println("DELETE NODE: "+ deleteNode.getId()+"-------------------------->");
-            //kalese kai mia sunarthsh gia riza
-//            System.out.println("TREE BEFORE DELETE: ");
-//            rTree.printTree();
             deleteN(rTree);
             giaRiza(rTree);
-//            System.out.println("TREE AFTER RIZA CORRECT: ");
-//            rTree.printTree();
         }
         if(!brokeLeafMBRAt.getId().equals("")){////exei spasei leaf mbr
             if(!addToLeafMBR.getId().equals("")){////xorage sto node
                 //////prepei na spaseis to node kai na baleis to mbr
-//                System.out.println("Break Node -------------------------->");
-//                System.out.println("TREE BEFORE BREAK NODE : ");
                 rTree.printTree();
                 breakNode(addToLeafMBR, brokeLeafMBRAt, rTree);
-//                System.out.println("TREE AFTER BREAK NODE : ");
-//                rTree.printTree();
             }
             else{
                 //////apla tsekare ron gonea gia diastaseis
-                System.out.println("Correct Parent -------------------------->");
-//                System.out.println("TREE BEFORE CORRECT PARENT : ");
-//                rTree.printTree();
                 correctParDiast(rTree);
-//                System.out.println("TREE BEFORE BREAK NODE : ");
-//                rTree.printTree();
             }
             brokeLeafMBRAt = new Nodes();
         }
         if(!brokeChildNodeAt.getId().equals("")){
-            System.out.println("Make Parent -------------------------->");
-            System.out.println("TREE BEFORE MAKE PARENT : ");
-            rTree.printTree();
             makeParent(rTree);
-            System.out.println("TREE AFTER MAKE PARENT : ");
-            rTree.printTree();
         }
 
     }
@@ -267,8 +243,6 @@ public class Insert {
 
     public void insertLeafRec(R_Tree rTree, MBR mbr, LeafRecords leafRecords) throws IOException {
         if(mbr.isLeafRect()){
-            System.out.println("EDO LEAF");
-
             boolean flag = false;
             for(Nodes n: rTree.allNodes){
                 flag = false;
@@ -282,18 +256,13 @@ public class Insert {
                         addToTree(leafRecords, mbr, rTree);
                     }
                     else{
-                        System.out.println("TREE BEFORE BREAK LEAF MBR");
-                        rTree.printTree();
                         breakLeafMBR(mbr, leafRecords, rTree);
-                        System.out.println("TREE AFTER BREAK LEAF MBR");
-                        rTree.printTree();
                     }
                 }
             }
             return;
         }
 
-        System.out.println("EDO ENDIAMESOS");
         Nodes kidss = findKids(mbr, rTree);
         String idToPut = chooseRectangle(kidss, leafRecords.getDiastaseis().get(0), leafRecords.getDiastaseis().get(1));
 
@@ -452,24 +421,15 @@ public class Insert {
 
 
     public void breakLeafMBR(MBR mbr, LeafRecords newLeaf, R_Tree rTree) throws IOException {
-        System.out.println("breakLeafMBR");
         MBR first = new MBR();
         MBR second = new MBR();
 
-        System.out.println("MBR PARENT: "  + mbr.getParentID());
-        //first.setId(mbr.getId());
-        System.out.println("rect_id_count before: " + rTree.rect_id_count);
         String id = "rect" + rTree.rect_id_count;
         rTree.rect_id_count++;
         first.setId(id);
         id = "rect" + rTree.rect_id_count;
         rTree.rect_id_count++;
         second.setId(id);
-        System.out.println("rect_id_count after: " + rTree.rect_id_count);
-
-        if(first.getId().equals("rect7") || second.getId().equals("rect7")){
-            System.out.println("PES MOU POS EINAI EDO PXIAAAAAAAAAAAAAAAAAAA");
-        }
 
         int size = mbr.periexomeno.size();
         int middle = size / 2;////thimisou to
@@ -488,7 +448,6 @@ public class Insert {
 
         first.setParentID(mbr.getParentID());
         second.setParentID(mbr.getParentID());
-        System.out.println("FIRST PARENT HERE " + first.getParentID());
 
         first.setNewDiastaseis();
         second.setNewDiastaseis();
@@ -517,9 +476,6 @@ public class Insert {
                 }
             }
             if(flag){
-                if(n.getId().equals("node4")){
-                    System.out.println("MPOREI KAI EDOOOOOOOOOOOOO");
-                }
                 n.allRectangles.remove(mbr);
                 if(!isIn(n, first))
                     n.allRectangles.add(first);
@@ -531,7 +487,6 @@ public class Insert {
                 else {
                     addToLeafMBR = second;//krataei to mbr pou prepei na mpei
                     brokeLeafMBRAt = n;//krataei pou tha empaine kanonika to mbr
-                    System.out.println("EDO 2 GONEIS: " + addToLeafMBR.getParentID() +" + "+ brokeLeafMBRAt.getParentID());
                 }
             }
 
