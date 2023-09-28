@@ -133,60 +133,7 @@ public class Search {
 
     }
 
-//    public void epikalici(MBR anazitoumeno)
-//    {
-//        System.out.println("----------aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa----------");
-//        System.out.println("Το ορθογώνιο προς αναζήτηση είναι:");
-//        anazitoumeno.printRect();
-//
-//        ArrayList<ColoredRectangle> allColorRectangles =new ArrayList<>();
-//        for(int i=0;i<5;i++)
-//        {
-//            for(MBR m:rTree.allNodes.get(i).allRectangles)
-//            {
-//                ColoredRectangle col=new ColoredRectangle("rec"+i,m.diastaseisA.get(0),m.diastaseisA.get(1),m.diastaseisB.get(0),m.diastaseisB.get(1), Color.blue);
-//                allColorRectangles.add(col);
-//            }
-////            ColoredRectangle col=new ColoredRectangle(rTree.allNodes.get(i));
-//
-//        }
-//
-//        DynamicRandomColoredRectangles vis=new DynamicRandomColoredRectangles(allColorRectangles);
-//       vis.createAndShowGUI(allColorRectangles);
-//
-////        ArrayList<ColoredRectangle> rectangles = generateRandomRectangles(5, minBRList);
-////        createAndShowGUI(rectangles);
-//    }
-//
 
-
-/**
-    public ArrayList<MBR> searchSeiriaka(MBR anazitisi)
-    {
-        ArrayList<MBR> results=new ArrayList<>();
-        for(Nodes n: rTree.getAllNodes())
-        {
-            if(n.getAllRectangles().get(0).isLeafRect())
-            {
-                for(MBR mbr :n.getAllRectangles())
-                {
-                    if(isBetween(mbr,anazitisi))
-                    {
-                        results.add(mbr);
-                    }
-                }
-            }
-        }
-        System.out.println();
-        System.out.println("Αποτελέσματα σε ερώτημα περιοχής(Σειριακά)");
-        for (MBR m:results)
-        {
-            m.printRect();
-        }
-        return results;
-
-    }
-*/
 
 
 public ArrayList<Record> searchSeiriaka(MBR anazitisi)
