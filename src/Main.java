@@ -7,115 +7,139 @@ import java.util.Objects;
 
 public class Main {
     public static void main(String []args) throws ParserConfigurationException, IOException, SAXException {
-//        AllBlocks allBlocks = new AllBlocks();
-//        allBlocks.readFromOsmFile();
-//        ArrayList<Block> returned = allBlocks.readFromBinaryFile();
+        AllBlocks allBlocks = new AllBlocks();
+        allBlocks.readFromOsmFile();
+        ArrayList<Block> returned = allBlocks.readFromBinaryFile();
 
-//        CreateRTree r_tree = new CreateRTree(returned);
-//        r_tree.createTree();
-//
-//        R_Tree actualTree = new R_Tree(r_tree.allNodes.get(0), r_tree.allNodes, r_tree.rect_id_count, r_tree.node_id_count);
+        CreateRTree r_tree = new CreateRTree(returned);
+        r_tree.createTree();
 
-//        Skyline skyline = new Skyline();
-//        Delete delete = new Delete();
+        R_Tree actualTree = new R_Tree(r_tree.allNodes.get(0), r_tree.allNodes, r_tree.rect_id_count, r_tree.node_id_count);
+
+        Skyline skyline = new Skyline();
+        Delete delete = new Delete();
+        Insert insert = new Insert();
 //
-////////// 1
-//        long startTime = System.nanoTime();
-//        System.out.println("Χρονος Skyline Seiriaka: ");
-//        skyline.seiriaka();
-//
-//        System.out.println();
-//        long endTime   = System.nanoTime();
-//        long totalTime = endTime - startTime;//END TIME KNN R_TREE
-//
-//        Double time = (double) totalTime;
-//        time=time/1000000000;
-//        System.out.println("Χρόνος Skyline seiriaka: "+time+"sec");
-//        System.out.println("Skyline-->Running time is: "+totalTime+" nanoseconds");
-//
-//
-////////// 2
-//        startTime = System.nanoTime();
-//        System.out.println("Χρονος Skyline R* Tree: ");
-//        skyline.createSkyline(actualTree);
-//
-//        System.out.println();
-//        endTime   = System.nanoTime();
-//        totalTime = endTime - startTime;//END TIME KNN R_TREE
-//
-//        time = (double) totalTime;
-//        time=time/1000000000;
-//        System.out.println("Χρόνος Skyline r tree: "+time+"sec");
-//        System.out.println("Skyline-R_Tree-->Running time is: "+totalTime+" nanoseconds");
-//
-////////// 3
-//        startTime = System.nanoTime();
-//        System.out.println("Delete Seiriaka otan uparxei to shmeio: ");
-//        LeafRecords leafRecords = new LeafRecords("delete",38.4096078, 21.9065266);
-//        boolean dLeaf = delete.deleteLeafMR(actualTree, actualTree.root, leafRecords);
+//////// 1
+        long startTime = System.nanoTime();
+        System.out.println("Χρονος Skyline Seiriaka: ");
+        skyline.seiriaka();
+
+        System.out.println();
+        long endTime   = System.nanoTime();
+        long totalTime = endTime - startTime;//END TIME KNN R_TREE
+
+        Double time = (double) totalTime;
+        time=time/1000000000;
+        System.out.println("Χρόνος Skyline seiriaka: "+time+"sec");
+        System.out.println("Skyline-->Running time is: "+totalTime+" nanoseconds");
+
+
+//////// 2
+        startTime = System.nanoTime();
+        System.out.println("Χρονος Skyline R* Tree: ");
+        skyline.createSkyline(actualTree);
+
+        System.out.println();
+        endTime   = System.nanoTime();
+        totalTime = endTime - startTime;//END TIME KNN R_TREE
+
+        time = (double) totalTime;
+        time=time/1000000000;
+        System.out.println("Χρόνος Skyline r tree: "+time+"sec");
+        System.out.println("Skyline-R_Tree-->Running time is: "+totalTime+" nanoseconds");
+
+//////// 3
+        startTime = System.nanoTime();
+        System.out.println("Delete Seiriaka otan uparxei to shmeio: ");
+        LeafRecords leafRecords = new LeafRecords("delete",38.4096078, 21.9065266);
+        boolean dLeaf = delete.deleteLeafMR(actualTree, actualTree.root, leafRecords);
+        allBlocks.deleteFromDatafile(38.4096078, 21.9065266);
+
+        System.out.println();
+        endTime   = System.nanoTime();
+        totalTime = endTime - startTime;//END TIME KNN R_TREE
+
+        time = (double) totalTime;
+        time=time/1000000000;
+        System.out.println("Χρόνος Delete seiriaka: "+time+"sec");
+        System.out.println("Delete-->Running time is: "+totalTime+" nanoseconds");
+
+
+//////// 4
+        startTime = System.nanoTime();
+        System.out.println("Delete R TREE otan uparxei to shmeio: ");
+        leafRecords = new LeafRecords("delete",38.4096078, 21.9065266);
+        dLeaf = delete.deleteLeafMR(actualTree, actualTree.root, leafRecords);
 //        allBlocks.deleteFromDatafile(38.4096078, 21.9065266);
-//
-//        System.out.println();
-//        endTime   = System.nanoTime();
-//        totalTime = endTime - startTime;//END TIME KNN R_TREE
-//
-//        time = (double) totalTime;
-//        time=time/1000000000;
-//        System.out.println("Χρόνος Delete seiriaka: "+time+"sec");
-//        System.out.println("Delete-->Running time is: "+totalTime+" nanoseconds");
-//
-//
-////////// 4
-//        startTime = System.nanoTime();
-//        System.out.println("Delete R TREE otan uparxei to shmeio: ");
-//        leafRecords = new LeafRecords("delete",38.4096078, 21.9065266);
-//        dLeaf = delete.deleteLeafMR(actualTree, actualTree.root, leafRecords);
-////        allBlocks.deleteFromDatafile(38.4096078, 21.9065266);
-//
-//        System.out.println();
-//        endTime   = System.nanoTime();
-//        totalTime = endTime - startTime;//END TIME KNN R_TREE
-//
-//        time = (double) totalTime;
-//        time=time/1000000000;
-//        System.out.println("Χρόνος Delete seiriaka: "+time+"sec");
-//        System.out.println("Delete-R_Tree-->Running time is: "+totalTime+" nanoseconds");
-//
-//
-//
-////////// 5
-//        startTime = System.nanoTime();
-//        System.out.println("Delete Seiriaka otan DEN uparxei to shmeio: ");
-////        LeafRecords leafRecords = new LeafRecords("delete",38.4096078, 21.9065266);
-//        dLeaf = delete.deleteLeafMR(actualTree, actualTree.root, leafRecords);
-//        allBlocks.deleteFromDatafile(10000.0, 10000.0);
-//
-//        System.out.println();
-//        endTime   = System.nanoTime();
-//        totalTime = endTime - startTime;//END TIME KNN R_TREE
-//
-//        time = (double) totalTime;
-//        time=time/1000000000;
-//        System.out.println("Χρόνος Delete seiriaka: "+time+"sec");
-//        System.out.println("Delete-->Running time is: "+totalTime+" nanoseconds");
-//
-//
-////////// 6
-//        startTime = System.nanoTime();
-//        System.out.println("Delete R TREE otan DEN uparxei to shmeio: ");
-//        leafRecords = new LeafRecords("delete",10000.0, 10000.0);
-//        dLeaf = delete.deleteLeafMR(actualTree, actualTree.root, leafRecords);
-////        allBlocks.deleteFromDatafile(38.4096078, 21.9065266);
-//
-//        System.out.println();
-//        endTime   = System.nanoTime();
-//        totalTime = endTime - startTime;//END TIME KNN R_TREE
-//
-//        time = (double) totalTime;
-//        time=time/1000000000;
-//        System.out.println("Χρόνος Delete seiriaka: "+time+"sec");
-//        System.out.println("Knn-R_Tree-->Running time is: "+totalTime+" nanoseconds");
-//
+
+        System.out.println();
+        endTime   = System.nanoTime();
+        totalTime = endTime - startTime;//END TIME KNN R_TREE
+
+        time = (double) totalTime;
+        time=time/1000000000;
+        System.out.println("Χρόνος Delete seiriaka: "+time+"sec");
+        System.out.println("Delete-R_Tree-->Running time is: "+totalTime+" nanoseconds");
+
+
+
+//////// 5
+        startTime = System.nanoTime();
+        System.out.println("Insert όλο το δέντρο: ");
+        R_Tree rTree2 = new R_Tree();
+        int i=0;
+        for(Block b: allBlocks.allBlocks){
+            for(Record r: b.oneBlock) {
+                LeafRecords leafRecords1 = new LeafRecords(r);
+                if (i == 0) {
+                    Nodes n = new Nodes();
+                    n.setId("node0");
+                    MBR mbr = new MBR();
+                    mbr.id = "rect0";
+                    mbr.diastaseisA.add(r.getDiastaseis().get(0));
+                    mbr.diastaseisB.add(r.getDiastaseis().get(0));
+                    mbr.diastaseisA.add(r.getDiastaseis().get(1));
+                    mbr.diastaseisB.add(r.getDiastaseis().get(1));
+                    mbr.periexomeno.add(leafRecords1);
+                    n.allRectangles.add(mbr);
+                    rTree2.allNodes.add(n);
+                }
+                else{
+                    insert.doTheInsert(rTree2, leafRecords1);
+                }
+                i++;
+            }
+        }
+
+        System.out.println();
+        endTime   = System.nanoTime();
+        totalTime = endTime - startTime;//END TIME KNN R_TREE
+
+        time = (double) totalTime;
+        time=time/1000000000;
+        System.out.println("Χρόνος Insert όλου του δέντρου: "+time+"sec");
+        System.out.println("Insert-->Running time is: "+totalTime+" nanoseconds");
+
+
+//////// 6
+        startTime = System.nanoTime();
+        System.out.println("Χρονος Bottom-up: ");
+        r_tree = new CreateRTree(returned);
+        r_tree.createTree();
+
+        actualTree = new R_Tree(r_tree.allNodes.get(0), r_tree.allNodes, r_tree.rect_id_count, r_tree.node_id_count);
+
+
+        System.out.println();
+        endTime   = System.nanoTime();
+        totalTime = endTime - startTime;//END TIME KNN R_TREE
+
+        time = (double) totalTime;
+        time=time/1000000000;
+        System.out.println("Bottom-up seiriaka: "+time+"sec");
+        System.out.println("Bottom-up-R_Tree-->Running time is: "+totalTime+" nanoseconds");
+
 
 
 
@@ -138,29 +162,29 @@ public class Main {
 
 
 
-
-        ArrayList<Block> returned = new ArrayList<>();
-        Block block = new Block(""+0, 0);
-        for(int i=0;i<10;i++){
-            ArrayList<Double> diast = new ArrayList<>();
-            diast.add(i*1.0);
-            diast.add((i+1)*1.0);
-            Record record = new Record(""+i, 2, diast, "name", 0);
-            block.oneBlock.add(record);
-        }
-        returned.add(block);
-
-        CreateRTree r_tree = new CreateRTree(returned);
-        r_tree.createTree();
-
-        System.out.println("HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-        r_tree.printTree();
-
-
-        R_Tree actualTree = new R_Tree(r_tree.allNodes.get(0), r_tree.allNodes, r_tree.rect_id_count, r_tree.node_id_count);
-        System.out.println("===================TREE==========================");
-        actualTree.printTree();
 //
+//        ArrayList<Block> returned = new ArrayList<>();
+//        Block block = new Block(""+0, 0);
+//        for(int i=0;i<10;i++){
+//            ArrayList<Double> diast = new ArrayList<>();
+//            diast.add(i*1.0);
+//            diast.add((i+1)*1.0);
+//            Record record = new Record(""+i, 2, diast, "name", 0);
+//            block.oneBlock.add(record);
+//        }
+//        returned.add(block);
+////
+//        CreateRTree r_tree = new CreateRTree(returned);
+//        r_tree.createTree();
+//
+//        System.out.println("HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+//        r_tree.printTree();
+//
+//
+//        R_Tree actualTree = new R_Tree(r_tree.allNodes.get(0), r_tree.allNodes, r_tree.rect_id_count, r_tree.node_id_count);
+//        System.out.println("===================TREE==========================");
+//        actualTree.printTree();
+////
 //        MBR keepRect = new MBR();
 //        boolean flag = false;
 //        for(Nodes n: actualTree.allNodes){
@@ -173,25 +197,36 @@ public class Main {
 //        }
 //        System.out.println("Before============================= ");
 //        actualTree.printTree();
-        Insert insert = new Insert();
-        double x= 20.1, y= 21.1;
-        for(int j=0;j<90;j++){
-            //int savedAt = allBlocks.addToDataFile(x, y);
-            //ArrayList<MBR> saveIt = actualTree.recursiveUntilIDoItCorrect(actualTree.root, x, y, savedAt);
-            LeafRecords leafRecords = new LeafRecords("2", x, y);
-            insert.doTheInsert(actualTree,leafRecords);
+//        Insert insert = new Insert();
+//        double x= 20.1, y= 21.1;
+//        for(int j=0;j<90;j++){
+//            //int savedAt = allBlocks.addToDataFile(x, y);
+//            //ArrayList<MBR> saveIt = actualTree.recursiveUntilIDoItCorrect(actualTree.root, x, y, savedAt);
+//            LeafRecords leafRecords = new LeafRecords("2", x, y);
+//            insert.doTheInsert(actualTree,leafRecords);
+//
+////            for(MBR mbr:saveIt)
+////                System.out.println("TI SKATA EPISTREFEI AFTH H MALAKIA: "+ mbr.getId());
+//            x+=0.1;
+//            y+=0.1;
+//
+////            if(j==4){
+////                insert.breakLeafMBR(keepRect, leafRecords, actualTree);
+////            }
+//        }
+//        System.out.println("================TREEE=========================");
+//        actualTree.printTree();
 
-//            for(MBR mbr:saveIt)
-//                System.out.println("TI SKATA EPISTREFEI AFTH H MALAKIA: "+ mbr.getId());
-            x+=0.1;
-            y+=0.1;
 
-//            if(j==4){
-//                insert.breakLeafMBR(keepRect, leafRecords, actualTree);
-//            }
-        }
-        System.out.println("================TREEE=========================");
-        actualTree.printTree();
+
+
+
+
+
+
+
+
+
 //
 //        System.out.println("===========================================================");
 //        for(int j=0;j<50;j++){
@@ -238,7 +273,6 @@ public class Main {
 //        for(Nodes nodes: actualTree.allNodes){
 //            n = nodes;
 //            break;
-//        }
 //
 //        insert.correctTree(actualTree);
 //        System.out.println("After======================================== ");

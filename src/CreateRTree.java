@@ -236,7 +236,7 @@ public class CreateRTree {//DIABAZEI TO DATAFILE KAI PERNNAEI TA DEDOMENA SOSTA 
         node_id_count ++;
         int sumOfNode = 0;
         for(MBR boundingRectangle: allRectangles){
-            if(nodes.fits(sumOfNode, boundingRectangle, 0.7)&&added<=2){
+            if(nodes.fits(sumOfNode, boundingRectangle, 0.7)){
                 //System.out.println("Bounding added");
                 boundingRectangle.printRect();
                 nodes.allRectangles.add(boundingRectangle);
@@ -287,7 +287,7 @@ public class CreateRTree {//DIABAZEI TO DATAFILE KAI PERNNAEI TA DEDOMENA SOSTA 
             mbrUP.setChildID(nodes.getId());
             nodes.setParentID(mbrUP.getId());
 
-            if(mbrUP.fits(sumOfNodes,mbrUP,0.7) && added<=2)
+            if(mbrUP.fits(sumOfNodes,mbrUP,0.7))
             {
                 //System.out.println("MBR added");
                 //mbrUP.printRect();

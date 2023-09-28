@@ -83,7 +83,6 @@ public class Insert {
         if(!brokeLeafMBRAt.getId().equals("")){////exei spasei leaf mbr
             if(!addToLeafMBR.getId().equals("")){////xorage sto node
                 //////prepei na spaseis to node kai na baleis to mbr
-                rTree.printTree();
                 breakNode(addToLeafMBR, brokeLeafMBRAt, rTree);
             }
             else{
@@ -99,7 +98,6 @@ public class Insert {
     }
 
     public void makeParent(R_Tree rTree){
-        System.out.println("BROKE CHILD NODE: " + brokeChildNodeAt);
         MBR second = new MBR();
         ArrayList<Nodes> twoNodes = new ArrayList<>();
         for (Nodes n: rTree.allNodes){
@@ -112,13 +110,8 @@ public class Insert {
             rTree.rect_id_count++;
             second.setId(id);
 
-            if (second.getId().equals("rect7")) {
-                System.out.println("PLEASEE SHOWWWWWWWWW");
-            }
-
             second.setChildID(twoNodes.get(1).getId());
             second.createMBRFromNode(twoNodes.get(1));
-
 
             for (Nodes n : rTree.allNodes) {
                 boolean flag = false;
@@ -129,7 +122,6 @@ public class Insert {
                 }
                 if (flag) {
                     if(!isIn(n, second)) {
-                        System.out.println("Node " + n.getId() + " add " + second.getId());
                         n.allRectangles.add(second);
                     }
                 }
@@ -143,7 +135,6 @@ public class Insert {
     }
 
     public void giaRiza(R_Tree rTree){
-        System.out.println("GIA RIZA CALEDDDDDDDDDDDDDDDD");
         Nodes root = new Nodes();
         String id = "node" + rTree.node_id_count;
         rTree.node_id_count++;
@@ -153,17 +144,10 @@ public class Insert {
         for(Nodes n: rTree.allNodes){
             if(n.getParentID().equals("")){
                 allFromRoot.add(n);
-                n.printNodes();
             }
         }
 
         for(Nodes node: allFromRoot){
-            System.out.println("NODEEEEE HEREEEEEEEEEE: " + node.getId());
-        }
-        for(Nodes node: allFromRoot){
-            if(node.allRectangles.isEmpty()){
-                System.out.println("EINAI ADEIOOOOOOOOOOO");
-            }
             MBR mbr = new MBR();
             id = "rect" + rTree.rect_id_count;
             rTree.rect_id_count++;
@@ -173,15 +157,9 @@ public class Insert {
 
             mbr.createMBRFromNode(node);
 
-            System.out.println("ROOT MBR " + mbr.getId());
-            System.out.println("NODE PAIDI:::: " + node.getId());
-            System.out.println("Root size: " + root.allRectangles.size());
             if(!isIn(root, mbr)) {
-                System.out.println("Add mbr: " + mbr.getId() + "to root");
                 root.allRectangles.add(mbr);
             }
-            System.out.println("Root size after: " + root.allRectangles.size());
-
             for(Nodes n: rTree.allNodes){
                 if(n.getId().equals(node.getId())){
                     n.setParentID(mbr.getId());
@@ -190,7 +168,6 @@ public class Insert {
                     }
                 }
             }
-            System.out.println("Root size after 2: " + root.allRectangles.size());
         }
 
 
@@ -228,14 +205,9 @@ public class Insert {
                     keepN = n;
                 }
             }
-            if(keepN.getId().equals("node4")){
-                System.out.println("EDO DIAGRAFETAI RE MALAKA");
-            }
             rTree.allNodes.remove(keepN);
-            System.out.println("TO BE DELETED: " + deleteNode);
         }
         deleteNode = new Nodes();
-        System.out.println("delete node npw: " + deleteNode.getId());
     }
 
     //We have the bottom left corner (x1,y1) and the top right (x2,y2)
@@ -361,20 +333,16 @@ public class Insert {
 
     public String chooseRectangle(Nodes nodes, Double x, Double y){
         Double min = 100000000.0;
-        System.out.println("min beggining: " + min);
         String keepMinID = "";
         Double keepMinBefore = 0.0;
         for (MBR mbr:nodes.getAllRectangles()) {
-            System.out.println("mbr:: " + mbr.getId());
             if (!mbr.getId().equals("")) {
 
 
                 Double epifaneia = emvadon(mbr.getDiastaseisA().get(0), mbr.getDiastaseisA().get(1), mbr.getDiastaseisB().get(0), mbr.getDiastaseisB().get(1));
-                System.out.println("Emvadon: " + epifaneia);
                 ArrayList<Double> newCo = newCorners(mbr, x, y);
                 Double newEpifaneia = emvadon(newCo.get(0), newCo.get(1), newCo.get(2), newCo.get(3));
                 Double diafora = newEpifaneia - epifaneia;
-                System.out.println("Diafora - min: " + diafora + " - " + min);
                 if (diafora < min) {
                     min = diafora;
                     keepMinID = mbr.getId();
@@ -495,10 +463,7 @@ public class Insert {
     }
 
     public void breakNode(MBR toBeAdded, Nodes node, R_Tree rTree){
-        System.out.println("goneissss " + toBeAdded.getParentID());
-        System.out.println("Called!!!");
         Nodes first = new Nodes();
-        //first.setId(node.getId());
         String id = "node" + rTree.node_id_count;
         rTree.node_id_count++;
         first.setId(id);
@@ -507,13 +472,11 @@ public class Insert {
         id = "node" + rTree.node_id_count;
         rTree.node_id_count++;
         second.setId(id);
-        System.out.println("SPAO TON KOMVO: " + node.getId()+" SE: " + first.getId()+ " KAI " + second.getId() + " - "+ first.getParentID());
 
         int size = node.allRectangles.size();
         int middle = node.allRectangles.size() / 2+1;
         ArrayList<MBR> forFirst = new ArrayList<>();
         ArrayList<MBR> forSecond = new ArrayList<>();
-        System.out.println("MIDDLE: " + middle);
 
         for (int i = 0; i < middle; i++) {
             forFirst.add(node.allRectangles.get(i));
@@ -549,9 +512,6 @@ public class Insert {
             mbr.setParentID(toBeAdded.getParentID());
         }
 
-        System.out.println("NAI ALLA TO KEEP PARENT ID: " + toBeAdded.getParentID());
-
-        ///Den exo diagrapsei ton gonea
         for (Nodes n: rTree.allNodes){
             if(n.getId().equals(node.getId())){
                 deleteNode = n;
@@ -563,14 +523,11 @@ public class Insert {
 
 
         brokeChildNodeAt = new MBR();
-        System.out.println("FIRST GONIOS " + first.getParentID() +" + "+ first.getId());
-        toBeAdded.printRect();
+
         for (Nodes n: rTree.allNodes){
             for (MBR mbr: n.allRectangles){
                 if(mbr.getId().equals(first.getParentID())){
-                    System.out.println("Haeppednnss");
                     brokeChildNodeAt = mbr;
-                    System.out.println("brokechildnode parent: "+ mbr.getParentID());
                 }
             }
         }
@@ -593,8 +550,6 @@ public class Insert {
                 flag = true;
             }
         }
-        //System.out.println("FLAGGGGGGGGGGGGG " + flag);
-        //System.out.println(toRet.getId());
         return toRet;
     }
 }
