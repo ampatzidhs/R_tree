@@ -1,12 +1,16 @@
+import org.jcp.xml.dsig.internal.dom.DOMXMLObject;
+
 import java.awt.*;
 import java.util.ArrayList;
 
 public class Search {
     R_Tree rTree;
+    Knn knn;
 
 
     public Search(R_Tree rTree) {
         this.rTree = rTree;
+        this.knn=new Knn(rTree);
     }
 
     public ArrayList<LeafRecords> findMbrPeriexomeno(ArrayList<MBR> input,MBR anazitisi)///anazitisi einai to or8ogonio kai pernoyme ta rec pou einai mesa se auto
@@ -86,7 +90,7 @@ public class Search {
 
         }
 
-
+/**
         System.out.println("<------------Next_Level----");
         for(Nodes n:kids)
         {
@@ -97,15 +101,15 @@ public class Search {
         for(MBR mbr:result)
         {
             mbr.printRect();
-        }
+        }*/
 
         result=anazit(tree,kids,anazitisi);
 
         return result;
     }
 
-
-    public boolean isBetween(MBR dentoy,MBR anazitoymenoy)
+/**
+    public boolean isBetweenVol2(MBR dentoy,MBR anazitoymenoy)
     {
 
 
@@ -124,13 +128,59 @@ public class Search {
 
 
 
-
-
         //System.out.println("Δεν ικανοποιηθηκε καμια συνθηκη");
         return false;
+    }
+
+*/
 
 
+    public boolean isBetween(MBR dentoy,MBR anazitoymenoy)
+    {
+        //Πανω δεξια γωνια
+        LeafRecords upRight=new LeafRecords("anazitoumeno", knn.findMaxX(anazitoymenoy),knn.findMaxY(anazitoymenoy));//OK
 
+        //Κατω δεξια
+        LeafRecords downRight=new LeafRecords("anazitoumeno", knn.findMaxX(anazitoymenoy),knn.findMinY(anazitoymenoy));//OK
+
+        //Πανω αριστερη γωνια
+        LeafRecords upLeft=new LeafRecords("anazitoumeno", knn.findMinX(anazitoymenoy),knn.findMaxY(anazitoymenoy));//OK
+
+        //Κατω αριστερη γωνια
+        LeafRecords downLeft=new LeafRecords("anazitoumeno", knn.findMinX(anazitoymenoy),knn.findMinY(anazitoymenoy));//OK
+
+        if(isTouch(dentoy,upRight))
+        {
+            return true;
+        }
+        else if(isTouch(dentoy,downRight))
+        {
+            return true;
+        }
+        else if(isTouch(dentoy,upLeft))
+        {
+            return true;
+        }
+        else if(isTouch(dentoy,downLeft))
+        {
+            return true;
+        }
+
+        return false;
+
+    }
+
+    public boolean isTouch(MBR mbr,LeafRecords leaf){
+        Double x=leaf.getDiastaseis().get(0);
+        Double y=leaf.getDiastaseis().get(1);
+
+        if(x<mbr.getDiastaseisA().get(0) || x>mbr.getDiastaseisB().get(0)){
+            return false;
+        }
+        if(y<mbr.getDiastaseisA().get(1) || y>mbr.getDiastaseisB().get(1)){
+            return false;
+        }
+        return true;
     }
 
 
