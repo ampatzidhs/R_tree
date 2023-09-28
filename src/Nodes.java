@@ -149,7 +149,7 @@ public class Nodes implements Serializable {
     //the rectangles 70%, although if we want to do an insertion we use it 100%
     //So, in the bottom-up approach, we use as percent 0.7 and in the insertion, we use 1
     public boolean fits(int sumOfBlock , MBR r, double percent) throws IOException {
-        double value = 8*1024;
+        double value = 32*1024;
         value = value * percent;
         if(sumOfBlock + sizeof(r) > value){
             return false;

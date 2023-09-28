@@ -11,7 +11,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Block implements Serializable{
-    byte[] bufferSize = new byte[8*1024];//mallon axristo
+    byte[] bufferSize = new byte[32*1024];//mallon axristo
     ArrayList<Record> oneBlock;
     String blockID;
     int whereSaved;
@@ -67,7 +67,7 @@ public class Block implements Serializable{
     }
 
     public boolean fits(int sumOfBlock ,Record r) throws IOException {
-        if(sumOfBlock + sizeof(r) > 8*1024){
+        if(sumOfBlock + sizeof(r) > 32*1024){
             return false;
         }
         return true;
