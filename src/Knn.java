@@ -41,7 +41,7 @@ public class Knn {
             Double min=distMbrToPoint(nextlevel.get(0),x);
             MBR mbrKeep=nextlevel.get(0);//kontinotero mbr
 
-            for(MBR mbr:nextlevel)//Βρισκει το κοντινοτερο mbr στο Χ  ---> μαλλον θα πρεπει να το κανω να βρισκει το Κ κοντινοτερο!!!!
+            for(MBR mbr:nextlevel)
             {
                 if(distMbrToPoint(mbr,x) < min)
                 {
@@ -51,7 +51,7 @@ public class Knn {
             }
 
             //Παιρνει το περιεχομενο του φυλλου. Βλεπει την αποσταση απο το Χ. Βρισκει το μακρυτερο φυλλο απο τα kontinotera (χαζο array γεματο με τυχαια σημεια)
-            //Και εαν το φυλλο ειναι μικροτερο απο το μεγαλυτερο του κοντινοτερα κανει αντικατασταση.
+            //Και εαν το φυλλο ειναι μικροτερο απο το μεγαλυτερο του kontinotera κανει αντικατασταση.
             for(LeafRecords leaf:mbrKeep.getPeriexomeno())//περιεχομενο του κοντινοτερου mbr.
             {
 //                System.out.println("------To mbr einai:");
