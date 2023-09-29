@@ -38,10 +38,6 @@ public class Nodes implements Serializable {
         System.out.println("Node----> " + id);
         System.out.println("Parent id: " + parentID);
 
-        System.out.println("MinX: " + findMins().get(0));
-        System.out.println("MaxX: " + findMaxs().get(0));
-        System.out.println("MinY: " + findMins().get(1));
-        System.out.println("MaxY: " + findMaxs().get(1));
         for(MBR m: allRectangles)
         {
             m.printRect();
@@ -59,7 +55,6 @@ public class Nodes implements Serializable {
 
 
             for (MBR m : allRectangles) {
-                //m.printRect();
                 if (m.getDiastaseisA().get(0) < minX) {
                     minX = m.getDiastaseisA().get(0);
                 }

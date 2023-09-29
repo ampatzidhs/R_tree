@@ -158,11 +158,11 @@ public class Main {
 
 
 
-
-
-
-
 //
+//
+//
+//
+////
 //        ArrayList<Block> returned = new ArrayList<>();
 //        Block block = new Block(""+0, 0);
 //        for(int i=0;i<10;i++){
@@ -177,8 +177,7 @@ public class Main {
 //        CreateRTree r_tree = new CreateRTree(returned);
 //        r_tree.createTree();
 //
-//        System.out.println("HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-//        r_tree.printTree();
+//       r_tree.printTree();
 //
 //
 //        R_Tree actualTree = new R_Tree(r_tree.allNodes.get(0), r_tree.allNodes, r_tree.rect_id_count, r_tree.node_id_count);
@@ -199,27 +198,32 @@ public class Main {
 //        actualTree.printTree();
 //        Insert insert = new Insert();
 //        double x= 20.1, y= 21.1;
-//        for(int j=0;j<90;j++){
-//            //int savedAt = allBlocks.addToDataFile(x, y);
-//            //ArrayList<MBR> saveIt = actualTree.recursiveUntilIDoItCorrect(actualTree.root, x, y, savedAt);
+//        for(int j=0;j<400;j++){
 //            LeafRecords leafRecords = new LeafRecords("2", x, y);
 //            insert.doTheInsert(actualTree,leafRecords);
 //
-////            for(MBR mbr:saveIt)
-////                System.out.println("TI SKATA EPISTREFEI AFTH H MALAKIA: "+ mbr.getId());
 //            x+=0.1;
 //            y+=0.1;
-//
-////            if(j==4){
-////                insert.breakLeafMBR(keepRect, leafRecords, actualTree);
-////            }
 //        }
 //        System.out.println("================TREEE=========================");
 //        actualTree.printTree();
-
-
-
-
+//        Delete delete = new Delete();
+//        x= 20.1;
+//        y= 21.1;
+//        for(int j=0;j<180;j++){
+//            LeafRecords leafRecords = new LeafRecords("2", x, y);
+//            delete.deleteLeafMR(actualTree,actualTree.root,leafRecords);
+//            delete.correctTree(actualTree);
+//
+//            x+=0.1;
+//            y+=0.1;
+//        }
+//        System.out.println("================TREEE=========================");
+//        actualTree.printTree();
+//
+//
+//
+//
 
 
 
@@ -242,10 +246,6 @@ public class Main {
 //        }
 //        System.out.println("===========================================================");
 //        actualTree.printTree();
-
-
-
-
 
 
 

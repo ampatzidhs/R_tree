@@ -39,8 +39,8 @@ public class Insert {
         }
 
         insertLeafRec(rTree, forTheNext, leafRecords);
-        System.out.println("TREEE AFTER INSERT ");
-        rTree.printTree();
+//        System.out.println("TREEE AFTER INSERT ");
+//        rTree.printTree();
 
         boolean flag = false;
         if(!brokeChildNodeAt.getId().equals("")){
@@ -55,7 +55,7 @@ public class Insert {
         if(!deleteNode.getId().equals("")){
             flag = true;
         }
-        System.out.println("KAI AFTO GINETAI"+flag);
+//        System.out.println("KAI AFTO GINETAI"+flag);
 
         while(flag){
             correctTree(rTree);
@@ -360,12 +360,12 @@ public class Insert {
     }
 
     public void addToTree(LeafRecords newLeaf, MBR mbrToUse, R_Tree rTree) {
-        System.out.println("addToTree");
+//        System.out.println("addToTree");
 
         for (Nodes node : rTree.allNodes) {
             for (MBR mbr : node.allRectangles) {
                 if (mbr.getId().equals(mbrToUse.getId())) {
-                    System.out.println("MBR PERIEXOMENO BEFORE: " + mbr.periexomeno.size());
+//                    System.out.println("MBR PERIEXOMENO BEFORE: " + mbr.periexomeno.size());
                     mbr.periexomeno.add(newLeaf);
                     ArrayList<Double> newDiast = newCorners(mbr, newLeaf.getDiastaseis().get(0), newLeaf.getDiastaseis().get(1));
 
@@ -380,7 +380,7 @@ public class Insert {
                     mbr.setDiastaseisA(allDiastA);
                     mbr.setDiastaseisB(allDiastB);
 
-                    System.out.println("MBR PERIEXOMENO AFTERRRRR: " + mbr.periexomeno.size());
+//                    System.out.println("MBR PERIEXOMENO AFTERRRRR: " + mbr.periexomeno.size());
                 }
             }
         }

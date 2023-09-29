@@ -78,10 +78,6 @@ public class Skyline {
     }
 
     public void calculateBBS(R_Tree rTree){
-//        for (MBRAndMindist m:allMBRMindist){
-//            System.out.println("IN MBRAND MINDIST before: "+m.getMbr().getId());
-//        }
-
         for (MBR mbr : rTree.getRoot().getAllRectangles()) {
             Double minDist = calculateMinDist(mbr);
             MBRAndMindist nodeA = new MBRAndMindist(mbr, minDist);

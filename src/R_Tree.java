@@ -44,42 +44,12 @@ public class R_Tree {
         }
     }
 
-//    public void printTreeMeLevels(Nodes root){
-//        if(root.allRectangles.get(0).isLeafRect()){
-//            System.out.println("---------------------------------------------");
-//            for(MBR m: root.allRectangles){
-//                Nodes p = findKids(m);
-//                if(!p.getId().equals("")) {
-//                    mbr.printNodes();
-//                }
-//            }
-//            return;
-//        }
-//        System.out.println("---------------------------------------------");
-//        ArrayList<Nodes> nextLevel = new ArrayList<>();
-//        for(MBR mbr:root.allRectangles){
-//
-//            Nodes p = findKids(mbr);
-//            if(!p.getId().equals("")) {
-//                mbr.printNodes();
-//                nextLevel.add(p);
-//            }
-//        }
-//
-//        for (Nodes n : nextLevel){
-//            printTreeMeLevels(n);
-//        }
-//
-//    }
-
-
     public void removeMBR(String mbrID) {
         String keepID = "";
         MBR keepMBR = new MBR();
         for (Nodes n : allNodes) {
             for (MBR m : n.allRectangles) {
                 if (m.getId().equals(mbrID)) {
-                    System.out.println("RE PAIZEI KAI A BGEI TORA");
                     keepID = n.getId();
                     keepMBR = m;
                 }
@@ -87,10 +57,7 @@ public class R_Tree {
         }
         for (Nodes n : allNodes) {
             if (n.getId().equals(keepID)) {
-                n.printNodes();
                 n.allRectangles.remove(keepMBR);
-                System.out.println("TI ALLO NA KANO DHLADH PXIA");
-                n.printNodes();
             }
         }
     }
@@ -107,17 +74,7 @@ public class R_Tree {
     //////////!!!!!!!!!!!!!!!!!!!!!!!____________________
     //kaleis an xoraei to mbr sto node
     public boolean addMBRToNode(MBR toBeAdded, Nodes node) throws IOException {
-        System.out.println("addMBRToNode " + node.getId() + " !!!!!!!!!!!!!!!!!");
-
-        if (node.getId().equals("")) {
-            System.out.println("EDO RE FILE RE GAMOTO NODE 15555555555555555");//OUTE AFTO
-            System.out.println("::: " + toBeAdded.getId());
-        }
         toBeAdded.setParentID(node.getParentID());
-        if (toBeAdded.getId().equals("rect50")) {
-            System.out.println("NODE ID: " + node.getId());
-            System.out.println("rect50 ADDDDDDDDDDDDDD" + " parent: " + toBeAdded.parentID + " node id: " + node.getId());
-        }
 
         for (Nodes n : allNodes) {
             if (n.getId().equals(node.getId())) {
@@ -131,26 +88,16 @@ public class R_Tree {
 
     //kaleis an den xoraei to mbr sto node
     public ArrayList<Nodes> breakNode(MBR toBeAdded, Nodes node) {
-        System.out.println("breakNode" + node.getId());
-
-        if (node.getId().equals("node16")) {
-            System.out.println("EDO RE FILE RE GAMOTO NODE 15555555555555555");//OUTE AFTO
-        }
-
-
         Nodes first = new Nodes();
 //        String id = "node" + node_id_count;
 //        node_id_count ++;
         first.setId(node.getId());
-        System.out.println("ΦΙΡΣΤ ΣΕΤ ΙΔ: " + first.getId());
-
 
         Nodes second = new Nodes();
         String id = "node" + node_id_count;
         node_id_count++;
         second.setId(id);
 
-        System.out.println("σεκοντ ΣΕΤ ΙΔ: " + second.getId());
         int size = node.allRectangles.size();
         int middle = node.allRectangles.size() / 2;
         ArrayList<MBR> forFirst = new ArrayList<>();
@@ -169,14 +116,6 @@ public class R_Tree {
 //        first.setParentID(node.getParentID());
 //        second.setParentID(node.getParentID());
 
-
-        if (node.getId().equals("node8")) {
-            System.out.println("ANTE NA DOUME VRADIATIKA");
-            System.out.println(first.getId() + " + " + second.getId());
-            node.printNodes();
-            System.out.println("-----------------------");
-        }
-
         second.allRectangles.add(toBeAdded);
         String keepID = "";
         String keepID2giataalla = "";
@@ -184,7 +123,6 @@ public class R_Tree {
         for (Nodes n : allNodes) {
             for (MBR m : n.allRectangles) {
                 if (m.getId().equals(node.getParentID())) {
-                    System.out.println("RE PAIZEI KAI A BGEI TORA");
                     keepID2giataalla = n.getParentID();
                     keepID = n.getId();
                     keepMBR = m;
@@ -202,17 +140,11 @@ public class R_Tree {
         }
         for (Nodes n : allNodes) {
             if (n.getId().equals(keepID)) {
-                n.printNodes();
                 n.allRectangles.remove(keepMBR);
-                System.out.println(first.getParentID());
-                System.out.println("TI ALLO NA KANO DHLADH PXIA");
-                n.printNodes();
             }
         }
 
         allNodes.remove(node);
-        System.out.println("NODE ID: " + node.getId() + "REMOVEDDDDDDDDDDDDDDDXDDD" + node.getParentID());
-
         ArrayList<Nodes> twoNodes = new ArrayList<>();
         twoNodes.add(first);
         twoNodes.add(second);
@@ -225,25 +157,16 @@ public class R_Tree {
     public void addToTree(LeafRecords newLeaf, MBR mbrToUse) {
         leafRecordsCount++;
 
-        System.out.println("addToTree");
-        Insertion insert = new Insertion();
-        System.out.println("MBR TO USE PARENT ID: " + mbrToUse.getParentID());
-        if (mbrToUse.getId().equals("")) {
-            System.out.println("EDO RE FILE RE GAMOTO 2");//OUTE AFTO
-        }
+        Insert insert = new Insert();
 
         for (Nodes node : allNodes) {
-            System.out.println("node: " + node.getId() + ": " + node.getParentID());
+//            System.out.println("node: " + node.getId() + ": " + node.getParentID());
             for (MBR mbr : node.allRectangles) {
-                System.out.println("mbr: " + mbr.getId());
+//                System.out.println("mbr: " + mbr.getId());
                 if (mbr.getId().equals(mbrToUse.getId())) {
-                    System.out.println("HERE YES 11111111111111111111111111");
-                    if (mbr.getId().equals("rect42")) {
-                        System.out.println("YEESSSSSS BUT IT DOESNT CHANGEEEEEEEE");
-                    }
-                    System.out.println("MBR PERIEXOMENO BEFORE: " + mbr.periexomeno.size());
+//                    System.out.println("MBR PERIEXOMENO BEFORE: " + mbr.periexomeno.size());
                     mbr.periexomeno.add(newLeaf);
-                    System.out.println("MBR PERIEXOMENO AFTERRRRR: " + mbr.periexomeno.size());
+//                    System.out.println("MBR PERIEXOMENO AFTERRRRR: " + mbr.periexomeno.size());
                     ArrayList<Double> newDiast = insert.newCorners(mbr, newLeaf.getDiastaseis().get(0), newLeaf.getDiastaseis().get(1));
 
                     ArrayList<Double> allDiastA = new ArrayList<>();
@@ -264,10 +187,7 @@ public class R_Tree {
 
     //kaleis an den xoraei to leaf record sto mbr
     public ArrayList<MBR> breakLeafMBR(MBR mbr, LeafRecords newLeaf) {
-        if (mbr.getId().equals("rect40")) {
-            System.out.println("EDO MPAINEI GENIKAA ");
-        }
-        System.out.println("breakLeafMBR");
+//        System.out.println("breakLeafMBR");
         Insertion insert = new Insertion();
         MBR first = new MBR();
         MBR second = new MBR();
@@ -333,10 +253,10 @@ public class R_Tree {
     }
 
     public ArrayList<MBR> recursiveUntilIDoItCorrect(Nodes node, Double x, Double y, int savedAt) throws IOException {
-        Insertion insert = new Insertion();
+        Insert insert = new Insert();
         if (node.getAllRectangles().isEmpty()) {
             MBR tmp = new MBR();
-            System.out.println("EMPTY NODE");
+//            System.out.println("EMPTY NODE");
             tmp.setId("dummy");
             ArrayList<MBR> r = new ArrayList<>();
             r.add(tmp);
@@ -345,7 +265,7 @@ public class R_Tree {
         }
 
         if (node.getAllRectangles().get(0).isLeafRect()) {
-            System.out.println("isLeafRect");
+//            System.out.println("isLeafRect");
             String idToPut = insert.chooseRectangle(node, x, y);
             MBR mbrToUse = findMBR(node, idToPut);
             LeafRecords newLeaf = new LeafRecords(mbrToUse.getId(), x, y, savedAt);
@@ -358,32 +278,11 @@ public class R_Tree {
                 ArrayList<MBR> r = new ArrayList<>();
                 r.add(tmp);
 
-                for (MBR m : r) {
-                    System.out.println(m.id + " parent id: " + m.parentID);
-                    if (m.getId().equals("rect50")) {
-                        System.out.println("rect50 HEREEEEEEEEEEEEEEEEEEEE 405");
-                        System.out.println(m.getParentID());
-                    }
-                }
 
                 return r;
             } else {//an den xoraei to leaf sto mbr
                 ArrayList<MBR> twoMBRs = breakLeafMBR(mbrToUse, newLeaf);
-////////////////////DING DING DING DING DING DING DING DING DING DING DING DING DING DING
-                if (twoMBRs.get(0).getId().equals("rect31") || twoMBRs.get(1).getId().equals("rect31")) {
-                    System.out.println("sHERE2");
-                    System.out.println("FIRST ");
-                    twoMBRs.get(0).printRect();
-                    System.out.println("SECOND ");
-                    twoMBRs.get(1).printRect();
-                    if (mbrToUse.getParentID().equals("rect42")) {
-                        System.out.println("DING DING DING DING DING DING DING " + mbrToUse.getId() + " parent " + mbrToUse.getParentID());
-                    }
-                }
 
-                if (node.getId().equals("node14")) {
-                    System.out.println("HERE BROOOOOOOOOOOOOOOOOOOOOOOOO 22324232");
-                }
                 addMBRToNode(twoMBRs.get(0), node);//to 1o panta xoraei
                 Nodes keep = new Nodes();
                 for (Nodes n : allNodes) {
@@ -401,35 +300,10 @@ public class R_Tree {
                     ArrayList<MBR> r = new ArrayList<>();
                     r.add(tmp);
 
-                    for (MBR m : r) {
-                        System.out.println(m.id + " parent id: " + m.parentID);
-                        if (m.getId().equals("rect50")) {
-                            System.out.println("rect50 HEREEEEEEEEEEEEEEEEEEEE 429");
-                            System.out.println(m.getParentID());
-                        }
-                    }
 
                     return r;
                 } else {
-                    if (twoMBRs.get(0).getId().equals("rect31") || twoMBRs.get(1).getId().equals("rect31")) {
-                        System.out.println("sHERE");
-                        System.out.println("FIRST ");
-                        twoMBRs.get(0).printRect();
-                        System.out.println("SECOND ");
-                        twoMBRs.get(1).printRect();
-                    }
                     ArrayList<Nodes> twoNodes = breakNode(twoMBRs.get(1), node);
-
-                    if (twoNodes.get(0).getId().equals("node19") || twoNodes.get(1).getId().equals("node19")) {
-                        System.out.println("HEREEEEEEEEEEEEEEEEE22222------------------");
-                        System.out.println("NODE 19 PARENT: " + twoNodes.get(0).getParentID() + "node parent: " + twoNodes.get(1).getParentID());
-
-                        System.out.println("s1");
-
-                    }
-//                    allNodes.add(twoNodes.get(0));
-//                    allNodes.add(twoNodes.get(1));
-
                     MBR forTheFirst = new MBR();
 //                    forTheFirst.setId(twoNodes.get(0).getParentID());
 
@@ -470,31 +344,6 @@ public class R_Tree {
                     toRet.add(forTheFirst);
                     toRet.add(forTheSecond);
 
-                    if (twoNodes.get(0).getId().equals("node14") || twoNodes.get(1).getId().equals("node14")) {
-                        System.out.println("HEREEEEEEEEEEEEEEEEE222223------------------");
-                        System.out.println("NODE 16 PARENT: " + twoNodes.get(0).getParentID() + "node parent: " + twoNodes.get(1).getParentID());
-                        twoNodes.get(0).printNodes();
-                        System.out.println("''''''''''''''''''''''''''''''");
-                        twoNodes.get(1).printNodes();
-
-                        System.out.println("s2");
-
-                    }
-
-
-                    for (MBR m : toRet) {
-                        System.out.println(m.id + " parent id: " + m.parentID);
-                        if (twoNodes.get(0).getId().equals("node19") || twoNodes.get(1).getId().equals("node19")) {
-                            System.out.println(m.getParentID() + "node id: " + twoNodes.get(0).getId() + " " + twoNodes.get(1).getId());
-                            System.out.println("HEREE33333333333333--------------");
-                            forTheFirst.printRect();
-                            System.out.println("---s---");
-                            forTheSecond.printRect();
-
-                        }
-                    }
-
-
                     return toRet;
 
                 }
@@ -516,11 +365,6 @@ public class R_Tree {
             return new ArrayList<>();
         }
         if (toPut.get(0).getId().equals("change")) {
-            if (node.getId().equals("node16")) {
-                System.out.println("14444444444444444444444444444444444444444444444444");
-                System.out.println("CHILD ID: " + toPut.get(0).getChildID());
-                node.printNodes();
-            }
             String keepID = "";
             for (Nodes n : allNodes) {
                 for (MBR m : n.allRectangles) {
@@ -535,12 +379,6 @@ public class R_Tree {
             }
             toPut.get(0).setChildID(keepID);
 
-            if (node.getId().equals("node16")) {
-                System.out.println("14444444444444444444444444444444444444444444444444");
-                System.out.println("CHILD ID: " + toPut.get(0).getChildID());
-                node.printNodes();
-            }
-
             return toPut;
         } else {
 
@@ -551,17 +389,12 @@ public class R_Tree {
             for (Nodes n : allNodes) {
                 for (MBR mbr : n.getAllRectangles()) {
                     if (mbr.getId().equals(first.getParentID())) {
-                        System.out.println("NAI RE POYSTH");
                         keep = n;
                         flag = true;
                     }
                 }
             }
 
-            if (keep.getId().equals("")) {
-                System.out.println("SOS SOS SOS SOS SOS SOS SOS SOS SOS SOS");
-                System.out.println("mbr.getId().equals(first.getParentID()):  " + first.getParentID());
-            }
             addMBRToNode(first, keep);//////EDOOOOOOOOOOOOOOOOOOOOOOO !!!!!!!!!!!!!!!
             Nodes keep2 = new Nodes();
             for (Nodes n : allNodes) {
@@ -571,13 +404,6 @@ public class R_Tree {
             }
 
             if (first.fits(MBR.sizeof(keep), second, 1.0)) {
-                if (node.getId().equals("node14") || first.getId().equals("node14") || second.getId().equals("node14")) {
-                    System.out.println("EDO RE FILE RE GAMOTO NODE 15555555555555555999");//OUTE AFTO
-                    System.out.println("Second id: " + second.getId());
-                }
-                if (second.getId().equals("rect50")) {
-                    System.out.println("EDO DEN XERO TI FASH: " + keep2.allRectangles.size());
-                }
                 addMBRToNode(second, keep);
                 //removeMBR();
 
@@ -607,14 +433,6 @@ public class R_Tree {
                 ArrayList<MBR> toRet = new ArrayList<>();
                 toRet.add(forTheFirst);
                 toRet.add(forTheSecond);
-
-                for (MBR m : toPut) {
-                    System.out.println(m.id + " parent id: " + m.parentID);
-                    if (m.getId().equals("rect50")) {
-                        System.out.println("rect50 HEREEEEEEEEEEEEEEEEEEEE 536");
-                        System.out.println(m.getParentID());
-                    }
-                }
 
                 return toRet;
             }
@@ -693,12 +511,6 @@ public class R_Tree {
                 } catch (ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }
-            }
-
-            // Print the data in the ArrayList
-            for (Nodes n : allNodes) {
-                n.printNodes();
-//            }
             }
         }
         return null;

@@ -49,11 +49,11 @@ public class CreateRTree {//DIABAZEI TO DATAFILE KAI PERNNAEI TA DEDOMENA SOSTA 
         toRectangles();
         //komple mexri edo
         toNodes();
-        System.out.println("ALL NODES");
-        for(Nodes n: leafNodes){
-            System.out.println("NODE : "+ n.getId());
-            n.printNodes();
-        }
+//        System.out.println("ALL NODES");
+//        for(Nodes n: leafNodes){
+////            System.out.println("NODE : "+ n.getId());
+////            n.printNodes();
+//        }
         bottomUp();
         setAllParentIDs();
     }
@@ -69,7 +69,6 @@ public class CreateRTree {//DIABAZEI TO DATAFILE KAI PERNNAEI TA DEDOMENA SOSTA 
     }
 
     public void printAllLeafRecords(){
-        System.out.println("[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[");
         for(LeafRecords leafRecords: allInLeaves){
             leafRecords.printRecord();
         }
@@ -238,7 +237,7 @@ public class CreateRTree {//DIABAZEI TO DATAFILE KAI PERNNAEI TA DEDOMENA SOSTA 
         for(MBR boundingRectangle: allRectangles){
             if(nodes.fits(sumOfNode, boundingRectangle, 0.7)){
                 //System.out.println("Bounding added");
-                boundingRectangle.printRect();
+//                boundingRectangle.printRect();
                 nodes.allRectangles.add(boundingRectangle);
                 sumOfNode += sizeof(boundingRectangle);
                 added++;

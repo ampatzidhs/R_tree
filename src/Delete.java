@@ -2,13 +2,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Delete {
-    Insertion insertion;//Για να μπορω να χρησιμοποιω συναρτησεις οπως η isInRect
+    Insert insertion;//Για να μπορω να χρησιμοποιω συναρτησεις οπως η isInRect
     Nodes deletedFrom;
     Double nodeSize50;
     boolean deleted;
 
     public Delete(){
-        insertion = new Insertion();
+        insertion = new Insert();
         deletedFrom = new Nodes();
         nodeSize50 = 4*1024*1.0;
         deleted = false;

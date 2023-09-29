@@ -44,8 +44,7 @@ public class AllBlocks {
 
         aBlock = new Block("block1", amountOfBlocks);
         int sumOfBlock = 0;
-        System.out.println("BLOCK1 -----------------------------------------------------------------");
-        //nodeList.getLength()
+         //nodeList.getLength()
         for (int i = 0; i < nodeList.getLength(); i++){//na to valo gia ola meta
             ArrayList<Object> myArrayList = new ArrayList<Object>();
             keepData = new ArrayList<>();
@@ -66,7 +65,7 @@ public class AllBlocks {
                     Node tagNode = tagList.item(j);
                     if (tagNode.getAttributes().getNamedItem("k").getNodeValue().equals("name")) {
                         String name = tagNode.getAttributes().getNamedItem("v").getNodeValue();
-                        System.out.println("Tag Key: " + tagNode.getAttributes().getNamedItem("k").getNodeValue() + ", Tag Value: " + tagNode.getAttributes().getNamedItem("v").getNodeValue());
+//                        System.out.println("Tag Key: " + tagNode.getAttributes().getNamedItem("k").getNodeValue() + ", Tag Value: " + tagNode.getAttributes().getNamedItem("v").getNodeValue());
                         myArrayList.add(name);
                         //
                         keepName = name;
@@ -78,8 +77,8 @@ public class AllBlocks {
             //
             Record record = new Record(keepId, k, keepData, keepName, amountOfBlocks);
             if(aBlock.fits(sumOfBlock, record)){
-                System.out.println("Record added");
-                record.printRecord();
+//                System.out.println("Record added");
+//                record.printRecord();
                 aBlock.oneBlock.add(record);
                 sumOfBlock += sizeof(record);
             }
@@ -88,16 +87,16 @@ public class AllBlocks {
                 amountOfBlocks ++;
                 record.setWhereSaved(amountOfBlocks);
                 String id = "block" + amountOfBlocks;
-                System.out.println("BLOCK" + amountOfBlocks + "--------------------------------------------------------------");
+//                System.out.println("BLOCK" + amountOfBlocks + "--------------------------------------------------------------");
                 aBlock = new Block(id, amountOfBlocks);
                 aBlock.oneBlock.add(record);
                 allBlocks.add(aBlock);
-                System.out.println("Record added");
-                record.printRecord();
+//                System.out.println("Record added");
+//                record.printRecord();
                 sumOfBlock = sizeof(record);
             }
         }
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+//        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     }
 
     public void writeToFile(ArrayList<Block> b) throws IOException {
@@ -148,8 +147,8 @@ public class AllBlocks {
         for (Block b: allBlocks){
             if(b.fits(sizeof(b), r)){
                 r.setWhereSaved(amountOfBlocks);
-                System.out.println("Record added");
-                r.printRecord();
+//                System.out.println("Record added");
+//                r.printRecord();
                 b.oneBlock.add(r);
                 savedAt = b.whereSaved;
             }
@@ -160,8 +159,8 @@ public class AllBlocks {
                 String id = "block" + amountOfBlocks;
                 Block aBlock = new Block(id, amountOfBlocks);
                 aBlock.oneBlock.add(r);
-                System.out.println("Record added");
-                r.printRecord();
+//                System.out.println("Record added");
+//                r.printRecord();
             }
         }
         writeToFile(allBlocks);
@@ -181,7 +180,7 @@ public class AllBlocks {
             if(flag){
                 b.oneBlock.remove(keep);
                 flag = false;
-                System.out.println("Deleted from datafile ");
+//                System.out.println("Deleted from datafile ");
             }
         }
         writeToFile(allBlocks);
