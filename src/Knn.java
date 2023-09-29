@@ -5,7 +5,7 @@ public class Knn {
     int k;
     ArrayList<LeafRecords> kontinotera;
     R_Tree rTree;
-    //Insertion dummy;
+    //Insert dummy;
     Double maxApostash;
     LeafRecords x;//Σημειο απο το οποιο ψαχνω τους κοντινοτερους.
 
@@ -14,7 +14,7 @@ public class Knn {
         this.k=0;
         this.kontinotera=new ArrayList<>();
         loadKontinotera();
-        //this.dummy= new Insertion();
+        //this.dummy= new Insert();
     }
 
     public Knn(int k, R_Tree rTree,LeafRecords x) {
@@ -23,7 +23,7 @@ public class Knn {
         this.x=x;
         this.kontinotera=new ArrayList<>();
         loadKontinotera();
-        //this.dummy= new Insertion();
+        //this.dummy= new Insert();
     }
 
 
