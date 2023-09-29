@@ -200,7 +200,7 @@ public ArrayList<Record> searchSeiriaka(MBR anazitisi)
 
     ArrayList<Block> blocks=allBlocks.readFromBinaryFile();
     System.out.println();
-    System.out.println("Αποτελέσματα σε ερώτημα περιοχής(Σειριακά)");
+    //System.out.println("Αποτελέσματα σε ερώτημα περιοχής(Σειριακά)");
     for(Block bl:blocks)
     {
         for(Record rec:bl.getOneBlock())
@@ -221,11 +221,12 @@ public ArrayList<Record> searchSeiriaka(MBR anazitisi)
 
 
 
-
+/**
     for (Record r:results)
     {
         r.printRecord();
-    }
+    }*/
+
     return results;
 
 }
