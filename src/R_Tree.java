@@ -188,7 +188,7 @@ public class R_Tree {
     //kaleis an den xoraei to leaf record sto mbr
     public ArrayList<MBR> breakLeafMBR(MBR mbr, LeafRecords newLeaf) {
 //        System.out.println("breakLeafMBR");
-        Insertion insert = new Insertion();
+        Insert insert = new Insert();
         MBR first = new MBR();
         MBR second = new MBR();
 //        String id = "rect" + rect_id_count;
