@@ -45,6 +45,12 @@ public class Search {
     public ArrayList<MBR> anazit(R_Tree tree,ArrayList<Nodes> nextlevel,MBR anazitisi)
     {
         ArrayList<MBR> result= new ArrayList<>();
+        if(nextlevel.isEmpty())
+        {
+            System.out.println("Δεν ακομπούσε σε κανένα σημείο");
+            return result;
+        }
+
         if(nextlevel.get(0).getAllRectangles().get(0).isLeafRect())
         {
             for(Nodes n:nextlevel)
@@ -74,19 +80,19 @@ public class Search {
         ArrayList<Nodes> kids = new ArrayList<>();
         for(MBR m:level)
         {
-            System.out.println("-------Kids are:");
-            m.printRect();
+            //System.out.println("-------Kids are:");
+            //m.printRect();
             if(isBetween(m,anazitisi))
             {
                 kids.add(tree.findKids(m));
-                System.out.println("Το αναζητουμενο σημειο επικαλύπτει καποιο σημείο του δενδρου !");
+                //System.out.println("Το αναζητουμενο σημειο επικαλύπτει καποιο σημείο του δενδρου !");
             }
             else
             {
-                System.out.println("Το αναζητουμενο σημειο δεν επικαλύπτει καποιο σημείο του δενδρου.");
+                //System.out.println("Το αναζητουμενο σημειο δεν επικαλύπτει καποιο σημείο του δενδρου.");
             }
 
-            System.out.println("-----------------------------------------------");
+            //System.out.println("-----------------------------------------------");
 
         }
 
