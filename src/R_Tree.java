@@ -25,6 +25,12 @@ public class R_Tree {
         leafRecordsCount = 0;
     }
 
+    public void printDetails(){
+        System.out.println("Root: " + root.getId());
+        System.out.println("Nodes: " + allNodes.size());
+        System.out.println("Levels: " + findLevels());
+    }
+
     public void printTree() {
         System.out.println("Root: " + root.getId());
         System.out.println("Rectangle count: " + rect_id_count);
@@ -42,6 +48,30 @@ public class R_Tree {
         for (Nodes n:allNodes){
             n.printNodes();
         }
+    }
+
+    public int findLevels(){
+        int counter = 1;
+        MBR first = getFirstMBR(root);
+        Nodes kids = findKids(first);
+        MBR kid = getFirstMBR(kids);
+        if(first.isLeafRect()){
+            return counter;
+        }
+        counter ++;
+        while (!kid.isLeafRect()&&!first.isLeafRect()){
+            kids = findKids(kid);
+            kid = getFirstMBR(kids);
+            counter ++;
+        }
+        return counter;
+    }
+
+    public MBR getFirstMBR(Nodes node){
+        if(node.allRectangles.isEmpty()){
+            return new MBR();
+        }
+        return node.allRectangles.get(0);
     }
 
     public void removeMBR(String mbrID) {

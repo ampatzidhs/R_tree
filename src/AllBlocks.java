@@ -19,9 +19,9 @@ public class AllBlocks {
         amountOfBlocks = 0;
     }
 
-    public void readFromOsmFile() throws ParserConfigurationException, IOException, SAXException {
+    public void readFromOsmFile(int diastaseis, String osmfile) throws ParserConfigurationException, IOException, SAXException {
 //   File inputFile = new File("C:\\Users\\ampat\\Desktop\\papadopoulos askisi\\map.osm");
-        File inputFile = new File("C:\\Users\\zoika\\Downloads\\map.osm (1)\\map.osm");
+        File inputFile = new File(osmfile);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document doc = dBuilder.parse(inputFile);
@@ -31,7 +31,7 @@ public class AllBlocks {
         ArrayList<Double> keepData;//ZOI GIA NA KANV TIS KLASEIS
         String keepName="";
         String keepId;
-        int k=2;//KAI AFTA DIKA MOY
+        int k=diastaseis;//KAI AFTA DIKA MOY
 
         Node node = null;
 
@@ -97,6 +97,7 @@ public class AllBlocks {
             }
         }
 //        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("ENTRIES: " + nodeList.getLength());
     }
 
     public void writeToFile(ArrayList<Block> b) throws IOException {
@@ -196,8 +197,8 @@ public class AllBlocks {
     }
 
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
-        AllBlocks allBlocks = new AllBlocks();
-        allBlocks.readFromOsmFile();
-        ArrayList<Block> returned = allBlocks.readFromBinaryFile();
+//        AllBlocks allBlocks = new AllBlocks();
+//        allBlocks.readFromOsmFile(2, );
+//        ArrayList<Block> returned = allBlocks.readFromBinaryFile();
     }
 }
