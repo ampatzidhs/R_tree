@@ -146,8 +146,8 @@ public class Main {
         int c=0;
         for(LeafRecords function:results)
         {
-            System.out.println("C: " + c);
-            function.printRecord();
+//            System.out.println("C: " + c);
+//            function.printRecord();
             c++;
         }
         System.out.println("Μέσα στο παράθυρο αναζήτησης υπήρχαν: "+c+" σημεία");
