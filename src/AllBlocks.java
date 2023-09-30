@@ -31,7 +31,7 @@ public class AllBlocks {
         ArrayList<Double> keepData;//ZOI GIA NA KANV TIS KLASEIS
         String keepName="";
         String keepId;
-        int k=diastaseis;//KAI AFTA DIKA MOY
+        int k=2;//KAI AFTA DIKA MOY
 
         Node node = null;
 

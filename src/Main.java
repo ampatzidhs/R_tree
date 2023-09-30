@@ -8,10 +8,11 @@ import java.util.Objects;
 public class Main {
     public static void main(String []args) throws ParserConfigurationException, IOException, SAXException {
         int dementions = 2;
-        String osmFile = "C:\\Users\\zoika\\Downloads\\map.osm";
+        ///ΑΛΛΑΓΗ PATH ΓΙΑ ΝΑ ΔΙΑΒΑΣΕΙ ΤΟ ΑΡΧΕΙΟ
+        String osmFile = "C:\\Users\\zoika\\Downloads\\map (3).osm";
         AllBlocks allBlocks = new AllBlocks();
         System.out.println("Διάβασμα από αρχειο:");
-//        allBlocks.readFromOsmFile(dementions, osmFile);
+        allBlocks.readFromOsmFile(dementions, osmFile);
         ArrayList<Block> returned = allBlocks.readFromBinaryFile();
 
         CreateRTree r_tree = new CreateRTree(returned);
@@ -136,12 +137,14 @@ public class Main {
         System.out.println("Χρόνος για ερώτημα περιοχής (Σειριακά): "+time+"sec");
 
 
-        int counter=0;
+        int c=0;
         for(LeafRecords function:results)
         {
-            counter++;
+            System.out.println("C: " + c);
+            function.printRecord();
+            c++;
         }
-        System.out.println("Μέσα στο παράθυρο αναζήτησης υπήρχαν: "+counter+" σημεία");
+        System.out.println("Μέσα στο παράθυρο αναζήτησης υπήρχαν: "+c+" σημεία");
 
 
 
