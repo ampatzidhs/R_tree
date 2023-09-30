@@ -7,12 +7,17 @@ import java.util.Objects;
 
 public class Main {
     public static void main(String []args) throws ParserConfigurationException, IOException, SAXException {
-        int dementions = 2;
+        int dementions = 3;
+        ArrayList<String> dedomena = new ArrayList<>();
+        dedomena.add("lat");
+        dedomena.add("lon");
+        dedomena.add("changeset");
+
         ///ΑΛΛΑΓΗ PATH ΓΙΑ ΝΑ ΔΙΑΒΑΣΕΙ ΤΟ ΑΡΧΕΙΟ
         String osmFile = "C:\\Users\\zoika\\Downloads\\map (3).osm";
         AllBlocks allBlocks = new AllBlocks();
         System.out.println("Διάβασμα από αρχειο:");
-        allBlocks.readFromOsmFile(dementions, osmFile);
+        allBlocks.readFromOsmFile(dementions, osmFile, dedomena);
         ArrayList<Block> returned = allBlocks.readFromBinaryFile();
 
         CreateRTree r_tree = new CreateRTree(returned);

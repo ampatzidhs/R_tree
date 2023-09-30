@@ -19,7 +19,7 @@ public class AllBlocks {
         amountOfBlocks = 0;
     }
 
-    public void readFromOsmFile(int diastaseis, String osmfile) throws ParserConfigurationException, IOException, SAXException {
+    public void readFromOsmFile(int diastaseis, String osmfile, ArrayList<String> dedomena) throws ParserConfigurationException, IOException, SAXException {
 //   File inputFile = new File("C:\\Users\\ampat\\Desktop\\papadopoulos askisi\\map.osm");
         File inputFile = new File(osmfile);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -28,10 +28,10 @@ public class AllBlocks {
         doc.getDocumentElement().normalize();
         NodeList nodeList = doc.getElementsByTagName("node");
 
-        ArrayList<Double> keepData;//ZOI GIA NA KANV TIS KLASEIS
+        ArrayList<Double> keepData;
         String keepName="";
         String keepId;
-        int k=2;//KAI AFTA DIKA MOY
+        int k=diastaseis;
 
         Node node = null;
 
@@ -53,10 +53,15 @@ public class AllBlocks {
             node = nodeList.item(i);
             String value =  node.getAttributes().getNamedItem("id").getNodeValue();
             keepId = value;
-            value =  node.getAttributes().getNamedItem("lat").getNodeValue();
-            keepData.add(Double.parseDouble(value));
-            value =  node.getAttributes().getNamedItem("lon").getNodeValue();
-            keepData.add(Double.parseDouble(value));
+            for (String s: dedomena){
+                value =  node.getAttributes().getNamedItem(s).getNodeValue();
+                keepData.add(Double.parseDouble(value));
+            }
+
+//            value =  node.getAttributes().getNamedItem("lat").getNodeValue();
+//            keepData.add(Double.parseDouble(value));
+//            value =  node.getAttributes().getNamedItem("lon").getNodeValue();
+//            keepData.add(Double.parseDouble(value));
 
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
