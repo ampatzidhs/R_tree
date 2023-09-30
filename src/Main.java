@@ -7,11 +7,10 @@ import java.util.Objects;
 
 public class Main {
     public static void main(String []args) throws ParserConfigurationException, IOException, SAXException {
-        int dementions = 3;
+        int dementions = 2;
         ArrayList<String> dedomena = new ArrayList<>();
         dedomena.add("lat");
         dedomena.add("lon");
-        dedomena.add("changeset");
 
         ///ΑΛΛΑΓΗ PATH ΓΙΑ ΝΑ ΔΙΑΒΑΣΕΙ ΤΟ ΑΡΧΕΙΟ
         String osmFile = "C:\\Users\\zoika\\Downloads\\map (3).osm";
