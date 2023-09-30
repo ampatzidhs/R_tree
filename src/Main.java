@@ -12,11 +12,11 @@ public class Main {
         dedomena.add("lat");
         dedomena.add("lon");
 
-        ///ΑΛΛΑΓΗ PATH ΓΙΑ ΝΑ ΔΙΑΒΑΣΕΙ ΤΟ ΑΡΧΕΙΟ
-        String osmFile = "C:\\Users\\zoika\\Downloads\\map (3).osm";
+        ///ΜΠΟΡΕΙ ΝΑ ΧΡΕΙΑΣΤΕΙ ΑΛΛΑΓΗ PATH ΓΙΑ ΝΑ ΔΙΑΒΑΣΕΙ ΤΟ ΑΡΧΕΙΟ
+        String osmFile = "map.osm";
         AllBlocks allBlocks = new AllBlocks();
         System.out.println("Διάβασμα από αρχειο:");
-        //allBlocks.readFromOsmFile(dementions, osmFile, dedomena);
+        allBlocks.readFromOsmFile(dementions, osmFile, dedomena);
         ArrayList<Block> returned = allBlocks.readFromBinaryFile();
 
         CreateRTree r_tree = new CreateRTree(returned);
@@ -31,8 +31,8 @@ public class Main {
 
 
 ////////ΚΝΝ
-        LeafRecords point=new LeafRecords("rec Knn",38.3744238,21.8528735);
-        //LeafRecords point=new LeafRecords("rec Knn",41.4635367,26.5648868);
+        //LeafRecords point=new LeafRecords("rec Knn",38.3744238,21.8528735);//δεδομενα ναυπακτου
+        LeafRecords point=new LeafRecords("rec Knn",41.4635367,26.5648868);
         Knn knn=new Knn(25,actualTree,point);
         ArrayList<LeafRecords> otinanai=knn.kontinotera;
 
@@ -77,32 +77,33 @@ public class Main {
         System.out.println("<--------------------------------Επόμενο ερώτημα-------------------------------->");
 
 
+
         //Δημιουργία ορθογωνίου για ερώτημα περιοχής
         MBR anazitisi=new MBR();
         anazitisi.setId("rec anazitis");
-        anazitisi.diastaseisA.add(38.3573721);
-        anazitisi.diastaseisA.add(21.7877221);
+        /** anazitisi.diastaseisA.add(38.3588721);//naupktos
+         anazitisi.diastaseisA.add(21.7987221);
 
 
-        anazitisi.diastaseisB.add(38.3748695);
-        anazitisi.diastaseisB.add(21.8534671);
+         anazitisi.diastaseisB.add(38.3748695);
+         anazitisi.diastaseisB.add(21.8534671);*/
 
 
-        /** //to diko tou arxeio
-         anazitisi.diastaseisA.add(41.5025026);
+        ///to diko tou arxeio
+        /** anazitisi.diastaseisA.add(41.5025026);
          anazitisi.diastaseisA.add(26.4715030);//132
 
 
          anazitisi.diastaseisB.add(41.5372766);//418
          anazitisi.diastaseisB.add(26.5162474);*/
 
-        /**     //to diko tou arxeio
-         anazitisi.diastaseisA.add(41.4479275);
-         anazitisi.diastaseisA.add(26.4938293);//6463
+        //to diko tou arxeio
+        anazitisi.diastaseisA.add(41.4925026);
+        anazitisi.diastaseisA.add(26.4615030);//6463
 
 
-         anazitisi.diastaseisB.add(41.4978275);//δικο μου
-         anazitisi.diastaseisB.add(26.4999993);*/
+        anazitisi.diastaseisB.add(41.5372766);//δικο μου
+        anazitisi.diastaseisB.add(26.5162474);
 
 
         Search ser=new Search(actualTree);
