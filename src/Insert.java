@@ -55,7 +55,6 @@ public class Insert {
         if(!deleteNode.getId().equals("")){
             flag = true;
         }
-//        System.out.println("KAI AFTO GINETAI"+flag);
 
         while(flag){
             correctTree(rTree);
@@ -365,7 +364,6 @@ public class Insert {
         for (Nodes node : rTree.allNodes) {
             for (MBR mbr : node.allRectangles) {
                 if (mbr.getId().equals(mbrToUse.getId())) {
-//                    System.out.println("MBR PERIEXOMENO BEFORE: " + mbr.periexomeno.size());
                     mbr.periexomeno.add(newLeaf);
                     ArrayList<Double> newDiast = newCorners(mbr, newLeaf.getDiastaseis().get(0), newLeaf.getDiastaseis().get(1));
 
@@ -379,8 +377,6 @@ public class Insert {
 
                     mbr.setDiastaseisA(allDiastA);
                     mbr.setDiastaseisB(allDiastB);
-
-//                    System.out.println("MBR PERIEXOMENO AFTERRRRR: " + mbr.periexomeno.size());
                 }
             }
         }

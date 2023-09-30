@@ -16,13 +16,14 @@ public class Main {
         String osmFile = "C:\\Users\\zoika\\Downloads\\map (3).osm";
         AllBlocks allBlocks = new AllBlocks();
         System.out.println("Διάβασμα από αρχειο:");
-        allBlocks.readFromOsmFile(dementions, osmFile, dedomena);
+        //allBlocks.readFromOsmFile(dementions, osmFile, dedomena);
         ArrayList<Block> returned = allBlocks.readFromBinaryFile();
 
         CreateRTree r_tree = new CreateRTree(returned);
         r_tree.createTree();
 
         R_Tree actualTree = new R_Tree(r_tree.allNodes.get(0), r_tree.allNodes, r_tree.rect_id_count, r_tree.node_id_count);
+        actualTree.writeToFile();
 
         Skyline skyline = new Skyline();
         Delete delete = new Delete();
@@ -290,8 +291,6 @@ public class Main {
         System.out.println("Bottom-up: "+time+"sec");
         System.out.println("Bottom-up-R_Tree-->Running time is: "+totalTime+" nanoseconds");
         System.out.println();
-
-
 
 
 

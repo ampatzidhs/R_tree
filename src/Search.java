@@ -82,8 +82,6 @@ public class Search {
         ArrayList<Nodes> kids = new ArrayList<>();
         for(MBR m:level)
         {
-            //System.out.println("-------Kids are:");
-            //m.printRect();
             if(isBetween(m,anazitisi))
             {
                 kids.add(tree.findKids(m));

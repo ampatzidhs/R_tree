@@ -5,7 +5,6 @@ public class Knn {
     int k;
     ArrayList<LeafRecords> kontinotera;
     R_Tree rTree;
-    //Insert dummy;
     Double maxApostash;
     LeafRecords x;//Σημειο απο το οποιο ψαχνω τους κοντινοτερους.
 
@@ -14,7 +13,6 @@ public class Knn {
         this.k=0;
         this.kontinotera=new ArrayList<>();
         loadKontinotera();
-        //this.dummy= new Insert();
     }
 
     public Knn(int k, R_Tree rTree,LeafRecords x) {
@@ -23,7 +21,6 @@ public class Knn {
         this.x=x;
         this.kontinotera=new ArrayList<>();
         loadKontinotera();
-        //this.dummy= new Insert();
     }
 
 
@@ -76,7 +73,6 @@ public class Knn {
 
             for(MBR m:nextlevel)//Κοιταει με τα αλλα φυλλα
             {
-                //note:!!!  να μην ειναι κανενα απο αυτα που εχει εξετασει ηδη
                 if(distMbrToPoint(m,x) < distanceCircle && !Objects.equals(m.getId(), mbrKeep.getId()))//Εαν καποιο αλλο Mbr(φυλλο) είναι μεσα στον κυκλο που δημιουργησα.
                 {
                     for(LeafRecords leaf:m.getPeriexomeno())

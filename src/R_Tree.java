@@ -101,7 +101,6 @@ public class R_Tree {
         return new MBR();
     }
 
-    //////////!!!!!!!!!!!!!!!!!!!!!!!____________________
     //kaleis an xoraei to mbr sto node
     public boolean addMBRToNode(MBR toBeAdded, Nodes node) throws IOException {
         toBeAdded.setParentID(node.getParentID());
@@ -194,9 +193,7 @@ public class R_Tree {
             for (MBR mbr : node.allRectangles) {
 //                System.out.println("mbr: " + mbr.getId());
                 if (mbr.getId().equals(mbrToUse.getId())) {
-//                    System.out.println("MBR PERIEXOMENO BEFORE: " + mbr.periexomeno.size());
                     mbr.periexomeno.add(newLeaf);
-//                    System.out.println("MBR PERIEXOMENO AFTERRRRR: " + mbr.periexomeno.size());
                     ArrayList<Double> newDiast = insert.newCorners(mbr, newLeaf.getDiastaseis().get(0), newLeaf.getDiastaseis().get(1));
 
                     ArrayList<Double> allDiastA = new ArrayList<>();
@@ -261,20 +258,6 @@ public class R_Tree {
             second.periexomeno.add(newLeaf);
         }
 
-//        String keepID = "";
-//        for(Nodes n: allNodes){
-//            for(MBR mbr1:n.allRectangles){
-//                if(mbr1.getId().equals(first.getParentID())){
-//                    keepID = n.getId();
-//                }
-//            }
-//        }
-//        for (Nodes n: allNodes){
-//            if(n.getId().equals(keepID)){
-//                n.allRectangles.remove(mbr);
-//                System.out.println("ΓΙΝΕΤΑΙΙΙΙΙΙΙΙΙΙΙΙΙΙΙΙΙΙΙΙΙΙΙΙΙΙΙΙΙΙΙΙΙ");
-//            }
-//        }
         ArrayList<MBR> twoMBRs = new ArrayList<>();
         twoMBRs.add(first);
         twoMBRs.add(second);
@@ -286,7 +269,6 @@ public class R_Tree {
         Insert insert = new Insert();
         if (node.getAllRectangles().isEmpty()) {
             MBR tmp = new MBR();
-//            System.out.println("EMPTY NODE");
             tmp.setId("dummy");
             ArrayList<MBR> r = new ArrayList<>();
             r.add(tmp);
@@ -347,13 +329,6 @@ public class R_Tree {
                     id = "rect" + rect_id_count;
                     rect_id_count++;
                     forTheFirst.setId(id);
-
-//                    forTheFirst.parentID = twoNodes.get(0).getParentID();
-//                    forTheSecond.parentID = twoNodes.get(0).getParentID();
-////////////////////Λοιπον θα γραψω το προβλημα για να μην το επαναλαβω
-                    //Εδω πέρα φιλενάδα, έβαζες λάθος parent id στο parent id το απο πάνω κόμβου ενω έπρεπε να το βαλεις στο ιδ?
-//                    forTheFirst.parentID = twoNodes.get(0).getParentID();
-//                    forTheSecond.parentID = twoNodes.get(1).getParentID();
 
                     twoNodes.get(0).setParentID(forTheFirst.getId());
                     for (MBR m : twoNodes.get(0).allRectangles) {
@@ -425,7 +400,7 @@ public class R_Tree {
                 }
             }
 
-            addMBRToNode(first, keep);//////EDOOOOOOOOOOOOOOOOOOOOOOO !!!!!!!!!!!!!!!
+            addMBRToNode(first, keep);
             Nodes keep2 = new Nodes();
             for (Nodes n : allNodes) {
                 if (n.getId().equals(keep.getId())) {
@@ -478,8 +453,6 @@ public class R_Tree {
                 flag = true;
             }
         }
-        //System.out.println("FLAGGGGGGGGGGGGG " + flag);
-        //System.out.println(toRet.getId());
         return toRet;
     }
 

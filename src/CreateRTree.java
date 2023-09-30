@@ -16,8 +16,7 @@ import java.util.ArrayList;
 public class CreateRTree {//DIABAZEI TO DATAFILE KAI PERNNAEI TA DEDOMENA SOSTA STO INDEX FILE
     ArrayList<Block> toPutToTheTree;//DATA RIGHT FROM THE DATAFILE/ χύμα τα δεδομένα από το αρχείο
     int fileDataSize;
-    ArrayList<LeafRecords> allInLeaves; //NOW YOU HAVE TO ORGANIZE THEM AND /χύμα τα δεδομένα από το αρχείο αλλα σαν φυλλα
-    ///// PUT THEM IN BOUNDING RECTANGLES
+    ArrayList<LeafRecords> allInLeaves; // /χύμα τα δεδομένα από το αρχείο αλλα σαν φυλλα
 
     ArrayList<LeafRecords> organized;
 
@@ -47,13 +46,7 @@ public class CreateRTree {//DIABAZEI TO DATAFILE KAI PERNNAEI TA DEDOMENA SOSTA 
         recordToRecLeaves();
         allInLeaves=sort();
         toRectangles();
-        //komple mexri edo
         toNodes();
-//        System.out.println("ALL NODES");
-//        for(Nodes n: leafNodes){
-////            System.out.println("NODE : "+ n.getId());
-////            n.printNodes();
-//        }
         bottomUp();
         setAllParentIDs();
     }
@@ -174,7 +167,7 @@ public class CreateRTree {//DIABAZEI TO DATAFILE KAI PERNNAEI TA DEDOMENA SOSTA 
 
 
         for(LeafRecords leaf: allInLeaves){
-            if(boundingRectangle.fits(sumOfRect, leaf, 0.7)){///note!
+            if(boundingRectangle.fits(sumOfRect, leaf, 0.7)){
                 //System.out.println("Record added");
                 //leaf.printRecord();
 
@@ -225,8 +218,6 @@ public class CreateRTree {//DIABAZEI TO DATAFILE KAI PERNNAEI TA DEDOMENA SOSTA 
     }
 
 
-    //PROSOXH TO ADDED EINAI KAI AXRHSTOO KAI KAKO. TO XRHSIMOPOIV MONO GIA NA BALV TA REKT SE DIAFORETIKA
-    //NODES VGALTO
     public void toNodes() throws IOException {///Κάνει(συνχωνευει πολλα mbr) ολα τα boundingRectangles -->Nodes
         int added=0;
         Nodes nodes = new Nodes();

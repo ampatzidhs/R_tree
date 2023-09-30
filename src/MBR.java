@@ -45,12 +45,6 @@ public class MBR implements Serializable{
     }
 
     public void createMBRFromNode(Nodes node){
-//        setChildID(node.getId());
-        //node.setId(node.getId());
-//        if(node.getId().equals("node4")){
-//            System.out.println(":):):):):):):):)::):):):):):):)::):)");
-//        }
-
         setDiastaseisA(node.findMins());
         setDiastaseisB(node.findMaxs());
     }
@@ -68,11 +62,6 @@ public class MBR implements Serializable{
         for(Double d: diastaseisB){
             System.out.println("B: "+ d);
         }
-//        System.out.println("periexomeno-----");
-//        for(LeafRecords leaf: periexomeno){
-//            leaf.printRecord();
-//        }
-//        System.out.println("-------------------------");
     }
 
     public void changeDiastaseisA(int index, double newDiastash)//index είναι ποιο θες να αλλάξεις πχ index=0 θα αλλαξεις το Χ.

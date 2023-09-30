@@ -36,9 +36,6 @@ public class Skyline {
         this.skyline = skyline;
     }
 
-//    public boolean checked(){
-//
-//    }
 
     public boolean notInSkyline(LeafRecords l)
     {
@@ -92,15 +89,10 @@ public class Skyline {
             for (MBRAndMindist m : allMBRMindist) {
                 if (m.getMbr().getId().equals(min.getId())) {
                     keep = m;
-//                    System.out.println("Happened");
                 }
             }
             allMBRMindist.remove(keep);
-//            for (MBRAndMindist m : allMBRMindist) {
-//                System.out.println("IN MBRAND MINDIST: " + m.getMbr().getId());
-//            }
             bBBSRecursively(rTree, min);
-            //calculateBBS(rTree);
         }
     }
 
@@ -115,14 +107,6 @@ public class Skyline {
     }
 
     public void bBBSRecursively(R_Tree rTree, MBR min){
-
-//        System.out.println("Called for MBR: "+ min.getId());
- //       System.out.println("heap: ");
-
-//        for (MBRAndMindist m: allMBRMindist){
-//            System.out.println(m.getMbr().id);
-//        }
-
         if(min.isLeafRect()){
             boolean isInSkyline;
             for(LeafRecords l: min.getPeriexomeno()){
@@ -170,12 +154,10 @@ public class Skyline {
         for(Nodes nodes: rTree.getAllNodes()){
 
             if(nodes.getParentID().equals(min.getId())){
-//                System.out.println("Vrike ton gonea");
                 for (MBR mbr: nodes.getAllRectangles()){
                     Double minDist = calculateMinDist(mbr);
                     MBRAndMindist nodea = new MBRAndMindist(mbr, minDist);
                     allMBRMindist.add(nodea);
-                    //ids.add(mbr.getId());
                 }
             }
         }
@@ -211,21 +193,8 @@ public class Skyline {
                     }
                 }
                 if(!alreadythere){
-//                    System.out.println("NOT DOMINATED ID "+ l1.getNode());
-//                    System.out.println("l1: " + l1.getDiastaseis().get(0) +" "+ l1.getDiastaseis().get(1));
                     help.add(l1);
                 }
-//                boolean exists = false;
-//                for(LeafRecords l: sky){
-//                    if(Objects.equals(l1.getNode(), l.getNode())){
-//                        exists = true;
-//                    }
-//                }
-//                if(!exists){
-//                    System.out.println("HEREEEEEEEE " + l1.getNode() + "NOT WRITTEN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-//                }
-
-
             }
         }
     }

@@ -148,9 +148,6 @@ public class Delete {
                 }
                 if(flag){
                     mbr.periexomeno.remove(keep);
-
-                    ///////edo
-                    //deletedFrom = root;////AFTO KANONIKA MONO OTAN ISXYEI TO 50%
                     if(Nodes.sizeof(root)< nodeSize50){
                         deletedFrom = root;
                     }
@@ -180,14 +177,9 @@ public class Delete {
 
     public boolean underTheLimit(R_Tree rTree) throws IOException
     {
-//        if (deletedFrom.getId().equals("node20")){
-//            System.out.println("HEREEEE NODE20 !!!!!!!!!!!!!!!!!!!!!!!!!!");
-//        }
         if(deletedFrom.getId().equals("")){
             return false;
         }
-//        System.out.println("Node: " + deletedFrom.getId());
-//        System.out.println("Parent of node: "+deletedFrom.parentID);
 
         MBR leftSiblingMom = findLeftSibling(rTree, deletedFrom.parentID);
         MBR rightSiblingMom = findRightSibling(rTree, deletedFrom.parentID);

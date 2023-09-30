@@ -35,7 +35,7 @@ public class AllBlocks {
 
         Node node = null;
 
-        ArrayList<Record> arrayList = new ArrayList<>();//Gia ta xrhsima data meta
+        ArrayList<Record> arrayList = new ArrayList<>();
         Block aBlock = new Block("block0", amountOfBlocks);
         amountOfBlocks ++;
         aBlock.setOneBlock(arrayList);
@@ -45,7 +45,7 @@ public class AllBlocks {
         aBlock = new Block("block1", amountOfBlocks);
         int sumOfBlock = 0;
          //nodeList.getLength()
-        for (int i = 0; i < nodeList.getLength(); i++){//na to valo gia ola meta
+        for (int i = 0; i < nodeList.getLength(); i++){
             ArrayList<Object> myArrayList = new ArrayList<Object>();
             keepData = new ArrayList<>();
             keepName = "";
@@ -92,7 +92,6 @@ public class AllBlocks {
                 amountOfBlocks ++;
                 record.setWhereSaved(amountOfBlocks);
                 String id = "block" + amountOfBlocks;
-//                System.out.println("BLOCK" + amountOfBlocks + "--------------------------------------------------------------");
                 aBlock = new Block(id, amountOfBlocks);
                 aBlock.oneBlock.add(record);
                 allBlocks.add(aBlock);
@@ -101,7 +100,6 @@ public class AllBlocks {
                 sumOfBlock = sizeof(record);
             }
         }
-//        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("ENTRIES: " + nodeList.getLength());
     }
 
@@ -133,11 +131,6 @@ public class AllBlocks {
                 }
             }
 
-            // Print the data in the ArrayList
-//            for(Block b:allBlocks){
-//                b.printBlock();
-//            }//to kano sxolio gia na to emfaniszo apo ta blockrectangles
-/////EXO SXOLIO
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

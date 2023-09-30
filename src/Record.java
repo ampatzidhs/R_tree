@@ -7,7 +7,7 @@ public class Record implements Serializable {
     ArrayList<Double> diastaseis;
     int k;
     String name;
-    String nodeID;//Afto opos einai
+    String nodeID;
     int whereSaved;
 
     public Record(){
