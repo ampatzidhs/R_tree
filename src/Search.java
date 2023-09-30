@@ -21,15 +21,17 @@ public class Search {
         {
            for(LeafRecords rec:mbr.getPeriexomeno())
            {
-
                    Double x=rec.diastaseis.get(0);
                    Double y=rec.diastaseis.get(1);
 
-                   if(x>anazitisi.diastaseisA.get(0)&&x<anazitisi.diastaseisB.get(0))
+                   if(x>=anazitisi.diastaseisA.get(0)&&x<=anazitisi.diastaseisB.get(0))
                    {
-                       if(y>anazitisi.diastaseisA.get(1)&&y<anazitisi.diastaseisB.get(1))
+                       if(y>=anazitisi.diastaseisA.get(1)&&y<=anazitisi.diastaseisB.get(1))
                        {
-                           results.add(rec);
+                           if(!knn.otinanaiIsIn(rec,results))
+                           {
+                               results.add(rec);
+                           }
                        }
                    }
 
@@ -208,9 +210,9 @@ public ArrayList<Record> searchSeiriaka(MBR anazitisi)
             Double x=rec.diastaseis.get(0);
             Double y=rec.diastaseis.get(1);
 
-            if(x>anazitisi.diastaseisA.get(0)&&x<anazitisi.diastaseisB.get(0))
+            if(x>=anazitisi.diastaseisA.get(0)&&x<=anazitisi.diastaseisB.get(0))
             {
-                if(y>anazitisi.diastaseisA.get(1)&&y<anazitisi.diastaseisB.get(1))
+                if(y>=anazitisi.diastaseisA.get(1)&&y<=anazitisi.diastaseisB.get(1))
                 {
                     results.add(rec);
                 }
