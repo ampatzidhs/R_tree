@@ -10,6 +10,7 @@ public class LeafRecords implements Serializable {
     String node;
     String rectangleID;
     Double zOrder;
+    int k;
 
 
     public LeafRecords(Record record) {
@@ -18,6 +19,7 @@ public class LeafRecords implements Serializable {
         this.node = record.nodeID;
         this.rectangleID = "";
         this.zOrder=0.0;
+        this.k = record.k;
     }
 
     public LeafRecords(String rectangleID, Double x, Double y) {
@@ -28,6 +30,7 @@ public class LeafRecords implements Serializable {
         this.whereSaved = -1;
         this.node = "";
         this.zOrder = -1.0;
+        this.k = 2;
     }
 
     public LeafRecords(String rectangleID, Double x, Double y, int savedAt) {
@@ -38,6 +41,7 @@ public class LeafRecords implements Serializable {
         this.whereSaved = savedAt;
         this.node = "";
         this.zOrder = -1.0;
+        this.k = 2;
     }
 
     public void printRecord(){

@@ -11,7 +11,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Block implements Serializable{
-    byte[] bufferSize = new byte[32*1024];//mallon axristo
+    byte[] bufferSize = new byte[32*1024];
     ArrayList<Record> oneBlock;
     String blockID;
     int whereSaved;

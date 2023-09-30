@@ -10,7 +10,7 @@ public class Delete {
     public Delete(){
         insertion = new Insert();
         deletedFrom = new Nodes();
-        nodeSize50 = 4*1024*1.0;
+        nodeSize50 = 16*1024*1.0;
         deleted = false;
     }
 

@@ -19,19 +19,19 @@ public class AllBlocks {
         amountOfBlocks = 0;
     }
 
-    public void readFromOsmFile() throws ParserConfigurationException, IOException, SAXException {
+    public void readFromOsmFile(int diastaseis, String osmfile, ArrayList<String> dedomena) throws ParserConfigurationException, IOException, SAXException {
 //   File inputFile = new File("C:\\Users\\ampat\\Desktop\\papadopoulos askisi\\map.osm");
-        File inputFile = new File("C:\\Users\\zoika\\Downloads\\map.osm (1)\\map.osm");
+        File inputFile = new File(osmfile);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document doc = dBuilder.parse(inputFile);
         doc.getDocumentElement().normalize();
         NodeList nodeList = doc.getElementsByTagName("node");
 
-        ArrayList<Double> keepData;//ZOI GIA NA KANV TIS KLASEIS
+        ArrayList<Double> keepData;
         String keepName="";
         String keepId;
-        int k=2;//KAI AFTA DIKA MOY
+        int k=diastaseis;
 
         Node node = null;
 
@@ -53,10 +53,15 @@ public class AllBlocks {
             node = nodeList.item(i);
             String value =  node.getAttributes().getNamedItem("id").getNodeValue();
             keepId = value;
-            value =  node.getAttributes().getNamedItem("lat").getNodeValue();
-            keepData.add(Double.parseDouble(value));
-            value =  node.getAttributes().getNamedItem("lon").getNodeValue();
-            keepData.add(Double.parseDouble(value));
+            for (String s: dedomena){
+                value =  node.getAttributes().getNamedItem(s).getNodeValue();
+                keepData.add(Double.parseDouble(value));
+            }
+
+//            value =  node.getAttributes().getNamedItem("lat").getNodeValue();
+//            keepData.add(Double.parseDouble(value));
+//            value =  node.getAttributes().getNamedItem("lon").getNodeValue();
+//            keepData.add(Double.parseDouble(value));
 
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
@@ -97,6 +102,7 @@ public class AllBlocks {
             }
         }
 //        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("ENTRIES: " + nodeList.getLength());
     }
 
     public void writeToFile(ArrayList<Block> b) throws IOException {
@@ -196,8 +202,8 @@ public class AllBlocks {
     }
 
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
-        AllBlocks allBlocks = new AllBlocks();
-        allBlocks.readFromOsmFile();
-        ArrayList<Block> returned = allBlocks.readFromBinaryFile();
+//        AllBlocks allBlocks = new AllBlocks();
+//        allBlocks.readFromOsmFile(2, );
+//        ArrayList<Block> returned = allBlocks.readFromBinaryFile();
     }
 }
